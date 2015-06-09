@@ -1,0 +1,29 @@
+unit Setup;
+
+interface
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms,
+  Dialogs, AdvMetroForm, AdvSmoothExpanderGroup, AdvSmoothPanel, Vcl.ComCtrls;
+
+type
+  TTMSForm1 = class(TAdvMetroForm)
+    StatusBar1: TStatusBar;
+    AdvSmoothPanel1: TAdvSmoothPanel;
+    AdvSmoothExpanderGroup1: TAdvSmoothExpanderGroup;
+  private
+    { Private declarations }
+  protected
+    { Protected declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  TMSForm1: TTMSForm1;
+
+implementation
+
+{$R *.dfm}
+
+
+end.

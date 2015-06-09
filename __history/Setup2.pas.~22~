@@ -1,0 +1,87 @@
+unit Setup2;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, GDIPCustomItem, GDIPTextItem,
+  GDIPImageTextItem, GDIPGraphicItem, GDIPCheckItem, CustomItemsContainer,
+  AdvPolyList, CurvyControls, AdvPolyPager, GDIPSectionItem,
+  GDIPImageSectionItem, GDIPHeaderItem, AdvSmoothButton, Vcl.Grids, AdvObj,
+  BaseGrid, AdvGrid, DBAdvGrid;
+
+type
+  TForm2 = class(TForm)
+    CurvyPanel1: TCurvyPanel;
+    Pager: TAdvPolyPager;
+    HeaderItem1: THeaderItem;
+    SectionItem1: TSectionItem;
+    AdvPolyPage1: TAdvPolyPage;
+    AdvPolyList1: TAdvPolyList;
+    CheckItem1: TCheckItem;
+    CheckItem2: TCheckItem;
+    AdvPolyPage2: TAdvPolyPage;
+    CurvyPanel2: TCurvyPanel;
+    ButtOk: TAdvSmoothButton;
+    ButtCancel: TAdvSmoothButton;
+    AdvPolyPage3: TAdvPolyPage;
+    procedure FormCreate(Sender: TObject);
+    function Setup(var grid: TDBAdvGrid):Integer;
+    procedure ButtOkClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form2: TForm2;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm2.ButtOkClick(Sender: TObject);
+var
+  i: Integer;
+begin
+  for i := 1 to 2 do
+  begin
+
+  end;
+
+  Close;
+end;
+
+procedure TForm2.FormCreate(Sender: TObject);
+begin
+  HeaderItem1.Caption:='Inställningar';
+  SectionItem1.Caption:='Rum';
+
+  //SectionItem2.Caption:='Läkare';
+  //Pager.AddItem()
+end;
+
+
+function TForm2.Setup(var grid: TDBAdvGrid): Integer;
+var s: String;
+    i: Integer;
+begin
+  Result:=0;
+  AdvPolyList1.ClearItems;
+  for I := 1 to Grid.RowCount-1 do
+  begin
+     S:=Grid.Cells[1,i];
+     with TCheckItem(AdvPolyList1.AddItem(TCheckItem)) do
+     Caption:=S;
+  end;
+  Form2.ShowModal;
+  for I := 1 to grid.RowCount-1 do
+    begin
+      if TCheckItem(AdvPolyList1.Items[i]).Checked then
+        grid.cells[4,i]:='Y';
+
+    end;
+end;
+
+end.

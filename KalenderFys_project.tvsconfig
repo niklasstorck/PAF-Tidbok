@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<TgConfig Version="3" SubLevelDisabled="False">
+  <Option Name="namespaceFolder.KalenderFys" Type="System.String" Value="KalenderFys" Category="General" IsBrowsable="False" />
+  <Option Name="namespaceFolder.Setup2" Type="System.String" Value="Setup2" Category="General" IsBrowsable="False" />
+  <Option Name="namespaceFolder.ItemEdit2" Type="System.String" Value="ItemEdit2" Category="General" IsBrowsable="False" />
+</TgConfig>

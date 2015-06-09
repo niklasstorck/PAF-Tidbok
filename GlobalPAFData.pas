@@ -1,0 +1,147 @@
+unit GlobalPAFData;
+
+interface
+
+type
+  ShortString = String[15];
+  LongString = String[50];
+  XLongString = UnicodeString;
+
+  TGlobalPAFData = class
+    procedure Clear;
+
+  protected
+
+    FStartTime, FEndTime,
+    FBestDatum: TDateTime;
+
+
+    FUsRum, FLevtId, FTdbTyp1, // Rum
+    FTdbTyp2, // Läkarsign
+    FTdbTyp3, // besökstyp a=Akut etc.
+    FTdbTyp4, // Använd ej?
+    FTdbTyp5, // Kommentar
+    Fpid, FBid, FRid, FRemSign, FRemUsr, FTdbUsr, FUndLak, FNotes, FProdkod,
+      FBestId: ShortString;
+
+    FFrageText, FAnamnes: XLongString;
+    FLevttxt, FBestLak, FBestTxt, FProdtext, FPatNamn, FCAdress, FBAdress,
+      FPAdress, FHTele, FATele: LongString;
+
+    FUtid, // Undersökningens tidsåtgång
+    FPrioritet, FKBrevFlg, FRBrevFlg, FProdFlg, FSpecFlg, FTaxtFlg, FBlockFlg,
+      FAlNr, FALlNr: Integer;
+
+    FAkut, FAnnanAvd, FAlladata: Boolean;
+  published
+    property BestDatum: TDateTime read FBestDatum write FBestDatum;
+    property StartTime: TDateTime   read FStartTime   write FStartTime;
+    property EndTime:   TDateTime   read FEndTime     write FEndTime;
+
+    property UsRum: ShortString read FUsRum write FUsRum;
+    property LevtId: ShortString read FLevtId write FLevtId;
+
+    property TdbTyp1: ShortString read FTdbTyp1 write FTdbTyp1; // Rum
+    property TdbTyp2: ShortString read FTdbTyp2 write FTdbTyp2; // Läkarsign
+    property TdbTyp3: ShortString read FTdbTyp3 write FTdbTyp3;
+    // Besökstyp ' a=Akut etc.
+    property TdbTyp4: ShortString read FTdbTyp4 write FTdbTyp4; // Använd ej?
+    property TdbTyp5: ShortString read FTdbTyp5 write FTdbTyp5; // Kommentar
+
+    property pid: ShortString read Fpid write Fpid;
+    property Bid: ShortString read FBid write FBid;
+    property Rid: ShortString read FRid write FRid;
+    property RemSign: ShortString read FRemSign write FRemSign;
+    property RemUsr: ShortString read FRemUsr write FRemUsr;
+    property TdbUsr: ShortString read FTdbUsr write FTdbUsr;
+    property UndLak: ShortString read FUndLak write FUndLak;
+    property Notes: ShortString read FNotes write FNotes;
+    property Prodkod: ShortString read FProdkod write FProdkod;
+    property BestId: ShortString read FBestId write FBestId;
+
+    property FrageText: string read FFrageText write FFrageText;
+    property Anamnes: String read FAnamnes write FAnamnes;
+    property Levttxt: LongString read FLevttxt write FLevttxt;
+    property BestLak: LongString read FBestLak write FBestLak;
+    property BestTxt: LongString read FBestTxt write FBestTxt;
+    property Prodtext: LongString read FProdtext write FProdtext;
+    // property EfterNamn: longString  read  FEfterNamn  write FEfterNamn;
+    property PatNamn: LongString read FPatNamn write FPatNamn;
+    property CAdress: LongString read FCAdress write FCAdress;
+    property BAdress: LongString read FBAdress write FBAdress;
+    property PAdress: LongString read FPAdress write FPAdress;
+    property HTele: LongString read FHTele write FHTele;
+    property ATele: LongString read FATele write FATele;
+
+    property Utid: Integer read FUtid write FUtid;
+    property Prioritet: Integer read FPrioritet write FPrioritet;
+    property KBrevFlg: Integer read FKBrevFlg write FKBrevFlg;
+    property RBrevFlg: Integer read FRBrevFlg write FRBrevFlg;
+    property ProdFlg: Integer read FProdFlg write FProdFlg;
+    property SpecFlg: Integer read FSpecFlg write FSpecFlg;
+    property TaxtFlg: Integer read FTaxtFlg write FTaxtFlg;
+    property BlockFlg: Integer read FBlockFlg write FBlockFlg;
+    property ALNr: Integer read FAlNr write FAlNr;
+    property ALlNr: Integer read FALlNr write FALlNr;
+
+    property Akut: Boolean read FAkut write FAkut;
+    property AnnanAvd: Boolean read FAnnanAvd write FAnnanAvd;
+    property Alladata: Boolean read FAlladata write FAlladata;
+
+  end;
+
+
+implementation
+
+{ TGlobalPAFData }
+
+procedure TGlobalPAFData.Clear;
+begin
+ FBestDatum := 0;
+  FUsRum := '';
+  FLevtId := '';
+  FTdbTyp1 := '';
+  FTdbTyp2 := '';
+  FTdbTyp3 := '';
+  FTdbTyp4 := '';
+  FTdbTyp5 := '';
+  Fpid := '';
+  FBid := '';
+  FRid := '';
+  FRemSign := '';
+  FRemUsr := '';
+  FTdbUsr := '';
+  FUndLak := '';
+  FNotes := '';
+  FProdkod := '';
+  FBestId := '';
+
+  FFrageText := '';
+  FAnamnes := '';
+  FLevttxt := '';
+  FBestLak := '';
+  FBestTxt := '';
+  FProdtext := '';
+  FPatNamn := '';
+  FCAdress := '';
+  FBAdress := '';
+  FPAdress := '';
+  FHTele := '';
+  FATele := '';
+
+  FPrioritet := 0;
+  FKBrevFlg := 0;
+  FRBrevFlg := 0;
+  FProdFlg := 0;
+  FSpecFlg := 0;
+  FTaxtFlg := 0;
+  FBlockFlg := 0;
+  FAlNr := 0;
+  FALlNr := 0;
+
+  FAkut := False;
+  FAnnanAvd := False;
+  FAlladata := False;
+end;
+
+end.

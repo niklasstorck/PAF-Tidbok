@@ -1,0 +1,213 @@
+object Data: TData
+  OldCreateOrder = False
+  Height = 493
+  Width = 699
+  object NIKLAS_DATOR_SQLEXPRESS2012: TSQLConnection
+    ConnectionName = 'NIKLAS-DATOR\SQLEXPRESS2012'
+    DriverName = 'MSSQL'
+    GetDriverFunc = 'getSQLDriverMSSQL'
+    LibraryName = 'dbxmss.dll'
+    LoginPrompt = False
+    Params.Strings = (
+      'drivername=MSSQL'
+      'schemaoverride=%.dbo'
+      'vendorlibwin64=sqlncli10.dll'
+      'hostname=niklas-dator\sqlexpress2012'
+      'database=fyspaf3'
+      'user_name=pa'
+      'Password=purkebas'
+      'blobsize=-1'
+      'localecode=0000'
+      'isolationlevel=ReadCommitted'
+      'os authentication=False'
+      'prepare sql=False')
+    VendorLib = 'sqlncli10.dll'
+    Connected = True
+    Left = 106
+    Top = 26
+  end
+  object DTB_GetRemisser: TSQLDataSet
+    SchemaName = 'dbo'
+    CommandText = 'DTB_GetRemisser'
+    CommandType = ctStoredProc
+    DbxCommandType = 'Dbx.StoredProcedure'
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = '@RETURN_VALUE'
+        ParamType = ptInput
+        Size = 10
+      end
+      item
+        DataType = ftString
+        Name = '@ExtPrio'
+        ParamType = ptInput
+        Value = 'A'
+      end
+      item
+        DataType = ftInteger
+        Name = '@Turklass'
+        ParamType = ptInput
+        Value = '-1'
+      end>
+    SQLConnection = NIKLAS_DATOR_SQLEXPRESS2012
+    Left = 389
+    Top = 245
+  end
+  object DTB_GetTidbok: TSQLDataSet
+    SchemaName = 'dbo'
+    CommandText = 'DTB_GetTidbok'
+    CommandType = ctStoredProc
+    DbxCommandType = 'Dbx.StoredProcedure'
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = '@RETURN_VALUE'
+        ParamType = ptInput
+        Size = 10
+      end
+      item
+        DataType = ftString
+        Name = '@FranDatum'
+        ParamType = ptInput
+        Value = '2013-03-13'
+      end
+      item
+        DataType = ftInteger
+        Name = '@AntDagar'
+        ParamType = ptInput
+        Value = '1'
+      end>
+    SQLConnection = NIKLAS_DATOR_SQLEXPRESS2012
+    Left = 272
+    Top = 248
+  end
+  object DTB_GetTidbokTyp: TSQLDataSet
+    SchemaName = 'dbo'
+    CommandText = 'DTB_GetTidbokTyp'
+    CommandType = ctStoredProc
+    DbxCommandType = 'Dbx.StoredProcedure'
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = '@RETURN_VALUE'
+        ParamType = ptInput
+        Size = 10
+      end
+      item
+        DataType = ftInteger
+        Name = '@Typ'
+        ParamType = ptInput
+        Size = 10
+      end>
+    SQLConnection = NIKLAS_DATOR_SQLEXPRESS2012
+    Left = 403
+    Top = 139
+  end
+  object DTB_InsertTb: TSQLDataSet
+    SchemaName = 'dbo'
+    CommandText = 'DTB_InsertTb'
+    CommandType = ctStoredProc
+    DbxCommandType = 'Dbx.StoredProcedure'
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = '@RETURN_VALUE'
+        ParamType = ptUnknown
+        Size = 10
+      end
+      item
+        DataType = ftString
+        Name = '@P_RemissId'
+        ParamType = ptInput
+        Size = 15
+      end
+      item
+        DataType = ftInteger
+        Name = '@Alnr'
+        ParamType = ptInput
+        Size = 10
+      end
+      item
+        DataType = ftString
+        Name = '@P_Tidbas'
+        ParamType = ptInput
+        Size = 25
+      end
+      item
+        DataType = ftString
+        Name = '@P_TidBok'
+        ParamType = ptInput
+        Size = 25
+      end
+      item
+        DataType = ftSmallint
+        Name = '@P_UndTid'
+        ParamType = ptInput
+        Size = 5
+      end
+      item
+        DataType = ftString
+        Name = '@P_UserId'
+        ParamType = ptInput
+        Size = 15
+      end
+      item
+        DataType = ftString
+        Name = '@P_PCnamn'
+        ParamType = ptInput
+        Size = 15
+      end>
+    SQLConnection = NIKLAS_DATOR_SQLEXPRESS2012
+    Left = 270
+    Top = 38
+  end
+  object SQLMonitor1: TSQLMonitor
+    Active = True
+    AutoSave = True
+    FileName = 'F:\Fyslab\Programvara\PAF tidbok\Fyskalender current\SQLLogg.txt'
+    SQLConnection = NIKLAS_DATOR_SQLEXPRESS2012
+    Left = 512
+    Top = 56
+  end
+  object SQLQuery1: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      
+        'exec DTB_InsertTb '#39'10-29131'#39',0,'#39'2011-09-15 09:50'#39','#39'EKO-2'#39',90,'#39'ad' +
+        'mstar'#39','#39'TEST-PC'#39)
+    SQLConnection = NIKLAS_DATOR_SQLEXPRESS2012
+    Left = 88
+    Top = 240
+  end
+  object DataSetProvider1: TDataSetProvider
+    DataSet = DTB_GetTidbok
+    Left = 272
+    Top = 320
+  end
+  object ClientDataSet1: TClientDataSet
+    Active = True
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DataSetProvider1'
+    Left = 272
+    Top = 384
+  end
+  object DataSetProvider2: TDataSetProvider
+    DataSet = DTB_GetRemisser
+    Left = 392
+    Top = 312
+  end
+  object ClientDataSet2: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DataSetProvider2'
+    Left = 384
+    Top = 376
+  end
+end

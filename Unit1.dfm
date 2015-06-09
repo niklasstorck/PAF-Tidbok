@@ -1,0 +1,20 @@
+object TMSForm1: TTMSForm1
+  Left = 250
+  Top = 200
+  Caption = 'AdvMetroForm'
+  ClientHeight = 311
+  ClientWidth = 534
+  Color = clWindow
+  Constraints.MinHeight = 26
+  Constraints.MinWidth = 100
+  Ctl3D = False
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  PixelsPerInch = 96
+  TextHeight = 13
+end

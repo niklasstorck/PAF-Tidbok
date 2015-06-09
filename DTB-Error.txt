@@ -1,0 +1,82 @@
+----------------------------------------------------------------
+Det här är en fil med fel i den dynamiska tidboken till PAF.
+Om felet upprepar sig, tag kontakt med PAF-leverantören eller
+direkt med konstruktören Niklas Storck: niklas@storckholmen.se.
+E-posta gärna en kopia av denna fil tilsammans med en beskrivning
+av när och hur felet uppstod.
+----------------------------------------------------------------
+
+
+
+Fel i DTB, Tid: 2013-10-28 09:28:59
+-----------------------------------
+Modul: Akutkalender2, Programlinje: 906
+SQL fråga: exec DTB_InsertTb '12-16916',0,'2013-10-29 08:00:00','EKO-1',30,'Niklas','NIKLAS-DATOR'
+Felkod: 10001, FEL ! Det finns redan en remiss i Tidboken med detta remissid
+Remissid: 12-16916. AlNr: 0. Tidbas: 2013-10-29 08:00:00.
+Användare: Niklas. PCNamn: NIKLAS-DATOR. Tidbok: EKO-1.
+
+Fel i DTB, Tid: 2013-12-10 20:08:29
+-----------------------------------
+Modul: Akutkalender2, Programlinje: 435
+SQL fråga: exec DTBMoveRemInTb '10-31964',8,0,'2013-12-09 07:00:00','EKO-2','Niklas','NIKLAS-DATOR'
+Felkod: 10001, FEL ! Den angivna remissen 10-31964 finns inte i Tidboken på rad 8
+Remissid: 10-31964. AlNr: 8. Tidbas: 2013-12-09 07:00:00.
+Användare: Niklas. PCNamn: NIKLAS-DATOR. Tidbok: 1.
+
+Fel i DTB, Tid: 2013-12-11 20:21:09
+-----------------------------------
+Modul: Akutkalender2, Programlinje: 435
+SQL fråga: exec DTBMoveRemInTb '10-16940',10,0,'2013-12-13 12:00:00','EKO-2','Niklas','NIKLAS-DATOR'
+Felkod: 10001, FEL ! Den angivna remissen 10-16940 finns inte i Tidboken på rad 10
+Remissid: 10-16940. AlNr: 10. Tidbas: 2013-12-13 12:00:00.
+Användare: Niklas. PCNamn: NIKLAS-DATOR. Tidbok: 9.
+
+Fel i DTB, Tid: 2013-12-16 20:19:52
+-----------------------------------
+Modul: Akutkalender2, Programlinje: 435
+SQL fråga: exec DTBMoveRemInTb '13-6706',2,0,'2013-12-17 08:00:00','EKO-2','Niklas','NIKLAS-LT'
+Felkod: 10001, FEL ! Den angivna remissen 13-6706 finns inte i Tidboken på rad 2
+Remissid: 13-6706. AlNr: 2. Tidbas: 2013-12-17 08:00:00.
+Användare: Niklas. PCNamn: NIKLAS-LT. Tidbok: 9.
+
+Fel i DTB, Tid: 2013-12-16 21:06:19
+-----------------------------------
+Modul: Akutkalender2, Programlinje: 906
+SQL fråga: exec DTB_InsertTb '13-2981',0,'2013-12-16 07:00:00','EKO-4',30,'Niklas','NIKLAS-LT'
+Felkod: 10001, FEL ! Det finns redan en remiss i Tidboken med detta remissid
+Remissid: 13-2981. AlNr: 0. Tidbas: 2013-12-16 07:00:00.
+Användare: Niklas. PCNamn: NIKLAS-LT. Tidbok: EKO-4.
+
+Fel i DTB, Tid: 2013-12-17 11:36:40
+-----------------------------------
+Modul: Akutkalender2, Programlinje: 435
+SQL fråga: exec DTBMoveRemInTb '13-6694',2,0,'2013-12-17 09:45:00','EKO-1','Niklas','NIKLAS-LT'
+Felkod: 10001, FEL ! Den angivna remissen 13-6694 finns inte i Tidboken på rad 2
+Remissid: 13-6694. AlNr: 2. Tidbas: 2013-12-17 09:45:00.
+Användare: Niklas. PCNamn: NIKLAS-LT. Tidbok: 2.
+
+Fel i DTB, Tid: 2013-12-17 11:41:11
+-----------------------------------
+Modul: Akutkalender2, Programlinje: 435
+SQL fråga: exec DTBMoveRemInTb '13-7923a',2,0,'2013-12-17 10:00:00','EKO-1','Niklas','NIKLAS-LT'
+Felkod: 10001, FEL ! Den angivna remissen 13-7923a finns inte i Tidboken på rad 2
+Remissid: 13-7923a. AlNr: 2. Tidbas: 2013-12-17 10:00:00.
+Användare: Niklas. PCNamn: NIKLAS-LT. Tidbok: 2.
+
+Fel i DTB, Tid: 2013-12-17 11:45:30
+-----------------------------------
+Modul: Akutkalender2, Programlinje: 435
+SQL fråga: exec DTBMoveRemInTb '13-7635',3,0,'2013-12-17 09:00:00','DUPL-1','Niklas','NIKLAS-LT'
+Felkod: 10001, FEL ! Den angivna remissen 13-7635 finns inte i Tidboken på rad 3
+Remissid: 13-7635. AlNr: 3. Tidbas: 2013-12-17 09:00:00.
+Användare: Niklas. PCNamn: NIKLAS-LT. Tidbok: 0.
+
+Fel i DTB, Tid: 2013-12-17 11:45:52
+-----------------------------------
+Modul: Akutkalender2, Programlinje: 435
+SQL fråga: exec DTBMoveRemInTb '13-7181',8,0,'2013-12-17 10:45:00','DUPL-1','Niklas','NIKLAS-LT'
+Felkod: 10001, FEL ! Den angivna remissen 13-7181 finns inte i Tidboken på rad 8
+Remissid: 13-7181. AlNr: 8. Tidbas: 2013-12-17 10:45:00.
+Användare: Niklas. PCNamn: NIKLAS-LT. Tidbok: 0.
+

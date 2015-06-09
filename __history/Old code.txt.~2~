@@ -1,0 +1,101 @@
+ (*
+procedure TMainForm.DayPlannerDragDropCell(Sender, Source: TObject;
+  X, Y: Integer);
+var
+  plItFrom: TMyPAFItem;
+begin
+
+  plItFrom := TMyPAFItem(MyPAFPlanner1.CreateItem);
+  if (Source is TMYPAFWaitList) then
+  begin
+    // PlaceToDrop(X,Y,dt, rum);
+    if (MYPAFWaitList1.ItemIndex >= 0) then
+    begin
+
+      //plItFrom := TMyPAFItem(MYPAFWaitList1.Items.Selected);
+      // [MYPAFWaitList1.ItemIndex]);
+      if MyPAFPlanner1.CellToItemNum(X, Y) = 0 then
+      begin
+        with TMyPAFItem(MyPAFPlanner1.CreateItem) do
+        begin
+          ItemPos := TBHeaderToPlace(plItFrom.UsRum);
+          // Assign(plItFrom);
+          // CaptionType := ctText;
+          ItemBegin := Y; // Måste beräknas om till en tid. Hur??
+          ItemEnd := Y + 10;
+          ItemPos := X;
+          // CaptionText:='NY';
+          Captiontext := plItFrom.Captiontext;
+          Color := clSilver;
+          BackGround := False;
+          Text.Text := plItFrom.Text.Text;
+
+          // ItemStartTime := plItFrom.starttime;
+          starttime := plItFrom.starttime;
+          // ItemEndTime :=
+          // OBS ska justeras
+          endtime := plItFrom.starttime + plItFrom.utid;
+
+          pid := plItFrom.pid;
+          PatNamn := plItFrom.PatNamn;
+          RemSign := plItFrom.RemSign;
+          RemUsr := plItFrom.RemUsr;
+          TdbUsr := plItFrom.TdbUsr;
+          UndLak := plItFrom.UndLak;
+          Notes := plItFrom.Notes;
+          Prodkod := plItFrom.Prodkod;
+          Prodtext := plItFrom.Prodtext;
+          Notes := plItFrom.Notes;
+          Anamnes := plItFrom.Anamnes;
+          FrageText := plItFrom.FrageText;
+          Update;
+          MYPAFWaitList1.Items.Delete(MYPAFWaitList1.ItemIndex);
+        end;
+      end;
+      // plItTo.ItemStartTime := dt;
+      // plItTo.ItemEndTime := dt;
+
+      // PlannerItem.Text.Text:='NY från waitlist';
+
+    end;
+  end;
+  plItFrom.Free
+
+end;
+
+
+procedure TMainForm.DayPlannerDragDropItem(Sender, Source: TObject;
+  X, Y: Integer; PlannerItem: TMyPAFItem);
+var
+  dt: TDateTime;
+  rum: String;
+  plItFrom: TPlannerItem;
+  plItto: TPlannerItem;
+begin
+  if (Source is TMYPAFWaitList) then
+  begin
+    // PlaceToDrop(X,Y,dt, rum);
+    if (MYPAFWaitList1.ItemIndex >= 0) then
+    begin
+      plItFrom := MYPAFWaitList1.Items[MYPAFWaitList1.ItemIndex];
+      // PlannerItem.Text.Text:='NY från waitlist';
+      PlannerItem.Text.Text := plItFrom.Text.Text;
+      PlannerItem.BackGround := False;
+      PlannerItem.Color := clSilver;
+      PlannerItem.FixedPos := False;
+      PlannerItem.Flashing := TRUE;
+      PlannerItem.Captiontext := '212 Hjärteko';
+
+      MYPAFWaitList1.Items.Delete(MYPAFWaitList1.ItemIndex);
+    end;
+  end;
+end;
+
+procedure TMainForm.DayPlannerDragOver(Sender, Source: TObject; X, Y: Integer;
+  State: TDragState; var Accept: Boolean);
+begin
+  Accept := (Source is TMYPAFWaitList);
+end;
+
+
+ *)

@@ -1,0 +1,215 @@
+object Data: TData
+  OldCreateOrder = False
+  Height = 493
+  Width = 699
+  object DTB_GetTidbok: TSQLDataSet
+    SchemaName = 'dbo'
+    Active = True
+    CommandText = 'DTB_GetTidbok'
+    CommandType = ctStoredProc
+    DbxCommandType = 'Dbx.StoredProcedure'
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = '@RETURN_VALUE'
+        ParamType = ptInput
+        Size = 10
+      end
+      item
+        DataType = ftString
+        Name = '@FranDatum'
+        ParamType = ptInput
+        Value = '2013-03-13'
+      end
+      item
+        DataType = ftInteger
+        Name = '@AntDagar'
+        ParamType = ptInput
+        Value = '1'
+      end>
+    SQLConnection = FYSPAF
+    Left = 272
+    Top = 248
+  end
+  object DTB_GetTidbokTyp: TSQLDataSet
+    SchemaName = 'dbo'
+    CommandText = 'DTB_GetTidbokTyp'
+    CommandType = ctStoredProc
+    DbxCommandType = 'Dbx.StoredProcedure'
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = '@RETURN_VALUE'
+        ParamType = ptInput
+        Size = 10
+      end
+      item
+        DataType = ftInteger
+        Name = '@Typ'
+        ParamType = ptInput
+        Size = 10
+      end>
+    Left = 595
+    Top = 99
+  end
+  object DTB_InsertTb: TSQLDataSet
+    SchemaName = 'dbo'
+    CommandText = 'DTB_InsertTb'
+    CommandType = ctStoredProc
+    DbxCommandType = 'Dbx.StoredProcedure'
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = '@RETURN_VALUE'
+        ParamType = ptInput
+        Size = 10
+      end
+      item
+        DataType = ftString
+        Name = '@P_RemissId'
+        ParamType = ptInput
+        Size = 15
+      end
+      item
+        DataType = ftInteger
+        Name = '@Alnr'
+        ParamType = ptInput
+        Size = 10
+      end
+      item
+        DataType = ftString
+        Name = '@P_Tidbas'
+        ParamType = ptInput
+        Size = 25
+      end
+      item
+        DataType = ftString
+        Name = '@P_TidBok'
+        ParamType = ptInput
+        Size = 25
+      end
+      item
+        DataType = ftSmallint
+        Name = '@P_UndTid'
+        ParamType = ptInput
+        Size = 5
+      end
+      item
+        DataType = ftString
+        Name = '@P_UserId'
+        ParamType = ptInput
+        Size = 15
+      end
+      item
+        DataType = ftString
+        Name = '@P_PCnamn'
+        ParamType = ptInput
+        Size = 15
+      end>
+    SQLConnection = FYSPAF
+    Left = 582
+    Top = 38
+  end
+  object SQLMonitor1: TSQLMonitor
+    Active = True
+    AutoSave = True
+    FileName = 'F:\Fyslab\Programvara\PAF tidbok\Fyskalender current\SQLLogg.txt'
+    SQLConnection = FYSPAF
+    Left = 512
+    Top = 56
+  end
+  object SQLQuery1: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      
+        'exec DTB_InsertTb '#39'10-29131'#39',0,'#39'2011-09-15 09:50'#39','#39'EKO-2'#39',90,'#39'ad' +
+        'mstar'#39','#39'TEST-PC'#39)
+    SQLConnection = FYSPAF
+    Left = 88
+    Top = 240
+  end
+  object DataSetProvider1: TDataSetProvider
+    DataSet = DTB_GetTidbok
+    Left = 272
+    Top = 320
+  end
+  object ClientDataSet1: TClientDataSet
+    Active = True
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DataSetProvider1'
+    Left = 272
+    Top = 384
+  end
+  object DataSetProvider2: TDataSetProvider
+    DataSet = DTB_GetRemisser
+    Left = 392
+    Top = 312
+  end
+  object ClientDataSet2: TClientDataSet
+    Active = True
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DataSetProvider2'
+    Left = 384
+    Top = 376
+  end
+  object FYSPAF: TSQLConnection
+    ConnectionName = 'FYSPAF'
+    DriverName = 'MSSQL'
+    GetDriverFunc = 'getSQLDriverMSSQL'
+    LibraryName = 'dbxmss.dll'
+    LoginPrompt = False
+    Params.Strings = (
+      'drivername=MSSQL'
+      'schemaoverride=%.dbo'
+      'vendorlibwin64=sqlncli10.dll'
+      'HostName=Niklas-Dator'
+      'Database=fyspaf'
+      'User_Name=sa'
+      'Password=elisabeth2004'
+      'blobsize=-1'
+      'localecode=0000'
+      'isolationlevel=ReadCommitted'
+      'os authentication=False'
+      'prepare sql=False')
+    VendorLib = 'sqlncli10.dll'
+    Connected = True
+    Left = 91
+    Top = 35
+  end
+  object DTB_GetRemisser: TSQLDataSet
+    SchemaName = 'dbo'
+    Active = True
+    CommandText = 'DTB_GetRemisser'
+    CommandType = ctStoredProc
+    DbxCommandType = 'Dbx.StoredProcedure'
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = '@RETURN_VALUE'
+        ParamType = ptInput
+        Size = 10
+      end
+      item
+        DataType = ftWideString
+        Name = '@ExtPrio'
+        ParamType = ptInput
+        Value = 'P'
+      end
+      item
+        DataType = ftInteger
+        Name = '@Turklass'
+        ParamType = ptInput
+        Value = '-1'
+      end>
+    SQLConnection = FYSPAF
+    Left = 387
+    Top = 243
+  end
+end

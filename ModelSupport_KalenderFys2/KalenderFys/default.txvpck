@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nodeSet version="1.0">
+  <view uin="p3ks0a41phq44thzi_v">
+    <property name="$defaultDiagram" value="true" />
+    <property name="$metaclass" value="Package Diagram" />
+    <property name="$name" value="default" />
+    <reference referencedUin="delphi:e_class:src:KalenderFys:KalenderFys.@unitclass">
+      <property name="$shortcutReference" value="true" />
+    </reference>
+    <reference referencedUin="design:view:::p3ks0a41phq44thzi_v">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="585,117,255,383" />
+      <property name="hideModule" value="True" />
+      <property name="bounds_setted_by_user" value="True" />
+      <reference referencedUin="delphi:e_class:src:KalenderFys:KalenderFys.@unitclass" />
+    </reference>
+  </view>
+</nodeSet>

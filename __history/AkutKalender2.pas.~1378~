@@ -1,0 +1,1413 @@
+//****************************************************************************
+//****************************************************************************
+//                 Akutkalender
+//
+// är startformen för PAFDTB, den dynamiska tidboken för paf.
+// Använder formen Setup4 samt två arvtagare till TMSplanner
+// Finns att köpa på www.tmssoftware.com
+// Modulerna med ärvda och modifierade delar från TMSplanner finns i
+// PAFEdit3.pas samt PAFPlanner.pas
+//
+// Programmet är beroende av följande stored procedures i fyspaf:
+//
+// DTB_DeleteRemFromTB, DTB_GetRemisser, DTB_GetTidbok, DTB_GetTidbokTyp,
+// DTB_InsertTb, DTB_UpdateTb_ExamTime, DTB_UpdateTb_Status,
+// samt DTBMoveRemInTb.
+//
+// ***************************************************************************
+unit AkutKalender2;
+
+{$define ns_debug}
+{ $define demo }
+
+interface
+
+uses
+  Password,
+  ActiveX,
+  PafPlanner, System.IniFiles, StrUtils,
+  Windows, Messages, ComCtrls, SysUtils, Variants, Classes, Graphics, Controls,
+  Forms, Dialogs, Menus,
+  AdvPolyList, CurvyControls,
+  AdvSmoothLabel, ExtCtrls, AdvSplitter,
+  StdCtrls, AdvSmoothEdit, AdvSmoothEditButton, AdvSmoothDatePicker,
+  Ribbon,
+  // AdvmSQLS,
+  PlannerDatePicker,
+  SqlExpr,
+  AdvDropDown,
+  Grids,
+  BaseGrid, AdvGrid,
+  AdvDateTimePicker,
+  DateUtils,
+  // Setup3,
+  AdvMenus, AdvEdit, AdvEdBtn,
+  AdvObj,
+  Setup5,
+  DBAdvGrid,
+  AdvOfficeButtons, Planner, PlannerWaitList,
+  PAFEdit3, ExeInfo,
+  Data.DB,
+  Data.DBXMSSQL,
+  // Data.FMTBcd,
+  Datasnap.DBClient,
+  Datasnap.Provider,
+  Vcl.Mask, AdvSmoothListBox, AdvSmoothComboBox, clisted,
+  AeroButtons, Data.FMTBcd, AdvSpin, PictureContainer, AdvSmoothSplashScreen,
+  Vcl.Samples.Spin, paramchklist;
+
+Const
+  // *************************************
+  // kalenderna uppdelning
+  // Skall vara i ngn slags setup sen
+  // *************************************
+  CDisplayUnit = 15; // Uppdelningen av kalendern i 15 minutersintervall
+  CDisplayStart = 6; // Klockan 6
+  CDisplayEnd = 20; // Klockan 20
+  CActiveStart = 7; // Klockan 7
+  CActiveEnd = 19; // Klockan 19
+
+type
+
+  ShortString = String[15];
+  Longstring = String[50];
+
+  TMainForm = class(TForm)
+    AdvSmoothLabel1: TAdvSmoothLabel;
+    CurvyPanel2: TCurvyPanel;
+    AdvSmoothLabel2: TAdvSmoothLabel;
+    ItemPopupMenu1: TAdvPopupMenu;
+    Visaalladata1: TMenuItem;
+    Annanavdelning1: TMenuItem;
+    Sng1: TMenuItem;
+    TimerKlocka: TTimer;
+    TimerPlanner: TTimer;
+    RemissGrid: TDBAdvGrid;
+    AdvMainMenu1: TAdvMainMenu;
+    File1: TMenuItem;
+    ChekboxHelaDagen: TAdvOfficeCheckBox;
+    AdvSplitter2: TAdvSplitter;
+    AdvSplitter4: TAdvSplitter;
+    DatePicker1: TPlannerDatePicker;
+    Instllningar1: TMenuItem;
+    Lokalainstllningar1: TMenuItem;
+    ExeInfo1: TExeInfo;
+    PafItemEditor1: TPafItemEditor;
+    DayGrid: TDBAdvGrid;
+    DataSourceTB: TDataSource;
+    DataSourceRemiss: TDataSource;
+    TimerRemiss: TTimer;
+    CurvyPanel1: TCurvyPanel;
+    AdvSplitter1: TAdvSplitter;
+    MYPAFWaitList1: TMYPAFWaitList;
+    PAFPlanner: TMyPAFPlanner;
+    ClientDataSetTB: TClientDataSet;
+    DataSetProviderTB: TDataSetProvider;
+    DTB_GetTB: TSQLDataSet;
+    FYSPAF: TSQLConnection;
+    DTB_GetRemisser: TSQLDataSet;
+    DataSetProviderremiss: TDataSetProvider;
+    ClientDataSetRemiss: TClientDataSet;
+    SQLMonitor1: TSQLMonitor;
+    SQLQuery1: TSQLQuery;
+    CurvyPanel3: TCurvyPanel;
+    Label1: TLabel;
+    CheckListExtPrio: TCheckListEdit;
+    Label2: TLabel;
+    Label3: TLabel;
+    GridSQLError: TDBAdvGrid;
+    DspSQLError: TDataSetProvider;
+    CdsSQLError: TClientDataSet;
+    DSSQLerror: TDataSource;
+    Button1: TButton;
+    AdvSpinEditTurklass: TAdvSpinEdit;
+    ItemPopupMenu2: TAdvPopupMenu;
+    Orsak1: TMenuItem;
+    Stngavprogrammet1: TMenuItem;
+    PictureContainer1: TPictureContainer;
+    Button2: TButton;
+    SpinEditAntDagar: TSpinEdit;
+    Label4: TLabel;
+    ParamCheckListRemissgrupp: TParamCheckList;
+
+    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure TimerKlockaTimer(Sender: TObject);
+    procedure RadioB_2DygnClick(Sender: TObject);
+    procedure RadioB_Dygn_1Click(Sender: TObject);
+    procedure DatePicker1Change(Sender: TObject);
+
+    // procedure DBActiveDaySource1InsertItem(Sender: TObject;
+    // APlannerItem: TPlannerItem);
+    procedure Table1AfterInsert(DataSet: TDataSet);
+    procedure CheckBoxHelgerClick(Sender: TObject);
+    procedure TimerPlannerTimer(Sender: TObject);
+
+    procedure ChekboxHelaDagenClick(Sender: TObject);
+    procedure abortmarkering1Click(Sender: TObject);
+
+    // ******************************************
+    // Edit
+    procedure MyPAFPlanner1Items0EditModal(Sender: TObject);
+    // procedure MYPAFWaitList1ItemDblClick(Sender: TObject; Item: TPlannerItem);
+    // ******************************************
+    // Inställningar
+    procedure FormActivate(Sender: TObject);
+    procedure Lokalainstllningar1Click(Sender: TObject);
+    procedure MyPAFPlanner1DragOver(Sender, Source: TObject; X, Y: Integer;
+      State: TDragState; var Accept: Boolean);
+    procedure PAFWaitList1DragOver(Sender, Source: TObject; X, Y: Integer;
+      State: TDragState; var Accept: Boolean);
+    procedure PAFWaitList1DragDrop(Sender, Source: TObject; X, Y: Integer);
+    procedure PAFPlannerPlannerRightClick(Sender: TObject;
+      Position, FromSel, FromSelPrecise, ToSel, ToSelPrecise: Integer);
+    procedure PAFPlannerDragDropCell(Sender, Source: TObject; X, Y: Integer);
+    procedure DefaultItemEditor1BeforeEditShow(Sender: TObject;
+      APlannerItem: TPlannerItem);
+
+    procedure PAFPlannerDragDropItem(Sender, Source: TObject; X, Y: Integer;
+      PlannerItem: TPlannerItem);
+    procedure PAFPlannerItemSize(Sender: TObject; Item: TPlannerItem;
+      Position, FromBegin, FromEnd, ToBegin, ToEnd: Integer);
+    procedure PAFPlannerItemMove(Sender: TObject; Item: TPlannerItem;
+      FromBegin, FromEnd, FromPos, ToBegin, ToEnd, ToPos: Integer);
+    procedure TimerRemissTimer(Sender: TObject);
+    procedure CheckListExtPrioChange(Sender: TObject);
+    procedure CheckListTurKlassChange(Sender: TObject);
+    procedure PAFPlannerDragOverItem(Sender, Source: TObject; X, Y: Integer;
+      APlannerItem: TPlannerItem; State: TDragState; var Accept: Boolean);
+    procedure Button1Click(Sender: TObject);
+    procedure AdvSpinEditTurklassChange(Sender: TObject);
+    procedure Stngavprogrammet1Click(Sender: TObject);
+    procedure MYPAFWaitList1ItemDblClick(Sender: TObject; Item: TPlannerItem);
+    procedure Button2Click(Sender: TObject);
+    procedure SpinEditAntDagarChange(Sender: TObject);
+
+  private
+    { Private declarations }
+
+    imorgon: Boolean;
+    RemissLatestRead,
+    CurrDay: TDateTime;
+    ColumnsPerDay{,
+    DaysShown}: Integer; //Antal dagar som visas i tidboken
+    // TidbokCols   : TCols;
+
+    TurKlassVald: Integer;
+    ExtPrioVald, UserId, PCNamn: String;
+    // FItem: TMyPAFItem;
+    // DisplayMinutes: Integer;
+
+    // **********************************************************************
+    // Hitta ett fält i en grid med hjälp av fältnamnet.
+    // Ger kolumnens nummer som resultat
+    // function FieldByName(const DBGrid: TDBAdvGrid; NameS: String): Integer;
+
+    // **********************************************************************
+    // Procedurer som läser in tidbok och väntelista ************************
+    // **********************************************************************
+    procedure ReadDayFromPAF(FirstDay: TDateTime; NoDays : Integer);
+    procedure ReadRemissFromPaf;
+    procedure HeaderSetup(Date: TDatetime; NoDays: Integer);
+    (*
+    function TBHeaderAndDateToCol(StartTid: TDateTime; NoColsPerDay:Integer; ColHeader: String): Integer;
+    function TBColToHeader(P: Integer): String;
+    function TBColToDate(StartTid: TdateTime; NoColsPerDay, Column: Integer): TDateTime;
+    *)
+    procedure AddLunch(starttime, endtime: TDateTime);
+    procedure SaveUstoPAF(RemissId, Tidbas, Tidbok, UserId, PCNamn: LongString;
+      ALnr, UndTid: Integer);
+    procedure DisplayUpdateNew(DUnit: Integer; DStart, DEnd, AStart, AEnd: TTime);
+    procedure DisplayUpdate(DUnit, DStart, DEnd, AStart, AEnd: Integer);
+    procedure SQLFel(Rad, AlNr: Integer; Modul, RemissId, Tidbas, UserId, PCnamn, Tidbok, S: string);
+    procedure ItemToDayGrid(Item: TMyPafItem);
+    function GetDateTimeFromTidbok(X,Y: Integer):TDateTime;
+  public
+    { Public declarations }
+
+  end;
+
+var
+  MainForm: TMainForm;
+
+implementation
+
+{$R *.dfm}
+
+
+procedure TMainForm.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+
+
+  // FreeAndNil(Fitem);
+  // MyPafPlanner1.Free
+end;
+
+procedure TMainForm.FormCreate(Sender: TObject);
+var
+  F: Textfile;
+  S: String;
+begin
+  SQLMonitor1.Active := false;
+  SQLMonitor1.FileName := 'sqlerror.txt';
+
+
+  // Remissortering.
+  // Till lokalt sparat val i xml fil eller registry senare 2013-04-04 / ns
+
+  TurKlassVald := 0;
+  ExtPrioVald := '';
+  SQLQuery1.Active := false;
+  SQLQuery1.SQL.Clear;
+  FYSPAF.Connected := false;
+  CurrDay := now;
+
+  imorgon := false;
+  PCNamn := ExeInfo1.ComputerName;
+  UserId := 'Niklas'; // Ersätts med inlogg när detta är klart
+  //RadioB_Dygn_1.Checked := false;
+
+  PAFPlanner.DateTimeList.Add(CurrDay);
+  PAFPlanner.DefaultItem.Editor := PafItemEditor1;
+  MYPAFWaitList1.DefaultItem.Editor := PafItemEditor1;
+
+  TimerKlocka.Interval := 1000;
+  TimerPlanner.Interval := 60000;
+  TimerRemiss.Interval := 50000;
+
+end;
+
+procedure TMainForm.FormShow(Sender: TObject);
+begin
+
+  (*
+  PasswordDlg.ShowModal;
+  if not PasswordDlg.ok then
+  begin
+    //MainForm.Close;
+    exit
+  end;
+  *)
+  SpinEditAntDagar.Value:=SetupForm.DaysShown;
+
+  FYSPAF.ConnectionName             := Setupform.ServerName;
+  FYSPAF.DriverName                 := 'MSSQL';
+  FYSPAF.Params.Values['HostName']  := Setupform.ServerName;
+
+  FYSPAF.Params.Values['Database']  := Setupform.DatabasName;
+  FYSPAF.Params.Values['User_name'] := Setupform.user;
+  FYSPAF.Params.Values['Password']  := Setupform.password;
+  FYSPAF.Params.Values['Provider']  := Setupform.Provider;
+  FYSPAF.LoadParamsOnConnect        := false;
+  FYSPAF.LoginPrompt                := false;
+
+  DisplayUpdate(15, 6, 20, 7, 19);
+  (*
+  DisplayUpdateNew( SetupForm.SchemaDisplayUnit,
+                 SetupForm.SchemaStart,
+                 SetupForm.SchemaStop,
+                 SetupForm.SchemaStart - SetupForm.SchemaDisplayUnit div 1440,
+                 SetupForm.SchemaStop + SetupForm.SchemaDisplayUnit div 1440); // Skall kunna konfigureras av användare.
+  *)
+  // FYSPAF.Params.Add('provider = ' + SetupForm.Provider);
+
+  //CoUninitialize;
+
+  if not SetupForm.DatabaseOK then
+  begin
+    Caption:='Ingen Databaskoppling! Ta kontakt med din support.';
+    Color:=clRed;
+  end else
+  begin
+    ReadRemissFromPaf;
+    TimerRemiss.Enabled      := true;
+    TimerRemiss.Interval     := 300000; //Fem minuter
+    DatePicker1.Date         := CurrDay; // Läser också in data
+    HeaderSetup(CurrDay,SetupForm.DaysShown);
+    Caption                  := 'Kopplad till databasen: '+ SetupForm.DatabasName
+  end;
+
+
+  // SetupForm3.Get(TidBokCols);
+{$IFDEF ns_debug}
+  DayGrid.show;
+  RemissGrid.show;
+  GridSQLError.show;
+  GridSQLError.Columns[2].Width := 485;
+  Caption := FYSPAF.ConnectionName;
+{$ENDIF}
+
+end;
+
+function TMainForm.GetDateTimeFromTidbok(X, Y: Integer): TDateTime;
+begin
+// Beräkna dag och tid för ett item beroende på var den är släppt.
+// Tar hänsyn till tidbokens antal dagar etc.
+
+end;
+
+procedure TMainForm.FormActivate(Sender: TObject);
+var
+  TF: Textfile;
+  S: String;
+begin
+  DayGrid.Hide;
+  RemissGrid.Hide;
+  GridSQLError.Hide;
+  //Coinitialize(nil);
+
+
+end;
+
+procedure TMainForm.HeaderSetup(Date: TDatetime; NoDays: Integer);
+var
+  D, I, NumOfCols: Integer;
+  S: String;
+  Datum: TDateTime;
+begin
+
+  // MyPAFPlanner1.Positions := 7;
+  NumOfCols := 0;
+  for I := 0 to Setupform.TidbokKolumner.items.Count - 1 do
+    if Setupform.TidbokKolumner.Checked[I] then
+      Inc(NumOfCols);
+  ColumnsPerday:= NumOfCols;
+  PAFPlanner.Positions := NumOfCols*Nodays;
+
+  PAFPlanner.PositionGroup := NumOfCols;
+
+  PAFPlanner.Mode.PlannerType := plDay;
+  PAFPlanner.Mode.Date := CurrDay;
+  PAFPlanner.Mode.TimeLineStart := CurrDay;
+
+  with PAFPlanner.Header do
+  begin
+    Captions.Clear;
+    GroupCaptions.Clear;
+    Captions.Add('');
+
+    for D:= 0 to NoDays - 1 do
+    begin
+
+      for I := 0 to Setupform.TidbokKolumner.items.Count - 1 do
+      begin
+        if Setupform.TidbokKolumner.Checked[I] then
+        begin
+          S := Setupform.TidbokKolumner.items[I];
+          Captions.Add(S);
+        end;
+      end;
+
+      Datum:=Date+D;
+      GroupCaptions.Add(FormatDateTime('dd mmmm yyyy', Datum));
+    end;
+
+  end;
+end;
+
+procedure TMainForm.Lokalainstllningar1Click(Sender: TObject);
+var
+  I: Integer;
+begin
+  // Justera inställningar
+  // Fn. bara för rum.
+  Setupform.show;
+  HeaderSetup(CurrDay,SetupForm.DaysShown);
+end;
+
+procedure TMainForm.PAFPlannerItemMove(Sender: TObject; Item: TPlannerItem;
+  FromBegin, FromEnd, FromPos, ToBegin, ToEnd, ToPos: Integer);
+
+var
+  T1, T2, T3 : TDateTime;
+  S, ErrorText: String;
+  Col, TempTime, EInt: Integer;
+
+begin
+{$IFDEF ns_debug}
+  SQLMonitor1.Active := true;
+{$ENDIF}
+
+  CdsSQLError.Active := false;
+  SQLQuery1.SQL.Clear;
+  T1 :=  PAFPlanner.PafCellToDateTime(columnsperday, ToPos, ToBegin);
+  TMyPafItem(Item).PafStartTime  := T1;
+  TMyPafItem(Item).ItemStartTime := TMyPafItem(Item).PafStartTime;
+
+  Col := PafPlanner.HeaderAndDateToCol(TMyPafItem(Item).PafStartTime,CurrDay,
+         columnsperday, PafPlanner.ColToHeader(ToPos));
+  TMyPafItem(Item).ItemPos := Col;
+
+  S := 'exec DTBMoveRemInTb ' + QuotedStr(TMyPAFItem(Item).rid) + ',' +
+       IntToStr(TMyPAFItem(Item).ALnr) + ',' + IntToStr(0) + ',' +
+       QuotedStr(DateTimeToStr(TMyPAFItem(Item).PafStartTime)) + ','+
+       QuotedStr(PAFPlanner.ColToHeader(ToPos)) + ','+
+       QuotedStr(UserId) + ',' + QuotedStr(PCNamn);
+
+  SQLQuery1.SQL.Add(S);
+  SQLQuery1.Prepared := true;
+  CdsSQLError.Active := true;
+
+  if (GridSQLError.Cells[1, 1] <> '0') then
+  begin
+   SQLFel(  435,
+            TMyPAFItem(Item).ALnr,
+            'Akutkalender2',
+            TMyPAFItem(Item).Rid ,
+            DateTimeToStr(TMyPAFItem(Item).PafStartTime),
+            UserId, PCNamn,
+            IntToStr(ToPos),S);
+  end;
+  ReadDayFromPAF(CurrDay,SetupForm.DaysShown);
+
+{$IFDEF ns_debug}
+  GridSQLError.Columns[2].Width := 485;
+  MainForm.Caption := FYSPAF.ConnectionName + '  ' + S;
+  SQLMonitor1.Active := false;
+{$ENDIF}
+end;
+
+procedure TMainForm.MyPAFPlanner1Items0EditModal(Sender: TObject);
+begin
+  // MyPafeditor1.Edit(MyPAFPlanner1,MyPafPlanner1.Items.Selected);
+end;
+
+procedure TMainForm.PAFPlannerItemSize(Sender: TObject; Item: TPlannerItem;
+  Position, FromBegin, FromEnd, ToBegin, ToEnd: Integer);
+
+var
+  S, ErrorText: String;
+  TempTime, EInt: Integer;
+
+begin
+{$IFDEF ns_debug}
+  SQLMonitor1.Active := true;
+{$ENDIF}
+  // Osäker beräkning fn. / NS
+  //PAFPlannerItemMove(Sender,Item,FromBegin,FromEnd,Item.ItemPos,ToBegin,ToEnd,Item.ItemPos);
+  CdsSQLError.Active := false;
+  SQLQuery1.SQL.Clear;
+  TempTime := (ToEnd - ToBegin) * SetupForm.SchemaDisplayUnit;
+  S := 'exec DTB_UpdateTb_ExamTime ' + IntToStr(TMyPAFItem(Item).ALnr) + ','
+  // + IntToStr(-7) + ','
+
+    + IntToStr(TempTime) + ','
+  // Hur uppdaterar jag utid?
+    + QuotedStr(UserId) + ',' + QuotedStr(PCNamn);
+
+  SQLQuery1.SQL.Add(S);
+  SQLQuery1.Prepared := true;
+  CdsSQLError.Active := true;
+  //TMyPAFItem(Item).ItemStartTime:=ToBegin;
+  (*
+  TMyPAFItem(Item).PafStartTime:=ToBegin;
+  TMyPAFItem(Item).PafEndTime:=TMyPAFItem(Item).PafStartTime + TempTime;
+  TMyPAFItem(Item).ItemStartTime:=ToBegin;
+  *)
+
+{$IFDEF ns_debug}
+  GridSQLError.Columns[2].Width := 485;
+  MainForm.Caption := FYSPAF.ConnectionName + '  ' + S;
+  SQLMonitor1.Active := false;
+{$ENDIF}
+end;
+
+procedure TMainForm.PAFPlannerPlannerRightClick(Sender: TObject;
+  Position, FromSel, FromSelPrecise, ToSel, ToSelPrecise: Integer);
+begin
+  with PAFPlanner.CreateItemAtSelection do
+  begin
+    Text.Text := 'Orsak?';
+    Captiontype := ctTime;
+    BackGround := false;
+    Layer := 1;
+    FixedPos := false;
+    Captiontext := 'Blockerad tid';
+    Color := RGB(127, 127, 100);
+    // PopUpMenu := ItemPopupMenu2;
+    Editor := nil;
+    Shape := psRounded;
+    Update;
+  end;
+
+end;
+
+procedure TMainForm.MYPAFWaitList1ItemDblClick(Sender: TObject;
+  Item: TPlannerItem);
+begin
+  // Edit item
+  PafItemEditor1.Edit(PAFPlanner,TMyPAFItem(Item));
+end;
+
+procedure TMainForm.abortmarkering1Click(Sender: TObject);
+begin
+  Beep
+end;
+
+procedure TMainForm.AddLunch(starttime, endtime: TDateTime);
+var
+  I: Integer;
+begin
+  for I := 1 to PAFPlanner.Positions - 1 do
+  begin
+    with TMyPAFItem(PAFPlanner.CreateItem) do
+    begin
+      ItemStartTime := CurrDay + starttime;
+      ItemEndTime := CurrDay + endtime;
+      BackGround := true;
+      AllowOverlap := true;
+      Alignment := taCenter;
+      Color := RGB(150, 200, 150);
+      Text.Text := 'Lunch';
+      ItemPos := I
+    end;
+  end;
+
+end;
+
+procedure TMainForm.AdvSpinEditTurklassChange(Sender: TObject);
+begin
+  //
+  TurKlassVald := AdvSpinEditTurklass.Value
+end;
+
+procedure TMainForm.Button1Click(Sender: TObject);
+begin
+  ReadRemissFromPaf;
+end;
+
+procedure TMainForm.Button2Click(Sender: TObject);
+begin
+  ReadDayFromPaf(CurrDay,SetupForm.DaysShown)
+end;
+
+procedure TMainForm.CheckBoxHelgerClick(Sender: TObject);
+begin
+(*
+  if CheckBoxHelger.Checked = true then
+  begin
+    // Två dagar
+    // Om helgdagar skall visas så är de två dagarna t.x fr + lö, annars fr + må
+    //
+    MyPAFPlanner1.DateTimeList.Add(CurrDay);
+  end
+  else
+*)
+end;
+
+procedure TMainForm.CheckListTurKlassChange(Sender: TObject);
+Var
+  S: String;
+begin
+  // Sorteringa av remissgrupp.
+  // Ännu ej i inifil
+
+ //S := CheckListTurKlass.Text;
+  // TurKlassVald := S;
+  // ReadRemissFromPaf;
+
+{$IFDEF ns_debug}
+  MainForm.Caption := S;
+{$ENDIF}
+end;
+
+procedure TMainForm.CheckListExtPrioChange(Sender: TObject);
+var
+  S: String;
+begin
+  // AEIP etc
+
+  S := CheckListExtPrio.Text;
+  ExtPrioVald := S;
+
+  // ReadRemissFromPaf;
+{$IFDEF ns_debug}
+  MainForm.Caption := S;
+{$ENDIF}
+end;
+
+procedure TMainForm.ChekboxHelaDagenClick(Sender: TObject);
+begin
+  if ChekboxHelaDagen.Checked = true then
+  begin
+    PAFPlanner.Display.ScaleToFit := true;
+    DisplayUpdate(30, 6, 20, 7, 19);
+  end
+  else
+  begin
+    PAFPlanner.Display.ScaleToFit := false;
+    DisplayUpdate(15, 6, 20, 7, 19);
+  end;
+  // DBDayPlanner.ItemSource:=DBActiveDaySource1;
+end;
+
+procedure TMainForm.DatePicker1Change(Sender: TObject);
+var
+  D: TDateTime;
+begin
+
+  D := DatePicker1.Date;
+  if D <> CurrDay then
+  begin
+    CurrDay := D;
+
+    PAFPlanner.DateTimeList.Clear;
+    PAFPlanner.DateTimeList.Add(D);
+
+    HeaderSetup(CurrDay,SetupForm.DaysShown);
+    ReadDayFromPAF(D, SetupForm.DaysShown);
+  end;
+
+end;
+
+procedure TMainForm.DefaultItemEditor1BeforeEditShow(Sender: TObject;
+  APlannerItem: TPlannerItem);
+begin
+end;
+
+
+// **********************************************************************
+// **********************************************************************
+// ******* procedurer för drag and drop mellan waitlist och planner *****
+// **********************************************************************
+
+// **********************************************************************
+// procedure MyPAFPlanner1DragOver
+// Endast klipp från waitlist
+// **********************************************************************
+procedure TMainForm.MyPAFPlanner1DragOver(Sender, Source: TObject;
+  X, Y: Integer; State: TDragState; var Accept: Boolean);
+begin
+  Accept := (Source is TMYPAFWaitList) and (X > -1) and (Y > -1);
+{$ifdef ns_debug}
+    Caption:='X= '+InttoStr(X)+' Y= '+IntToStr(y)+' Datum = '+DateTimeToStr(PafPlanner.ColToDate(currday, ColumnsPerDay, x))+
+    ' ColHeader = ' + PafPlanner.ColToHeader(X);
+    //' PafCellTodatetime = '+ DateTimeToStr(PafPlanner.PafCellToDateTime(ColumnsPerDay,X,Y))
+{$endif}
+end;
+
+procedure TMainForm.PAFPlannerDragDropCell(Sender, Source: TObject;
+  X, Y: Integer);
+var
+  ErrorSave: Integer;
+  S, ErrorText: String;
+  TmpTime: TDateTime;
+begin
+  ErrorSave := 0;
+  ErrorText := '';
+  if PAFPlanner.CellToItemNum(X, Y) = 0 then
+  begin
+    with TMyPAFItem(PAFPlanner.CreateItem) do
+    begin
+      Assign(TMyPAFItem(MYPAFWaitList1.items[MYPAFWaitList1.ItemIndex]));
+
+      TmpTime        := PAFPlanner.PafCellToDateTime(columnsperday, X, Y);
+      PafStartTime   := TmpTime; //PafPlanner.ColToDate(TmpTime,ColumnsPerDay,X);
+
+      TmpTime        := PafStartTime + EncodeTime(Utid div 60, Utid mod 60, 0, 0);
+      PafEndTime     := TmpTime;
+      Usrum          := PafPlanner.ColToHeader(X);
+
+      Color          := clSilver;
+      //Caption.color:=rgb(100,0,0);
+      //Captiontype:=ctTime;
+      Caption        := DateTimeToStr(PafStartTime);
+      Statusflg      := 1;
+
+
+      ItemStartTime := PafStartTime;
+      ItemEndTime   := PafEndtime;
+      ItemPos       := PAFPlanner.HeaderAndDateToCol(PafStartTime, Currday,
+                       ColumnsPerDay, UsRum);
+      SaveUstoPAF(  rid, DateTimeToStr(PAFStartTime), PafPlanner.ColToHeader(ItemPos),
+	                  UserId, ExeInfo1.ComputerName, { ALnr+1 } 0, Utid);
+    end;
+
+    //ItemToDayGrid(TMyPAFItem(MYPAFWaitList1.Items.Items[MYPAFWaitList1.ItemIndex]));
+    MYPAFWaitList1.items.Delete(MYPAFWaitList1.ItemIndex);
+    Update;
+  end;
+
+end;
+
+
+procedure TMainForm.ItemToDayGrid(Item: TMyPafItem);
+var lines : Integer;
+begin
+  // Lägger till ett Item to Daygrid i väntan på uppdatering från databasen.
+  // OBS Ej kontrollerad!!!!
+  Daygrid.AddRow;
+  lines:=DayGrid.Row;
+  DayGrid.Cells[1,lines]  := DateTimeToStr(Item.PafStartTime); //	varchar(16) 	Tid för raden						2012-02-27 07:45
+  DayGrid.Cells[2,lines]  := InttoStr(Item.ALNr); //	int 		Unikt id tilldelas varje rad					598876
+  DayGrid.Cells[3,lines]  := InttoStr(Item.ALlnr); //	smallint		Uppdateringsflagga ALlnr=ALlnr+1 vid varje ändring  	1
+ 	DayGrid.Cells[4,lines]  := InttoStr(Item.MallFlg); // tinyint 		1=Normal tid  0=Special/Reserverad tid			1
+  DayGrid.Cells[5,lines]  := InttoStr(Item.StatusFlg); //	smallint 		0=Ej bok. 1=Bok. 2=Anlänt 3=Påg. 4=Avsl. 5=Prel.		2
+  DayGrid.Cells[6,lines]  := InttoStr(Item.TextFlg);   //		smallint		0=Normal  1=Textrad som visas i alla tidböcker		0					Global tid Ex: Lunch 12:30
+  DayGrid.Cells[7,lines]  := InttoStr(Item.BlockFlg); //     		smallint		0=Normal  1= Tiden blockerad kan ej bokas		0
+  DayGrid.Cells[8,lines]  := Item.TdbTyp1; //        		char(15) 	Selektering i tidbok def. Undersökn Ex. EKO
+  DayGrid.Cells[9,lines]  := Item.TdbTyp2; // 		char(15) 	Selektering i tidbok def Läksign  Ex. JML
+  DayGrid.Cells[10,lines] := Item.TdbTyp3; //   		char(15) 	Selektering i tidbok def Besökstyp Ex. A=Akut
+  DayGrid.Cells[11,lines] := Item.TdbTyp4; //   		char(15) 	Selektering i tidbok def Leverantör Ex. ISOTOP
+  DayGrid.Cells[12,lines] := Item.TdbTyp5; //        		char(15) 	Kommentar till tid Ex. FORSKN.
+  DayGrid.Cells[13,lines] := Item.Pid; //         		char(15) 	Patient Id						19121212-1212
+  DayGrid.Cells[14,lines] := Item.Rid; //         		char(15) 	Remiss identitet						10-123
+  DayGrid.Cells[15,lines] := Item.PatNamn; //			varchar(50)	Sammanslagning av Efternamn + Förnamn			Tolvansson Tolvan
+  DayGrid.Cells[16,lines] := Item.ProdKod; //     		varchar(15) 	Undersökningskod 					300
+  DayGrid.Cells[17,lines] := Item.ProdText; //         		varchar(50) 	Fri text undersökning					Arbetsprov
+  DayGrid.Cells[18,lines] := Item.BestId; //      		varchar(15) 	Beställarens vårdadress					10013 102 31
+  DayGrid.Cells[19,lines] := Item.BestTxt; //       		varchar(50) 	Namn på beställare					Avd 31 SÖS
+  DayGrid.Cells[20,lines] := DateTimeToStr(Item.PafBestDatum); //     		smalldatetime 	Beställningsdatum remiss					2012-03-12
+  DayGrid.Cells[21,lines] := Item.LevtId; //             		varchar(15) 	Leverantörens identitet					10013 831 L01
+  DayGrid.Cells[22,lines] := Item.Levttxt; //        		varchar(50) 	Leverantörens namn					Fyslab SÖS
+  DayGrid.Cells[23,lines] := InttoStr(Item.Prioritet); //       		tinyint 		Prioritet numeriskt värde
+  DayGrid.Cells[24,lines] := InttoStr(Item.Utid); //			smallint		Förväntad undersökningstid i minuter			20
+  DayGrid.Cells[25,lines] := Item.PatKomm; //		varchar(255)	Remisskommentar
+  DayGrid.Cells[26,lines] := Item.Fragetext; //		varchar(255)       Frågeställning
+  DayGrid.Cells[27,lines] := Item.Anamnes; //		varchar(8000)      Anamnes
+  DayGrid.Cells[28,lines] := Item.Ordination; //		varchar		Hämtas från ett antal tabeller bl.a Ordinationstab. Innehåller det man skrivit i ordination på remissen
+
+end;
+
+// **********************************************************************
+// *** Procedurer för drag drop på en befintlig tid *********************
+// **********************************************************************
+
+
+// **********************************************************************
+// procedure MyPAFPlanner1DragOverItem
+// Kontrollerar att det är ok att släppa ett item på ett annat
+// Endast klipp från planner eller waitlist samt att det skall vara
+// en tom tid, vilket motsvarar StatusFlg = 0
+// **********************************************************************
+
+procedure TMainForm.PAFPlannerDragOverItem(Sender, Source: TObject;
+  X, Y: Integer; APlannerItem: TPlannerItem; State: TDragState;
+  var Accept: Boolean);
+begin
+  // Accepteras om källan är ok och statusflag = 0 dvs en tom tid.
+  Accept := ((Source is TMyPAFPlanner) or (Source is TMYPAFWaitList)) and
+    (TMyPAFItem(APlannerItem).StatusFlg = 0);
+end;
+// **********************************************************************
+// Flytta från väntelista till en färdig tid i tidboken.
+// **********************************************************************
+procedure TMainForm.PAFPlannerDragDropItem(Sender, Source: TObject;
+  X, Y: Integer; PlannerItem: TPlannerItem);
+begin
+  //CdsSQLError.Active := false;
+  with TMyPAFItem(PlannerItem) do
+  begin
+
+    // AlNr := TMyPafItem(Source).ALNr;
+    BackGround := false;
+    Focus := true;
+    Captiontype := ctText;
+    Captiontext := Trim(Prodkod + ' ' + PatNamn);
+    Editor := PafItemEditor1;
+    Color := clGreen;
+
+    if Source is TMYPAFWaitList then
+      begin
+        CopyRemissdataOnly
+          (TMyPAFItem(MYPAFWaitList1.items[MYPAFWaitList1.ItemIndex]));
+        SaveUstoPAF(rid, '', '', UserId, PCNamn, ALnr, Utid);
+        MYPAFWaitList1.items.Delete(MYPAFWaitList1.ItemIndex);
+      end
+    else
+      begin
+        CopyRemissdataOnly(PAFPlanner.items.Selected);
+
+        PAFPlannerItemMove(
+        Sender, PlannerItem,
+        PAFPlanner.items.Selected.ItemBegin,
+        PAFPlanner.items.Selected.ItemEnd ,
+        PAFPlanner.items.Selected.ItemPos,
+        ItemBegin,
+        ItemEnd,
+        ItemPos);
+      end;
+  end;
+
+  if Source is TMYPAFWaitList then
+    MYPAFWaitList1.items.Delete(MYPAFWaitList1.ItemIndex)
+
+end;
+
+// **********************************************************************
+// Flytta åter från Tidbok till väntelistan
+// **********************************************************************
+
+procedure TMainForm.PAFWaitList1DragOver(Sender, Source: TObject; X, Y: Integer;
+  State: TDragState; var Accept: Boolean);
+begin
+  // Accepterar bara objekt från PafPlanner.
+  Accept := (Source is TMyPAFPlanner);
+end;
+
+procedure TMainForm.PAFWaitList1DragDrop(Sender, Source: TObject;
+  X, Y: Integer);
+var
+  S, ErrorText: String;
+  EInt: Integer;
+begin
+  if Assigned(PAFPlanner.items.Selected) then
+  begin
+    //
+    SQLQuery1.SQL.Clear;
+
+    S := 'exec DTB_DeleteRemFromTB ' +
+      QuotedStr(TMyPAFItem(PAFPlanner.items.Selected).rid) + ',' +
+      QuotedStr(UserId) + ',' + QuotedStr(PCNamn);
+
+    SQLQuery1.SQL.Add(S);
+
+    SQLQuery1.Prepared := true;
+    try
+    CdsSQLError.Active := true;
+    except
+      on  E: TSQLQuery do
+      begin
+        Messagedlg('SQL fel rad 837 PAFWaitlistDragDrop. '+E.Classname, mtError,[mbOK],0);
+      end;
+    end;
+{$IFDEF ns_debug}
+    MainForm.Caption := S;
+    GridSQLError.Columns[2].Width := 485;
+{$ENDIF}
+    MYPAFWaitList1.items.Add.Assign(PAFPlanner.items.Selected);
+    PAFPlanner.FreeItem(PAFPlanner.items.Selected);
+    //ReadDayFromPAF(CurrDay);
+  end;
+end;
+// **********************************************************************
+// ******* Slut på drag and drop ***************************************
+// **********************************************************************
+
+
+// **********************************************************************
+// ***** Skriver bokade eller ändrade remisser till PAF databasen *******
+// **********************************************************************
+// Namn: SaveUstoPAF
+// Parameter:
+// @P_RemissId	varchar(15),		/* RemissId*/
+// @Alnr		int = Null,
+// @P_Tidbas	varchar(25)='',		/*Önskad tid (om det är en ny tid)*/
+// @P_TidBok	varchar(25)='',		/*Önskad tidbok (om det är en ny tid)*/
+// @P_UndTid	smallint=0,		    /*Förväntad undersökningstid i minuter*/
+// @P_UserId	varchar(15),		  /* AnvändarID*/
+// @P_PCnamn	varchar(15)		    /* PCnamn*/
+// Resultat: Skriver en förändrad undersökning till PAF
+// Kallar:  DTB_InsertTb
+// **********************************************************************
+
+procedure TMainForm.SaveUstoPAF(RemissId, Tidbas, Tidbok, UserId,
+  PCNamn: LongString; ALnr, UndTid: Integer);
+
+var
+  EInt: Integer;
+  EText: String;
+  S: String;
+  SQLError:Boolean;
+begin
+  SQLError:=false;
+  Coinitialize(nil);
+  CdsSQLError.Active := false;
+  SQLQuery1.SQL.Clear;
+
+  S := 'exec DTB_InsertTb ' + #39 + Trim(RemissId) + #39 + ',' +
+    IntToStr(ALnr) + ','
+  // + IntToStr(0)               + ','
+    + QuotedStr(Tidbas) + ',' + QuotedStr(Tidbok) + ',' + IntToStr(UndTid) + ','
+    + QuotedStr(UserId) + ',' + QuotedStr(PCNamn);
+
+  SQLQuery1.SQL.Add(S);
+
+{$IFDEF ns_debug}
+  MainForm.Caption := FYSPAF.ConnectionName + '  ' + S;
+
+{$ENDIF}
+  SQLQuery1.Prepared := true;
+
+  try
+    CdsSQLError.Active := true;
+  except
+
+    SQLError:=true;
+  end;
+
+  if (GridSQLError.Cells[1, 1] <> '0') or (SQLError = true) then
+  SQLFel( 906, AlNr, 'Akutkalender2', RemissId, Tidbas, UserId, PCnamn, Tidbok, S);
+  // SQLQuery1.Open;
+
+end;
+
+
+procedure TMainForm.SpinEditAntDagarChange(Sender: TObject);
+begin
+  SetupForm.DaysShown:=SpinEditAntDagar.Value;
+  SetupForm.WriteToInifile
+end;
+
+procedure TMainForm.Stngavprogrammet1Click(Sender: TObject);
+begin
+  Close;
+end;
+
+// ***************************************************************************
+// ****************** Drag dropp end *****************************************
+// ***************************************************************************
+// ***************************************************************************
+
+procedure TMainForm.RadioB_2DygnClick(Sender: TObject);
+begin
+  imorgon := true;
+end;
+
+procedure TMainForm.RadioB_Dygn_1Click(Sender: TObject);
+begin
+  imorgon := false;
+end;
+
+
+// **********************************************************************
+// ***** Läser in en dags undersökningar från PAF databasen *************
+// **********************************************************************
+// Namn: ReadDayFromPAF
+// Parameter: dt: Önskat datum
+// Resultat: Läser in alla undersökningar för datumet i fråga
+// Kallar: NewItemToTidbok en gång för varje post
+// **********************************************************************
+
+procedure TMainForm.ReadDayFromPAF(FirstDay: TDateTime; NoDays : Integer);
+
+var
+  I, TempI, Column: Integer;
+  LoeInDatePart: Double;
+  LengthOfExam: String;
+  tmp_Rum: String;
+  // LocalItem: TMyPafItem;
+begin
+{$IFDEF ns_debug}
+  SQLMonitor1.Active          := false;
+{$ENDIF}
+  Cursor                      := crHourGlass;
+  DayGrid.Clear;
+  Caption                     := 'Vänta! Läser in dagens undersökningar';
+  //Coinitialize(nil);
+
+  // **********************************************************************
+  // Öppna en stored procedure och läs till Tabellen Daygrid
+  // **********************************************************************
+
+  // Fyspaf.Connected:=true;
+  ClientDataSetTB.Active      := false;
+
+  DTB_GetTB.Active            := false;
+  DTB_GetTB.ParamByName('@FranDatum').AsString := DateTimeToStr(FirstDay);
+  DTB_GetTB.ParamByName('@AntDagar').AsInteger := NoDays - 1;
+  DTB_GetTB.Prepared          := true;
+
+  // DTB_GetTidbok.Active:=TRUE;
+  ClientDataSetTB.Open;
+  // ClientDataSetTB.LogChanges:=False;
+
+  AddLunch(EncodeTime(11, 30, 0, 0), EncodeTime(12, 15, 0, 0));
+  PAFPlanner.items.ClearAll;
+  PAFPlanner.items.BeginUpdate;
+
+  // **********************************************************************
+  // Loopen läser rad för rad i Daygrid och gör nya entrys i Tidboken
+  // **********************************************************************
+
+  if DayGrid.RowCount > 1 then
+  begin
+    for I := 1 to DayGrid.RowCount - 1 do
+    begin
+      DayGrid.Row := I;
+      tmp_Rum := Trim(DayGrid.Cells[8, I]);
+
+      if PafPlanner.HeaderAndDateToCol(currday,currday,ColumnsPerDay, tmp_Rum) > -1 then // Om det finns ett rum som passar
+      begin
+        with TMyPAFItem(PAFPlanner.CreateItem) do
+        begin
+          // ****************************************************
+          // Läs från dold grid, Daygrid till tidboken
+          // En post per loop.
+          // Bygger på att daygrid har en fast ordning på fälten.
+          // Ändras ordningen i stored procedure DTB_GetTidBok
+          // så måste denna ändras.
+          // Alternativt får proceduren göras om så man söker
+          // efter namn på fälten istället. (Det tar förmodligen längre tid.)
+          //
+          // Niklas 2013-04-13
+          //
+          // ****************************************************
+
+          Prodkod           := DayGrid.Cells[16, I];
+          LengthOfExam      := DayGrid.Cells[25, I];
+          Utid := StrToInt(LengthOfExam);
+          if Utid < 15  then Utid:= 15; // Minsta tidsupplösning = 15 min
+
+          BesKomm           := DayGrid.Cells[21, I];
+          PatKomm           := DayGrid.Cells[26, I];
+
+          (*
+          LoeInDatePart := StrToInt(LengthOfExam) / 1440;
+          // Del av dygn ex. 30 minuter dividerat med 1440 minuter (ett dygn)
+          ItemEndTime := ItemStartTime + LoeInDatePart;
+          PafEndTime := ItemStartTime + LoeInDatePart;
+          *)
+          Prodtext          := DayGrid.Cells[17, I];
+          UsRum             := Trim(DayGrid.Cells[8, I]);
+          pid               := DayGrid.Cells[13, I];
+          PatNamn           := DayGrid.Cells[15, I];
+          RemUsr            := DayGrid.Cells[19, I];
+          TdbUsr            := DayGrid.Cells[9, I];
+          FrageText         := DayGrid.Cells[27, I];
+          Anamnes           := DayGrid.Cells[28, I];
+          rid               := Trim(DayGrid.Cells[14, I]);
+          ALnr              := StrToInt(DayGrid.Cells[2, I]);
+          ALlnr             := StrToInt(DayGrid.Cells[3, I]);
+          StatusFlg         := StrToInt(DayGrid.Cells[5, I]);
+
+          // Inställningar för presentation av PAFItem
+          CaptionBkg        := clSilver;
+          Color             := clSilver;
+          Captiontype       := ctText;
+          Captiontext       := Trim(Prodkod + ' ' + PatNamn);
+          Editor            := PafItemEditor1;
+
+          CaptionBkgTo      := clLime;
+          CaptionBkg        := clLime;
+          CaptionFont.Color := clBlack;
+
+          case StatusFlg of
+            0:
+              begin // = Ej Bokad
+                CaptionBkgTo       := clSilver;
+                CaptionBkg         := clSilver;
+                CaptionFont.Color  := clBlack;
+{$IFDEF ns_debug}
+                BackGround         := false;
+                // Jag vill ha posten editerbar under debug.
+{$ELSE}
+                BackGround         := true;
+                // Men annars ska en fast tid inte vara det förstås.
+{$ENDIF}
+                CaptionBkg         := clSilver;
+                CaptionBkgTo       := clSilver;
+                Captiontype        := ctText;
+                Captiontext        := 'Ledig tid';
+              end;
+            1:
+              begin // Tiden är bokad men inget annat har hänt
+                CaptionBkgTo       := clSilver;
+                CaptionBkg         := clWhite;
+                CaptionFont.Color  := clBlack;
+              end;
+            2:
+              begin // Patienten har anlänt
+                CaptionBkgTo       := clRed;
+                CaptionBkg         := clRed;
+                CaptionFont.Color  := clWhite;
+              end;
+            3:
+              begin // Undersökningen pågår
+                CaptionBkgTo       := clBlue;
+                CaptionBkg         := clBlue;
+                CaptionFont.Color  := clWhite;
+              end;
+            4:
+              begin // Undersökningen är avslutad men inget svar är skrivet
+                CaptionBkgTo       := clGray;
+                CaptionBkg         := clGray;
+                CaptionFont.Color  := clWhite;
+                Color              := clGray
+              end;
+            5:
+              begin // Preliminärbokad
+                CaptionBkgTo       := clLime;
+                CaptionBkg         := clLime;
+                CaptionFont.Color  := clWhite;
+                Color              := clGray
+              end;
+            6:
+              begin // Preliminärbokad
+                CaptionBkgTo       := clFuchsia;
+                CaptionBkg         := clFuchsia;
+                CaptionFont.Color  := clWhite;
+                Color              := clGray
+              end
+          end;
+
+          PAFStartTime  := StrTodateTime(DayGrid.Cells[1, I]);
+          PafEndTime    := PafStartTime + EncodeTime(Utid div 60, Utid mod 60, 0, 0);
+          ItemStartTime := PafStartTime;
+          ItemEndTime   := PafEndtime;
+          Column        := PAFPlanner.HeaderAndDateToCol(PafStartTime,Currday, ColumnsPerDay, UsRum);
+          ItemPos       := Column;
+
+          Text.Text     := Trim(pid + #13 + FrageText + #13 + Anamnes);
+{$IFDEF ns_debug}
+          Captiontext   := DateTimetoStr(PafStartTime)+', '+UsRum;
+{$ENDIF}
+          Hint          := Text.Text;
+          PopupMenu     := ItemPopupMenu1;
+          ShowHint      := true;
+
+        end
+      end;
+    end; // For I:= ...
+  end; // if Tempgrid ...
+  Update;
+  PAFPlanner.items.EndUpdate;
+  Caption:='Klart.';
+{$IFDEF ns_debug}
+  SQLMonitor1.Active := true;
+  GridSQLError.Columns[2].Width := 485;
+{$ENDIF}
+  //CoUninitialize;
+  Cursor:=crDefault;
+end;
+
+// ***************************************************************************
+// ***************************************************************************
+// ***************************************************************************
+// Läser in remisser från PAF till väntelistan
+// Så småningom skall man klientmässigt kunna välja akuta etc.
+// för närvarande läser proceduren endast in akuta "hårdkodat"
+// ***************************************************************************
+// ***************************************************************************
+
+procedure TMainForm.ReadRemissFromPaf;
+var
+  I: Integer;
+  S: String;
+  // LocalItem: TMyPafItem;
+  LengthOfExam: String;
+begin
+{$IFDEF ns_debug}
+  SQLMonitor1.Active := false;
+{$ENDIF}
+  Cursor:=crHourGlass;
+  //Coinitialize(nil);
+
+  DTB_GetRemisser.ParamByName('@ExtPrio').AsWideString := ExtPrioVald;
+  DTB_GetRemisser.ParamByName('@Turklass').AsInteger := TurKlassVald;
+  //DTB_GetRemisser.Prepared := true;;
+
+  if not Setupform.DatabaseOK then exit;
+  if not Setupform.AllOk then exit;
+
+  Caption:='Vänta! Läser in remisser';
+  ClientDataSetRemiss.Open;
+  MYPAFWaitList1.items.ClearAll;
+  MYPAFWaitList1.items.BeginUpdate;
+
+  for I := 1 to RemissGrid.RowCount - 1 do
+  begin
+    // RemissGrid.Row := I;
+    if (RemissGrid.Cells[1, I] > '') and (true) then
+    begin
+      with TMyPAFItem(MYPAFWaitList1.items.Add) do
+      begin
+        S       := Trim(RemissGrid.Cells[35, I]);
+        akut    := false;
+        Color   := RGB(128, 200, 128);
+
+        if S = 'A' then
+          begin
+            akut         := true;
+            CaptionBkg   := RGB(200, 100, 100);
+            CaptionBkgTo := RGB(200, 100, 100);
+            Color        := RGB(200, 128, 255)
+          end;
+        if S = 'I' then
+          begin
+            akut         := false;
+            CaptionBkg   := RGB(200, 200, 100);
+            CaptionBkgTo := RGB(200, 200, 100);
+            Color        := RGB(200, 128, 255)
+          end;
+        if S = 'AI' then
+          begin
+            akut         := true;
+            CaptionBkg   := RGB(200, 200, 100);
+            CaptionBkgTo := RGB(200, 100, 100);
+            Color        := RGB(200, 128, 255)
+          end;
+
+
+        Editor           := PafItemEditor1;
+        pid              := RemissGrid.Cells[1, I];
+        PatNamn          := RemissGrid.Cells[3, I] + ' ' + RemissGrid.Cells[2, I];;
+        rid              := Trim(RemissGrid.Cells[7, I]);
+        RDatum           := StrTodateTime(RemissGrid.Cells[6, I]);
+        RemUsr           := RemissGrid.Cells[21, I];
+        FrageText        := RemissGrid.Cells[44, I];
+        Anamnes          := RemissGrid.Cells[45, I];
+
+        LengthOfExam     := DayGrid.Cells[25, I];
+        if LengthOfExam < '05' then
+          LengthOfExam := '30';
+
+        Utid             := StrToInt(LengthOfExam);
+        PafBestDatum     := StrTodateTime(RemissGrid.Cells[6, I]);
+
+        BestId           := RemissGrid.Cells[8, I];
+        BestLak          := RemissGrid.Cells[14, I];
+        Prodkod          := RemissGrid.Cells[15, I];
+
+        // ALlnr och ALnr kan vara tomma från databasen
+        // -> sätts då till 0.
+        try
+          ALlnr          := StrToInt(RemissGrid.Cells[5, I]);
+        except
+          ALlnr          := 0;
+        end;
+
+        try
+          ALnr           := StrToInt(RemissGrid.Cells[4, I]);
+        except
+          ALnr           := 0;
+        end;
+
+        Captiontype      := ctText;
+        Captiontext      := Trim('['+Prodkod+']' + ' ' + PatNamn);
+        Text.Text        := Trim(pid + #13 + FrageText + #13 + Anamnes);
+        Hint             := Text.Text;
+        ShowHint         := true;
+
+      end
+    end;
+    RemissLatestRead     := Now;
+  end;
+  Update;
+  MYPAFWaitList1.items.EndUpdate;
+  ClientDataSetRemiss.Close;
+{$IFDEF ns_debug}
+  SQLMonitor1.Active     := true;
+  GridSQLError.Columns[2].Width := 485;
+{$ENDIF}
+  CoUninitialize;
+  Cursor                 := crDefault;
+  Caption                := '';
+end;
+
+procedure TMainForm.DisplayUpdate(DUnit, DStart, DEnd, AStart, AEnd: Integer);
+var
+  RowsPerHour: Integer;
+begin
+  with PAFPlanner.Display do
+  begin
+    DisplayUnit := DUnit;
+    RowsPerHour := 60 div DisplayUnit;
+    DisplayStart := DStart * RowsPerHour;
+    DisplayEnd := DEnd * RowsPerHour;
+    ActiveStart := (AStart - DisplayStart) * RowsPerHour;
+    ActiveEnd := (AEnd - DisplayStart) * RowsPerHour;
+  end;
+end;
+
+procedure TMainForm.DisplayUpdateNew(DUnit: Integer; DStart, DEnd, AStart, AEnd: TTime);
+var
+  s,ms, // Dummys
+  RowsPerHour,
+  AktStartH,
+  AktEndH,
+  DispStartH,
+  DispEndH,
+  AktStartM,
+  AktEndM,
+  DispStartM,
+  DispEndM: Word;
+begin
+  DecodeTime(Dstart,DispStartH,DispStartM,s,ms);
+  DecodeTime(DEnd,DispEndH,DispEndM,s,ms);
+  DecodeTime(AStart,AktStartH,AktStartM,s,ms);
+  DecodeTime(AEnd,AktEndH,AktEndM,s,ms);
+
+  with PAFPlanner.Display do
+  begin
+    DisplayUnit   := DUnit; // Indelning av schemat i minuter
+    RowsPerHour   := 60 div DisplayUnit;
+    DisplayStart  := DispStartH * RowsPerHour + DispStartM div DisplayUnit;
+    DisplayEnd    := DispEndH * RowsPerHour + DispEndM div DisplayUnit;
+    ActiveStart   := 1;
+    ActiveEnd     := DisplayEnd + 1;
+  end;
+end;
+
+procedure TMainForm.SQLFel(Rad, AlNr: Integer; Modul, RemissId, Tidbas, UserId, PCnamn, Tidbok, S: string);
+var
+  S1: string;
+  F: Textfile;
+begin
+  begin
+
+    Application.MessageBox('Oops, något gick fel. Felkoder finns i den lokala filen DTB-Error.txt.', 'Fel!', mb_OK);
+    S1 := 'DTB-Error.txt';
+    AssignFile(F, S1);
+    if fileExists(S1) then
+      Append(F)
+    else
+    begin
+      Rewrite(F);
+      Writeln(F, '----------------------------------------------------------------');
+      Writeln(F, 'Det här är en fil med felinformation från PAFDTB.exe.');
+      Writeln(F, 'Om felet upprepar sig, tag kontakt med PAF-leverantören eller');
+      Writeln(F, 'direkt med konstruktören Niklas Storck: niklas@storckholmen.se.');
+      Writeln(F, 'E-posta gärna en kopia av denna fil tilsammans med en beskrivning');
+      Writeln(F, 'av när och hur felet uppstod.');
+      Writeln(F, '----------------------------------------------------------------');
+      Writeln(F, '');
+    end;
+    Writeln(F, 'Fel i DTB, Tid: ' + DateTimeToStr(now));
+    Writeln(F, '-----------------------------------');
+    Writeln(F, 'Modul: ' + Modul +', Programlinje: '+ IntToStr(Rad));
+    Writeln(F, 'SQL fråga: ' + S);
+    Writeln(F, 'Felkod: ' + GridSqlerror.Cells[1,1] + ', ' + GridSqlerror.Cells[2,1]);
+    Writeln(F, 'Remissid: ' + RemissId + '. AlNr: ' + IntToStr(ALnr) + '. Tidbas: ' + Tidbas + '.');
+    Writeln(F, 'Användare: ' + UserId + '. PCNamn: ' + PCNamn + '. Tidbok: ' + Tidbok + '.');
+    Writeln(F, '');
+    CloseFile(F);
+    CoUninitialize;
+    //ReadRemissFromPaf;
+  end;
+end;
+
+procedure TMainForm.Table1AfterInsert(DataSet: TDataSet);
+begin
+  Update;
+end;
+
+
+procedure TMainForm.TimerKlockaTimer(Sender: TObject);
+begin
+  PAFPlanner.Caption.Title := '   ' + FormatDateTime('HH:mm:ss', now);
+ (*
+  if Setupform.Changed then
+  begin
+    HeaderSetup;
+    if Setupform.DatabaseOK then
+      ReadDayFromPAF(CurrDay);
+    Setupform.Changed := false
+  end;
+  *)
+end;
+
+procedure TMainForm.TimerPlannerTimer(Sender: TObject);
+begin
+ if Setupform.DatabaseOK then  ReadDayFromPAF(CurrDay, SetupForm.DaysShown);
+end;
+
+procedure TMainForm.TimerRemissTimer(Sender: TObject);
+begin
+ if (RemissLatestRead - Now) > 0.05 then
+    if Setupform.DatabaseOK then
+       ReadRemissFromPaf;
+end;
+
+end.

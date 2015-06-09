@@ -1,0 +1,81 @@
+{$IFDEF PROFILE} {$O-} {$WARNINGS OFF} {$ENDIF }
+{$IFDEF PROFILE} {    Do not delete previous line(s) !!! } {$ENDIF }
+{$IFDEF PROFILE} { Otherwise sources can not be cleaned !!! } {$ENDIF }
+unit ItemEdit2;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, CurvyControls, W7Classes, W7Bars,
+  PAFPlanner, AdvGlassButton, AdvSmoothPanel{$IFNDEF PROFILE};{$ELSE}{},DebugInterface, Profint;{$ENDIF}
+
+type
+  TItemEditForm = class(TForm)
+    W7InformationBar1: TW7InformationBar;
+    CurvyPanel1: TCurvyPanel;
+    CeNamn: TCurvyEdit;
+    CurvyCombo1: TCurvyCombo;
+    CePnr: TCurvyEdit;
+    ButtonOK: TAdvGlassButton;
+    CeTdbUsr: TCurvyEdit;
+    CeUndLak: TCurvyEdit;
+    CmAnamnes: TCurvyMemo;
+    CeProdkod: TCurvyEdit;
+    CeProdtext: TCurvyEdit;
+    CEFragetext: TCurvyEdit;
+    procedure FormCreate(Sender: TObject);
+    procedure ButtonOKClick(Sender: TObject);
+  private
+    { Private declarations }
+    FItem: TMyPAFItem;
+  public
+    { Public declarations }
+    function Execute(LocalItem: TMyPAFItem): Integer;
+    property Item: TMyPAFItem read FItem write FItem;
+  end;
+
+var
+  ItemEditForm: TItemEditForm;
+
+implementation
+
+{$R *.dfm}
+
+procedure TItemEditForm.ButtonOKClick(Sender: TObject);
+begin
+{$IFDEF PROFILE}WriteLn('ItemEdit2-TItemEditForm.ButtonOKClick - Start');try; Profint.PomoEnter(109); try;{$ENDIF}
+  // FItem.Notes:= CmNotes.Lines.Text;
+  //FItem.TdbUsr := CeTdbUsr.Text;
+  Close;
+{$IFDEF PROFILE}except else Profint.PomoExce; end; finally; Profint.PomoExit(109); WriteLn('ItemEdit2-TItemEditForm.ButtonOKClick - End');end; {$ENDIF}
+end;
+
+function TItemEditForm.Execute(LocalItem: TMyPAFItem): Integer;
+begin
+{$IFDEF PROFILE}WriteLn('ItemEdit2-TItemEditForm.Execute - Start');try; Profint.PomoEnter(110); try;{$ENDIF}
+  CmAnamnes.Lines.Clear;
+  CePnr.Text := LocalItem.Pafdata.pid;
+  CeNamn.Text := LocalItem.PafData.PatNamn; // OBS namnet måste fixas !!
+  CeProdkod.Text := LocalItem.PafData.Prodkod;
+  CeProdtext.Text := LocalItem.PafData.Prodtext;
+  //CEFragetext.Text := FItem.FrageText;
+  CmAnamnes.Lines.Add(LocalItem.PafData.Anamnes);
+  CeTdbUsr.Text := LocalItem.PafData.TdbUsr;
+  CeUndLak.Text := LocalItem.PafData.UndLak;
+  ItemEditForm.ShowModal;
+  Result:=0;
+{$IFDEF PROFILE}except else Profint.PomoExce; end; finally; Profint.PomoExit(110); WriteLn('ItemEdit2-TItemEditForm.Execute - End');end; {$ENDIF}
+end;
+
+procedure TItemEditForm.FormCreate(Sender: TObject);
+begin
+{$IFDEF PROFILE}WriteLn('ItemEdit2-TItemEditForm.FormCreate - Start');try; Profint.PomoEnter(111); try;{$ENDIF}
+  // FItem:=
+  //CmAnamnes.Lines.Clear;
+
+{$IFDEF PROFILE}except else Profint.PomoExce; end; finally; Profint.PomoExit(111); WriteLn('ItemEdit2-TItemEditForm.FormCreate - End');end; {$ENDIF}
+end;
+
+end.

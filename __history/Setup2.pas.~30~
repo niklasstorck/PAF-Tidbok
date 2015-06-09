@@ -1,0 +1,100 @@
+unit Setup2;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, GDIPCustomItem, GDIPTextItem,
+  GDIPImageTextItem, GDIPGraphicItem, GDIPCheckItem, CustomItemsContainer,
+  AdvPolyList, CurvyControls, AdvPolyPager, GDIPSectionItem,
+  GDIPImageSectionItem, GDIPHeaderItem, AdvSmoothButton, Vcl.Grids, AdvObj,
+  BaseGrid, AdvGrid, DBAdvGrid;
+
+type
+  TRum = record
+    Nr: Integer;
+    Rum: String;
+    Show: Boolean
+  end;
+
+  TCols = array [0..25] of TRum;
+
+  TSetupForm = class(TForm)
+    CurvyPanel1: TCurvyPanel;
+    Pager: TAdvPolyPager;
+    HeaderItem1: THeaderItem;
+    SectionItem1: TSectionItem;
+    AdvPolyPage1: TAdvPolyPage;
+    AdvPolyList1: TAdvPolyList;
+    CheckItem1: TCheckItem;
+    CheckItem2: TCheckItem;
+    AdvPolyPage2: TAdvPolyPage;
+    CurvyPanel2: TCurvyPanel;
+    ButtOk: TAdvSmoothButton;
+    ButtCancel: TAdvSmoothButton;
+    AdvPolyPage3: TAdvPolyPage;
+    procedure FormCreate(Sender: TObject);
+    function Setup(var col: TCols ):Integer;
+    procedure ButtOkClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    Columns: TCols;
+    procedure BeforeEdit(col :TCols);
+  end;
+
+var
+  SetupForm: TSetupForm;
+
+implementation
+
+{$R *.dfm}
+procedure TSetupForm.FormCreate(Sender: TObject);
+var i: Integer;
+begin
+  HeaderItem1.Caption:='Inställningar';
+  SectionItem1.Caption:='Rum';
+
+  for i := 0 to high(Columns) do begin
+    //Columns[i].create;
+    Columns[i].Nr:=0;
+    Columns[i].Rum:=''
+  end;
+
+end;
+
+procedure TSetupForm.BeforeEdit(col: TCols);
+var i: Integer; S: String;
+begin
+  for I := 1 to High(col)-1 do
+  begin
+     S:=col[i].Rum;
+     with TCheckItem(AdvPolyList1.AddItem(TCheckItem)) do
+     Caption:=S;
+  end;
+  //SetupForm.ShowModal;
+  for I := 0 to High(col)-1 do
+    begin
+      if TCheckItem(AdvPolyList1.Items[i]).Checked then
+        col[i].Show:=True
+      else
+        col[i].Show:=False;
+    end;
+end;
+
+procedure TSetupForm.ButtOkClick(Sender: TObject);
+var
+  i: Integer;
+begin
+  for i := 1 to 2 do
+  begin
+
+  end;
+
+  Close;
+end;
+
+
+
+end.

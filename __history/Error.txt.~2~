@@ -1,0 +1,24 @@
+----------------------------------------------------------------
+Det här är en fil med fel i den dynamiska tidboken till PAF.
+Om felet upprepar sig tag kontakt med PAF-leverantören eller
+direkt med konstruktören Niklas Storck: niklas@family-storck.se.
+E-posta gärna en kopia av denna fil tilsammans med en beskrivning
+av när och hur felet uppstod.
+----------------------------------------------------------------
+
+----------------- Start på felmedelande---------------------------
+Fel i DTB, Tid: 2013-05-06 19:59:01
+-----------------------------------
+Felkod: 10001, FEL ! Det finns redan en remiss i Tidboken med detta remissid
+Remissid: 10-2214. AlNr: 0. Tidbas: 2013-05-06 09:00:00.
+Användare: Niklas. PCNamn: NIKLAS-DATOR. Tidbok: JOUR.
+----------------- Slut på felmedelande ---------------------------
+
+----------------- Start på felmedelande---------------------------
+Fel i DTB, Tid: 2013-05-06 19:59:14
+-----------------------------------
+Felkod: 10001, FEL ! Det finns redan en remiss i Tidboken med detta remissid
+Remissid: 10-2214. AlNr: 0. Tidbas: 2013-05-06 09:15:00.
+Användare: Niklas. PCNamn: NIKLAS-DATOR. Tidbok: JOUR.
+----------------- Slut på felmedelande ---------------------------
+

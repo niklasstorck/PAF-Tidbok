@@ -1,0 +1,25 @@
+program KalenderFys2;
+
+uses
+  Forms,
+  AkutKalender2 in 'AkutKalender2.pas' {MainForm},
+  Setup2 in 'Setup2.pas' {SetupForm},
+  GlobalPAFData in 'GlobalPAFData.pas' {$ELSE};
+
+uses
+  Forms,
+  AkutKalender2 in 'AkutKalender2.pas' {MainForm},
+  Setup2 in 'Setup2.pas' {SetupForm},
+  GlobalPAFData in 'GlobalPAFData.pas' {$ELSE};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TMainForm, MainForm);
+  //Application.CreateForm(TItemEditForm, ItemEditForm);
+  Application.CreateForm(TSetupForm, SetupForm);
+  Application.Run;
+
+end.

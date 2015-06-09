@@ -1,0 +1,106 @@
+{$define PROFILE}
+unit ItemEdit2;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,Planner,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, CurvyControls, W7Classes, W7Bars,
+  PAFPlanner, AdvGlassButton, AdvSmoothPanel;
+
+type
+  TItemEditForm = class(TCustomItemeditor)
+    W7InformationBar1: TW7InformationBar;
+    CurvyPanel1: TCurvyPanel;
+    CeNamn: TCurvyEdit;
+    CurvyCombo1: TCurvyCombo;
+    CePnr: TCurvyEdit;
+    ButtonOK: TAdvGlassButton;
+    CeTdbUsr: TCurvyEdit;
+    CeUndLak: TCurvyEdit;
+    CmAnamnes: TCurvyMemo;
+    CeProdkod: TCurvyEdit;
+    CeProdtext: TCurvyEdit;
+    CEFragetext: TCurvyEdit;
+    procedure FormCreate(Sender: TObject);
+    procedure ButtonOKClick(Sender: TObject);
+  private
+    { Private declarations }
+    FItem: TMyPAFItem;
+  public
+    { Public declarations }
+    procedure CreateEditor(AOwner: TComponent); override;
+    function Execute: Integer; override;
+    property Item: TMyPAFItem read FItem write FItem;
+    procedure PlannerItemToEdit(APlannerItem: TPlannerItem); override;
+    procedure EditToPlannerItem(APlannerItem: TPlannerItem); override;
+
+  end;
+
+var
+  ItemEditForm: TItemEditForm;
+
+implementation
+
+{$R *.dfm}
+
+procedure TItemEditForm.ButtonOKClick(Sender: TObject);
+begin
+  // FItem.Notes:= CmNotes.Lines.Text;
+  //FItem.TdbUsr := CeTdbUsr.Text;
+  //Close;
+end;
+
+procedure TItemEditForm.CreateEditor(AOwner: TComponent);
+begin
+  inherited;
+  FormCreate(AOwner);
+end;
+
+procedure TItemEditForm.EditToPlannerItem(APlannerItem: TPlannerItem);
+begin
+  inherited;
+  // Skriv åter det som kan editeras till planner
+
+end;
+
+function TItemEditForm.Execute: Integer;
+begin
+  {
+  CmAnamnes.Lines.Clear;
+  CePnr.Text := LocalItem.Pafdata.pid;
+  CeNamn.Text := LocalItem.PafData.PatNamn; // OBS namnet måste fixas !!
+  CeProdkod.Text := LocalItem.PafData.Prodkod;
+  CeProdtext.Text := LocalItem.PafData.Prodtext;
+  //CEFragetext.Text := FItem.FrageText;
+  CmAnamnes.Lines.Add(LocalItem.PafData.Anamnes);
+  CeTdbUsr.Text := LocalItem.PafData.TdbUsr;
+  CeUndLak.Text := LocalItem.PafData.UndLak;
+  ItemEditForm.ShowModal;     }
+  Result:=0;
+end;
+
+procedure TItemEditForm.FormCreate(Sender: TObject);
+begin
+  // FItem:=
+  //CmAnamnes.Lines.Clear;
+
+end;
+
+procedure TItemEditForm.PlannerItemToEdit(APlannerItem: TMyPAFItem);
+begin
+  inherited;
+  CmAnamnes.Lines.Clear;
+  CePnr.Text := APlannerItem.Pafdata.pid;
+  CeNamn.Text := APlannerItem.PafData.PatNamn; // OBS namnet måste fixas !!
+  CeProdkod.Text := APlannerItem.PafData.Prodkod;
+  CeProdtext.Text := APlannerItem.PafData.Prodtext;
+  //CEFragetext.Text := FItem.FrageText;
+  CmAnamnes.Lines.Add(APlannerItem.PafData.Anamnes);
+  CeTdbUsr.Text := APlannerItem.PafData.TdbUsr;
+  CeUndLak.Text := APlannerItem.PafData.UndLak;
+
+end;
+
+end.

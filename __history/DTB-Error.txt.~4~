@@ -1,0 +1,124 @@
+----------------------------------------------------------------
+Det här är en fil med fel i den dynamiska tidboken till PAF.
+Om felet upprepar sig, tag kontakt med PAF-leverantören eller
+direkt med konstruktören Niklas Storck: niklas@storckholmen.se.
+E-posta gärna en kopia av denna fil tilsammans med en beskrivning
+av när och hur felet uppstod.
+----------------------------------------------------------------
+
+Fel i DTB, Tid: 2013-09-26 19:25:40
+-----------------------------------
+SQL fråga: exec DTB_InsertTb '10-2214',0,'2013-09-28 07:00:00','EKO-2',30,'Niklas','NIKLAS-DATOR'
+Felkod: 10001, FEL ! Det finns redan en remiss i Tidboken med detta remissid
+Remissid: 10-2214. AlNr: 0. Tidbas: 2013-09-28 07:00:00.
+Användare: Niklas. PCNamn: NIKLAS-DATOR. Tidbok: EKO-2.
+
+Fel i DTB, Tid: 2013-09-26 19:26:20
+-----------------------------------
+SQL fråga: exec DTB_InsertTb '10-2214',0,'2013-09-26 07:00:00','EKO-2',30,'Niklas','NIKLAS-DATOR'
+Felkod: 10001, FEL ! Det finns redan en remiss i Tidboken med detta remissid
+Remissid: 10-2214. AlNr: 0. Tidbas: 2013-09-26 07:00:00.
+Användare: Niklas. PCNamn: NIKLAS-DATOR. Tidbok: EKO-2.
+
+Fel i DTB, Tid: 2013-09-26 19:27:14
+-----------------------------------
+SQL fråga: exec DTB_InsertTb '10-2214',0,'2013-09-26 07:00:00','EKO-2',30,'Niklas','NIKLAS-DATOR'
+Felkod: 10001, FEL ! Det finns redan en remiss i Tidboken med detta remissid
+Remissid: 10-2214. AlNr: 0. Tidbas: 2013-09-26 07:00:00.
+Användare: Niklas. PCNamn: NIKLAS-DATOR. Tidbok: EKO-2.
+
+Fel i DTB, Tid: 2013-09-26 19:29:41
+-----------------------------------
+SQL fråga: exec DTB_InsertTb '10-2214',0,'2013-09-28 07:00:00','EKO-2',30,'Niklas','NIKLAS-DATOR'
+Felkod: 10001, FEL ! Det finns redan en remiss i Tidboken med detta remissid
+Remissid: 10-2214. AlNr: 0. Tidbas: 2013-09-28 07:00:00.
+Användare: Niklas. PCNamn: NIKLAS-DATOR. Tidbok: EKO-2.
+
+Fel i DTB, Tid: 2013-09-26 19:33:29
+-----------------------------------
+Modul: Akutkalender2, Programlinje: 906
+SQL fråga: exec DTB_InsertTb '10-2214',0,'2013-09-26 07:00:00','EKO-2',30,'Niklas','NIKLAS-DATOR'
+Felkod: 10001, FEL ! Det finns redan en remiss i Tidboken med detta remissid
+Remissid: 10-2214. AlNr: 0. Tidbas: 2013-09-26 07:00:00.
+Användare: Niklas. PCNamn: NIKLAS-DATOR. Tidbok: EKO-2.
+
+Fel i DTB, Tid: 2013-09-26 19:34:04
+-----------------------------------
+Modul: Akutkalender2, Programlinje: 906
+SQL fråga: exec DTB_InsertTb '10-2214',0,'2013-09-26 07:00:00','EKO-2',30,'Niklas','NIKLAS-DATOR'
+Felkod: 10001, FEL ! Det finns redan en remiss i Tidboken med detta remissid
+Remissid: 10-2214. AlNr: 0. Tidbas: 2013-09-26 07:00:00.
+Användare: Niklas. PCNamn: NIKLAS-DATOR. Tidbok: EKO-2.
+
+Fel i DTB, Tid: 2013-09-26 19:35:05
+-----------------------------------
+Modul: Akutkalender2, Programlinje: 906
+SQL fråga: exec DTB_InsertTb '10-2214',0,'2013-09-26 06:45:00','EKO-2',30,'Niklas','NIKLAS-DATOR'
+Felkod: 10001, FEL ! Det finns redan en remiss i Tidboken med detta remissid
+Remissid: 10-2214. AlNr: 0. Tidbas: 2013-09-26 06:45:00.
+Användare: Niklas. PCNamn: NIKLAS-DATOR. Tidbok: EKO-2.
+
+Fel i DTB, Tid: 2013-09-27 14:32:26
+-----------------------------------
+Modul: Akutkalender2, Programlinje: 906
+SQL fråga: exec DTB_InsertTb '10-2214',0,'2013-09-27 07:00:00','EKO-2',30,'Niklas','NIKLAS-DATOR'
+Felkod: 10001, FEL ! Det finns redan en remiss i Tidboken med detta remissid
+Remissid: 10-2214. AlNr: 0. Tidbas: 2013-09-27 07:00:00.
+Användare: Niklas. PCNamn: NIKLAS-DATOR. Tidbok: EKO-2.
+
+Fel i DTB, Tid: 2013-09-27 14:33:18
+-----------------------------------
+Modul: Akutkalender2, Programlinje: 906
+SQL fråga: exec DTB_InsertTb '10-2214',0,'2013-09-27 08:00:00','EKO-2',30,'Niklas','NIKLAS-DATOR'
+Felkod: 10001, FEL ! Det finns redan en remiss i Tidboken med detta remissid
+Remissid: 10-2214. AlNr: 0. Tidbas: 2013-09-27 08:00:00.
+Användare: Niklas. PCNamn: NIKLAS-DATOR. Tidbok: EKO-2.
+
+Fel i DTB, Tid: 2013-09-27 14:38:12
+-----------------------------------
+Modul: Akutkalender2, Programlinje: 906
+SQL fråga: exec DTB_InsertTb '10-2214',0,'2013-09-28 07:00:00','EKO-2',30,'Niklas','NIKLAS-DATOR'
+Felkod: 10001, FEL ! Det finns redan en remiss i Tidboken med detta remissid
+Remissid: 10-2214. AlNr: 0. Tidbas: 2013-09-28 07:00:00.
+Användare: Niklas. PCNamn: NIKLAS-DATOR. Tidbok: EKO-2.
+
+Fel i DTB, Tid: 2013-09-27 14:45:48
+-----------------------------------
+Modul: Akutkalender2, Programlinje: 906
+SQL fråga: exec DTB_InsertTb '10-2214',0,'2013-09-28 11:00:00','EKO-2',30,'Niklas','NIKLAS-DATOR'
+Felkod: 10001, FEL ! Det finns redan en remiss i Tidboken med detta remissid
+Remissid: 10-2214. AlNr: 0. Tidbas: 2013-09-28 11:00:00.
+Användare: Niklas. PCNamn: NIKLAS-DATOR. Tidbok: EKO-2.
+
+Fel i DTB, Tid: 2013-09-27 15:27:33
+-----------------------------------
+Modul: Akutkalender2, Programlinje: 906
+SQL fråga: exec DTB_InsertTb '09-13678',0,'2013-09-02 07:00:00','EKO-3',30,'Niklas','NIKLAS-DATOR'
+Felkod: 10001, FEL ! Det finns redan en remiss i Tidboken med detta remissid
+Remissid: 09-13678. AlNr: 0. Tidbas: 2013-09-02 07:00:00.
+Användare: Niklas. PCNamn: NIKLAS-DATOR. Tidbok: EKO-3.
+
+Fel i DTB, Tid: 2013-09-27 15:38:02
+-----------------------------------
+Modul: Akutkalender2, Programlinje: 906
+SQL fråga: exec DTB_InsertTb '10-2214',0,'2013-09-28 07:00:00','EKO-2',30,'Niklas','NIKLAS-DATOR'
+Felkod: 10001, FEL ! Det finns redan en remiss i Tidboken med detta remissid
+Remissid: 10-2214. AlNr: 0. Tidbas: 2013-09-28 07:00:00.
+Användare: Niklas. PCNamn: NIKLAS-DATOR. Tidbok: EKO-2.
+
+Fel i DTB, Tid: 2013-09-30 10:43:36
+-----------------------------------
+Modul: Akutkalender2, Programlinje: 906
+SQL fråga: exec DTB_InsertTb '10-2214',0,'2013-10-01 07:00:00','EKO-2',30,'Niklas','NIKLAS-DATOR'
+Felkod: 10001, FEL ! Det finns redan en remiss i Tidboken med detta remissid
+Remissid: 10-2214. AlNr: 0. Tidbas: 2013-10-01 07:00:00.
+Användare: Niklas. PCNamn: NIKLAS-DATOR. Tidbok: EKO-2.
+
+Fel i DTB, Tid: 2013-09-30 10:45:17
+-----------------------------------
+Modul: Akutkalender2, Programlinje: 906
+SQL fråga: exec DTB_InsertTb '10-2214',0,'2013-10-01 08:00:00','EKO-3',30,'Niklas','NIKLAS-DATOR'
+Felkod: 10001, FEL ! Det finns redan en remiss i Tidboken med detta remissid
+Remissid: 10-2214. AlNr: 0. Tidbas: 2013-10-01 08:00:00.
+Användare: Niklas. PCNamn: NIKLAS-DATOR. Tidbok: EKO-3.
+

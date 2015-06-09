@@ -1,0 +1,37 @@
+unit Datamodul;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Data.DBXMSSQL, Data.FMTBcd, Data.DB,
+  Data.SqlExpr, Datasnap.DBClient, Datasnap.Provider;
+
+type
+  TData = class(TDataModule)
+    DTB_GetRemisser: TSQLDataSet;
+    DTB_GetTidbok: TSQLDataSet;
+    DTB_GetTidbokTyp: TSQLDataSet;
+    DTB_InsertTb: TSQLDataSet;
+    SQLMonitor1: TSQLMonitor;
+    SQLQuery1: TSQLQuery;
+    DataSetProvider1: TDataSetProvider;
+    ClientDataSet1: TClientDataSet;
+    DataSetProvider2: TDataSetProvider;
+    ClientDataSet2: TClientDataSet;
+    FYSPAF: TSQLConnection;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Data: TData;
+
+implementation
+
+{%CLASSGROUP 'System.Classes.TPersistent'}
+
+{$R *.dfm}
+
+end.

@@ -1,0 +1,81 @@
+----------------------------------------------------------------
+Det här är en fil med fel i den dynamiska tidboken till PAF.
+Om felet upprepar sig, tag kontakt med PAF-leverantören eller
+direkt med konstruktören Niklas Storck: niklas@storckholmen.se.
+E-posta gärna en kopia av denna fil tilsammans med en beskrivning
+av när och hur felet uppstod.
+----------------------------------------------------------------
+
+Fel i DTB, Tid: 2013-07-06 23:49:58
+-----------------------------------
+Felkod: , 
+Remissid: 13-8087b. AlNr: 0. Tidbas: 2013-07-06 07:00:00.
+Användare: Niklas. PCNamn: NIKLAS-LT. Tidbok: EKO-3.
+
+Fel i DTB, Tid: 2013-07-07 15:49:01
+-----------------------------------
+Felkod: , 
+Remissid: 13-8087b. AlNr: 0. Tidbas: 2013-07-07 07:00:00.
+Användare: Niklas. PCNamn: NIKLAS-LT. Tidbok: EKO-4.
+
+Fel i DTB, Tid: 2013-07-07 21:41:44
+-----------------------------------
+Felkod: , 
+Remissid: 13-8087b. AlNr: 0. Tidbas: 2013-07-07 08:00:00.
+Användare: Niklas. PCNamn: NIKLAS-LT. Tidbok: EKO-3.
+
+Fel i DTB, Tid: 2013-07-07 21:49:40
+-----------------------------------
+Felkod: , 
+Remissid: 13-8143b. AlNr: 0. Tidbas: 2013-07-07 08:00:00.
+Användare: Niklas. PCNamn: NIKLAS-LT. Tidbok: EKO-3.
+
+Fel i DTB, Tid: 2013-07-08 19:59:43
+-----------------------------------
+Felkod: , 
+Remissid: 13-8087b. AlNr: 0. Tidbas: 2013-07-08 08:00:00.
+Användare: Niklas. PCNamn: NIKLAS-LT. Tidbok: EKO-3.
+
+Fel i DTB, Tid: 2013-07-08 20:09:35
+-----------------------------------
+Felkod: 10002,  Tidboksraden 901386 är redan bokad !
+Remissid: 13-7390. AlNr: 901386. Tidbas: .
+Användare: Niklas. PCNamn: NIKLAS-LT. Tidbok: .
+
+Fel i DTB, Tid: 2013-07-15 12:29:38
+-----------------------------------
+Felkod: , 
+Remissid: 13-8176b. AlNr: 901431. Tidbas: .
+Användare: Niklas. PCNamn: STGFYS-SGPD0013. Tidbok: .
+
+Fel i DTB, Tid: 2013-07-16 10:43:46
+-----------------------------------
+Felkod: 10001, FEL ! Det finns redan en remiss i Tidboken med detta remissid
+Remissid: 12-6138b. AlNr: 846885. Tidbas: .
+Användare: Niklas. PCNamn: STGFYS-SGPD0013. Tidbok: .
+
+Fel i DTB, Tid: 2013-07-16 10:44:53
+-----------------------------------
+Felkod: 10001, FEL ! Det finns redan en remiss i Tidboken med detta remissid
+Remissid: 12-5900. AlNr: 846880. Tidbas: .
+Användare: Niklas. PCNamn: STGFYS-SGPD0013. Tidbok: .
+
+Fel i DTB, Tid: 2013-07-17 11:34:02
+-----------------------------------
+Felkod: 10001, FEL ! Det finns redan en remiss i Tidboken med detta remissid
+Remissid: 12-5270. AlNr: 846901. Tidbas: .
+Användare: Niklas. PCNamn: STGFYS-SGPD0013. Tidbok: .
+
+Fel i DTB, Tid: 2013-07-17 11:37:57
+-----------------------------------
+Felkod: 10001, FEL ! Det finns redan en remiss i Tidboken med detta remissid
+Remissid: 12-1106. AlNr: 846901. Tidbas: .
+Användare: Niklas. PCNamn: STGFYS-SGPD0013. Tidbok: .
+
+Fel i DTB, Tid: 2013-07-17 13:33:18
+-----------------------------------
+SQL fråga: exec DTB_InsertTb '12-3682',846895,'','',30,'Niklas','STGFYS-SGPD0013'
+Felkod: 10001, FEL ! Det finns redan en remiss i Tidboken med detta remissid
+Remissid: 12-3682. AlNr: 846895. Tidbas: .
+Användare: Niklas. PCNamn: STGFYS-SGPD0013. Tidbok: .
+

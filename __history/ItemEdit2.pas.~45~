@@ -1,0 +1,74 @@
+unit ItemEdit2;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, CurvyControls, W7Classes, W7Bars,
+  PAFPlanner, AdvGlassButton, AdvSmoothPanel;
+
+type
+  TItemEditForm = class(TForm)
+    W7InformationBar1: TW7InformationBar;
+    CurvyPanel1: TCurvyPanel;
+    CeNamn: TCurvyEdit;
+    CurvyCombo1: TCurvyCombo;
+    CePnr: TCurvyEdit;
+    ButtonOK: TAdvGlassButton;
+    CeTdbUsr: TCurvyEdit;
+    CeUndLak: TCurvyEdit;
+    CmAnamnes: TCurvyMemo;
+    CeProdkod: TCurvyEdit;
+    CeProdtext: TCurvyEdit;
+    CEFragetext: TCurvyEdit;
+    procedure FormCreate(Sender: TObject);
+    procedure ButtonOKClick(Sender: TObject);
+  private
+    { Private declarations }
+    FItem: TMyPAFItem;
+  public
+    { Public declarations }
+    function Execute(LocalItem: TMyPAFItem): Integer;
+    property Item: TMyPAFItem read FItem write FItem;
+  end;
+
+var
+  ItemEditForm: TItemEditForm;
+
+implementation
+
+{$R *.dfm}
+
+procedure TItemEditForm.ButtonOKClick(Sender: TObject);
+begin
+  // FItem.Notes:= CmNotes.Lines.Text;
+  //FItem.TdbUsr := CeTdbUsr.Text;
+  Close;
+end;
+
+function TItemEditForm.Execute(LocalItem: TMyPAFItem): Integer;
+var FITEM: TMyPAFItem;
+begin
+  CmAnamnes.Lines.Clear;
+  FItem := LocalItem;
+  CePnr.Text := FItem.pid;
+  CeNamn.Text := FItem.Name; // OBS namnet måste fixas !!
+  CeProdkod.Text := FItem.Prodkod;
+  CeProdtext.Text := FItem.Prodtext;
+  //CEFragetext.Text := FItem.FrageText;
+  CmAnamnes.Lines.Add(FItem.Anamnes);
+  CeTdbUsr.Text := FItem.TdbUsr;
+  CeUndLak.Text := FItem.UndLak;
+  ItemEditForm.ShowModal;
+  Result:=0;
+end;
+
+procedure TItemEditForm.FormCreate(Sender: TObject);
+begin
+  // FItem:=
+  CmAnamnes.Lines.Clear;
+
+end;
+
+end.

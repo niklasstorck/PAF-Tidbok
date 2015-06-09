@@ -1,0 +1,72 @@
+﻿Checking project dependencies...
+Building PAFKomponents.dproj (Release, Win32)
+brcc32 command line for "PAFKomponents.vrc"
+  c:\program files (x86)\embarcadero\rad studio\9.0\bin\cgrc.exe -c65001 "PAFKomponents.vrc" -foPAFKomponents.res 
+dcc command line for "PAFKomponents.dpk"
+  c:\program files (x86)\embarcadero\rad studio\9.0\bin\dcc32.exe -$D- -$L- -$Y- --no-config -B -Q -TX.bpl 
+  -AGenerics.Collections=System.Generics.Collections;Generics.Defaults=System.Generics.Defaults;WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;
+  DbiProcs=BDE;DbiErrs=BDE -DRELEASE -I"F:\Fyslab\Programvara\PAF tidbok\Komponents";"c:\program files (x86)\embarcadero\rad studio\9.0\Imports";
+  "C:\Users\Public\Documents\RAD Studio\9.0\Dcp";"C:\Program Files (x86)\Embarcadero\RAD Studio\9.0\lib\win32\release";"C:\Program Files 
+  (x86)\Embarcadero\RAD Studio\9.0\lib\win32\debug";"F:\Fyslab\Programvara\PAF tidbok\Komponents";"C:\Users\Niklas\Documents\tmssoftware\TMS Component 
+  Pack";"C:\Users\Niklas\Documents\tmssoftware\TMS Component Pack\DelphiXE2";"C:\Users\Niklas\Documents\tmssoftware\TMS Component Pack\xlsAdapter";
+  "C:\Program Files (x86)\tmssoftware\WebOSMaps RSXE2";"c:\program files (x86)\embarcadero\rad studio\9.0\RaveReports\Lib";"C:\Program Files 
+  (x86)\Raize\CS5\Lib\RS-XE2\Win32";"C:\Program Files (x86)\Embarcadero\RAD Studio\9.0\bin" -LE"C:\Users\Public\Documents\RAD Studio\9.0\Bpl" 
+  -LN"C:\Users\Public\Documents\RAD Studio\9.0\Dcp" -NSSystem.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;Vcl;Vcl.Imaging;Vcl.Touch;
+  Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;Winapi; -O"F:\Fyslab\Programvara\PAF tidbok\Komponents";"c:\program files 
+  (x86)\embarcadero\rad studio\9.0\Imports";"C:\Users\Public\Documents\RAD Studio\9.0\Dcp";"C:\Program Files (x86)\Embarcadero\RAD 
+  Studio\9.0\lib\win32\release";"C:\Program Files (x86)\Embarcadero\RAD Studio\9.0\lib\win32\debug";"F:\Fyslab\Programvara\PAF tidbok\Komponents";
+  "C:\Users\Niklas\Documents\tmssoftware\TMS Component Pack";"C:\Users\Niklas\Documents\tmssoftware\TMS Component Pack\DelphiXE2";
+  "C:\Users\Niklas\Documents\tmssoftware\TMS Component Pack\xlsAdapter";"C:\Program Files (x86)\tmssoftware\WebOSMaps RSXE2";"c:\program files 
+  (x86)\embarcadero\rad studio\9.0\RaveReports\Lib";"C:\Program Files (x86)\Raize\CS5\Lib\RS-XE2\Win32";"C:\Program Files (x86)\Embarcadero\RAD 
+  Studio\9.0\bin" -R"F:\Fyslab\Programvara\PAF tidbok\Komponents";"c:\program files (x86)\embarcadero\rad studio\9.0\Imports";
+  "C:\Users\Public\Documents\RAD Studio\9.0\Dcp";"C:\Program Files (x86)\Embarcadero\RAD Studio\9.0\lib\win32\release";"C:\Program Files 
+  (x86)\Embarcadero\RAD Studio\9.0\lib\win32\debug";"F:\Fyslab\Programvara\PAF tidbok\Komponents";"C:\Users\Niklas\Documents\tmssoftware\TMS Component 
+  Pack";"C:\Users\Niklas\Documents\tmssoftware\TMS Component Pack\DelphiXE2";"C:\Users\Niklas\Documents\tmssoftware\TMS Component Pack\xlsAdapter";
+  "C:\Program Files (x86)\tmssoftware\WebOSMaps RSXE2";"c:\program files (x86)\embarcadero\rad studio\9.0\RaveReports\Lib";"C:\Program Files 
+  (x86)\Raize\CS5\Lib\RS-XE2\Win32";"C:\Program Files (x86)\Embarcadero\RAD Studio\9.0\bin" -U"F:\Fyslab\Programvara\PAF tidbok\Komponents";"c:\program 
+  files (x86)\embarcadero\rad studio\9.0\Imports";"C:\Users\Public\Documents\RAD Studio\9.0\Dcp";"C:\Program Files (x86)\Embarcadero\RAD 
+  Studio\9.0\lib\win32\release";"C:\Program Files (x86)\Embarcadero\RAD Studio\9.0\lib\win32\debug";"F:\Fyslab\Programvara\PAF tidbok\Komponents";
+  "C:\Users\Niklas\Documents\tmssoftware\TMS Component Pack";"C:\Users\Niklas\Documents\tmssoftware\TMS Component Pack\DelphiXE2";
+  "C:\Users\Niklas\Documents\tmssoftware\TMS Component Pack\xlsAdapter";"C:\Program Files (x86)\tmssoftware\WebOSMaps RSXE2";"c:\program files 
+  (x86)\embarcadero\rad studio\9.0\RaveReports\Lib";"C:\Program Files (x86)\Raize\CS5\Lib\RS-XE2\Win32";"C:\Program Files (x86)\Embarcadero\RAD 
+  Studio\9.0\bin" -K00400000 -NB"C:\Users\Public\Documents\RAD Studio\9.0\Dcp" -NH"C:\Users\Public\Documents\RAD Studio\9.0\hpp"   PAFKomponents.dpk   
+[DCC Warning] PAFEdit3.pas(278): W1057 Implicit string cast from 'ShortString' to 'string'
+[DCC Warning] PAFEdit3.pas(282): W1057 Implicit string cast from 'ShortString' to 'string'
+[DCC Warning] PAFEdit3.pas(283): W1057 Implicit string cast from 'ShortString' to 'string'
+[DCC Warning] PAFEdit3.pas(285): W1057 Implicit string cast from 'LongString' to 'string'
+[DCC Warning] PAFEdit3.pas(291): W1057 Implicit string cast from 'ShortString' to 'string'
+Building PAFDTB.dproj (Release, Win32)
+brcc32 command line for "PAFDTB.vrc"
+  c:\program files (x86)\embarcadero\rad studio\9.0\bin\cgrc.exe -c65001 "PAFDTB.vrc" -foPAFDTB.res 
+dcc command line for "PAFDTB.dpr"
+  c:\program files (x86)\embarcadero\rad studio\9.0\bin\dcc32.exe -$D- -$L- -$Y- -LUvcltouch;websnap;Rave100VCL;FmxTeeUI;FMXTee;TeeUI;TeeDB;Tee;vclx;
+  vcl;dbrtl;bdertl;rtl;vclactnband;xmlrtl;vcldb;vcldbx;dsnap;dsnapcon;adortl;vclib;ibxpress;inet;intrawebdb_100_120;Intraweb_100_120;VclSmp;vclie;
+  webdsnap;inetdbbde;inetdbxpress;soaprtl;vclribbon;DbxCommonDriver;DbxClientDriver;DBXInterBaseDriver;DBXMySQLDriver;dbexpress;dbxcds;dcldbxsda120;
+  tmsd2009;tmsxlsd2009;tmswizd2009;tmsexd2009;CloudService;inetdb;IndyCore;IndySystem;IndyProtocols;fmx --no-config -B -Q -TX.exe 
+  -AGenerics.Collections=System.Generics.Collections;Generics.Defaults=System.Generics.Defaults;WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;
+  DbiProcs=BDE;DbiErrs=BDE -DRELEASE -I"c:\program files (x86)\embarcadero\rad studio\9.0\Imports";"C:\Users\Public\Documents\RAD Studio\9.0\Dcp";
+  "C:\Program Files (x86)\Embarcadero\RAD Studio\9.0\lib\win32\release";"C:\Program Files (x86)\Embarcadero\RAD Studio\9.0\lib\win32\debug";
+  "F:\Fyslab\Programvara\PAF tidbok\Komponents";"C:\Users\Niklas\Documents\tmssoftware\TMS Component Pack";"C:\Users\Niklas\Documents\tmssoftware\TMS 
+  Component Pack\DelphiXE2";"C:\Users\Niklas\Documents\tmssoftware\TMS Component Pack\xlsAdapter";"C:\Program Files (x86)\tmssoftware\WebOSMaps RSXE2";
+  "c:\program files (x86)\embarcadero\rad studio\9.0\RaveReports\Lib";"C:\Program Files (x86)\Raize\CS5\Lib\RS-XE2\Win32";"C:\Program Files 
+  (x86)\Embarcadero\RAD Studio\9.0\bin" -LE"C:\Users\Public\Documents\RAD Studio\9.0\Bpl" -LN"C:\Users\Public\Documents\RAD Studio\9.0\Dcp" 
+  -NSSystem.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;Winapi;Bde;
+  Data.Win; -O"c:\program files (x86)\embarcadero\rad studio\9.0\Imports";"C:\Users\Public\Documents\RAD Studio\9.0\Dcp";"C:\Program Files 
+  (x86)\Embarcadero\RAD Studio\9.0\lib\win32\release";"C:\Program Files (x86)\Embarcadero\RAD Studio\9.0\lib\win32\debug";"F:\Fyslab\Programvara\PAF 
+  tidbok\Komponents";"C:\Users\Niklas\Documents\tmssoftware\TMS Component Pack";"C:\Users\Niklas\Documents\tmssoftware\TMS Component Pack\DelphiXE2";
+  "C:\Users\Niklas\Documents\tmssoftware\TMS Component Pack\xlsAdapter";"C:\Program Files (x86)\tmssoftware\WebOSMaps RSXE2";"c:\program files 
+  (x86)\embarcadero\rad studio\9.0\RaveReports\Lib";"C:\Program Files (x86)\Raize\CS5\Lib\RS-XE2\Win32";"C:\Program Files (x86)\Embarcadero\RAD 
+  Studio\9.0\bin" -R"c:\program files (x86)\embarcadero\rad studio\9.0\Imports";"C:\Users\Public\Documents\RAD Studio\9.0\Dcp";"C:\Program Files 
+  (x86)\Embarcadero\RAD Studio\9.0\lib\win32\release";"C:\Program Files (x86)\Embarcadero\RAD Studio\9.0\lib\win32\debug";"F:\Fyslab\Programvara\PAF 
+  tidbok\Komponents";"C:\Users\Niklas\Documents\tmssoftware\TMS Component Pack";"C:\Users\Niklas\Documents\tmssoftware\TMS Component Pack\DelphiXE2";
+  "C:\Users\Niklas\Documents\tmssoftware\TMS Component Pack\xlsAdapter";"C:\Program Files (x86)\tmssoftware\WebOSMaps RSXE2";"c:\program files 
+  (x86)\embarcadero\rad studio\9.0\RaveReports\Lib";"C:\Program Files (x86)\Raize\CS5\Lib\RS-XE2\Win32";"C:\Program Files (x86)\Embarcadero\RAD 
+  Studio\9.0\bin" -U"c:\program files (x86)\embarcadero\rad studio\9.0\Imports";"C:\Users\Public\Documents\RAD Studio\9.0\Dcp";"C:\Program Files 
+  (x86)\Embarcadero\RAD Studio\9.0\lib\win32\release";"C:\Program Files (x86)\Embarcadero\RAD Studio\9.0\lib\win32\debug";"F:\Fyslab\Programvara\PAF 
+  tidbok\Komponents";"C:\Users\Niklas\Documents\tmssoftware\TMS Component Pack";"C:\Users\Niklas\Documents\tmssoftware\TMS Component Pack\DelphiXE2";
+  "C:\Users\Niklas\Documents\tmssoftware\TMS Component Pack\xlsAdapter";"C:\Program Files (x86)\tmssoftware\WebOSMaps RSXE2";"c:\program files 
+  (x86)\embarcadero\rad studio\9.0\RaveReports\Lib";"C:\Program Files (x86)\Raize\CS5\Lib\RS-XE2\Win32";"C:\Program Files (x86)\Embarcadero\RAD 
+  Studio\9.0\bin" -K00400000 -NB"C:\Users\Public\Documents\RAD Studio\9.0\Dcp" -NH"C:\Users\Public\Documents\RAD Studio\9.0\hpp"   PAFDTB.dpr   
+[DCC Fatal Error] E2202 Required package 'intrawebdb_100_120' not found
+Failed
+Elapsed time: 00:00:00.7

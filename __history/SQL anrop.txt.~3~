@@ -1,0 +1,145 @@
+/* ************************************************************************************************************************************************************************************************************************
+ *  Procedur:   DTB_GetRemisser
+ *  Funktion:   Hämtar ej tidbokade remisser. Data hämtas från remissen (REMTAB, ANAMTAB, FRAGETAB, ORDINATIONSTAB m.m)
+ *
+ *
+ * Inparameter:    PARAMETERNAMN	TYP		BESKRIVNING				MÖJLIGA VÄRDEN			EXEMPEL		KOMMENTAR
+ *     	  	   ExtPrio		varchar(4)	Prioritet från remissen			A,I,P,E				A AI AIE	Kombination av värden = OR (inte AND) Ex: AI visar A,I,AI,AIE,IE
+ *     	  	   Turklass             int		Labbets prioritet av remiss		De turklasser som finns på lab (0,1,2..)	-1 -> ingen turklass vald = visa alla turklasser
+ *
+ *
+ * Utdata:	NAMN			TYP		BESKRIVNING						EXEMPEL			 	KOMMENTAR
+ * Tabell REMTAB
+ * 1		PNR         		char(15)     	Person/Reservnr ->PERSONTAB.PNR
+ * 2		EFTERNAMN		varchar(30)	OBS ! Från tabell Persontab
+ * 3		FORNAMN		        varchar(20)	OBS ! Från tabell Persontab
+ * 4		LNR      		smallint      	Internt löpnummer för varje besök och pnr
+ * 5		LLNR       		smallint     	Internt löpnummer
+ * 6		RDATUM 		        datetime     	Remissens ankomstdatum
+ * 7		REMISSNR    		char(15)     	Remissnummer, unikt för varje remiss
+ * 8		BEST        		char(15)     	Beställaridentitet  ->BESTTAB.ID
+ * 9		BESTTYP     		char(1)
+ * 10		MOTT        		char(15)     	Mottagares Identitet->BESTTAB.ID
+ * 11		MOTTTYP     		char(1)
+ * 12		FAKT        		char(15)     	Fakturamott. ID -> BESTAB.ID
+ * 13		FAKTTYP     		char(1)
+ * 14		BESTLAK     		varchar(30)  	Beställande läkare fri text
+ * 15		PRODKOD     		varchar(15)  	Beställd undersökning
+ * 16		TURKLASS    		int          	Turordning,prioritet REMGRPTAB.REMGRP
+ * 17		REMKOM      		varchar(30)  	Remissanmärkning
+ * 18		UTID        		datetime     	Tid för undersökning
+ * 19		PATKOM      		varchar(255) 	Patientkommentar
+ *		REGTID      		datetime     	Datum-tid för remissregistrering
+ *		REMUSR      		varchar(15)  	Registrerat av  ->USRTAB.USR
+ *		LABLAK      		varchar(15)  	Förbest. ansv. läkare ->USRTAB.USR
+ *		BESKEDFLG   		smallint     	Flagga 1=Besked till patient skickad
+ *		KBREVFLG    		smallint     	Flagga 1=Kallelsebrev skickat
+ *		RBREVFLG    		smallint     	Flagga 1=Brev till remitent skickad
+ *		UTFORDFLG   		smallint     	Undersökning utförd, Besöket registrerat
+ *		REMKOMFLG   		smallint     	Flagga 1=Remissanmärkning finns
+ *		REMKOMDATUM 	        datetime null,	Datum för remissanmärkning
+ *		PATFLG      		smallint                                                                    DTB-Getremisser_NS
+ *		REMSIGN     		varchar(15)  	Sign remissgranskare USRTAB.USR
+ *		REMSTATUS   		smallint     	0=Ej tid  1=Tid  -1=Omed.tid -2=Ringer själv
+ *		LEVT	     		varchar(15)  	Leverantör utförare av und BESTTAB.ID
+ *		STID			datetime	Speciell tid för injektion eller annat
+ *		VARDKEDJENR  	        varchar(20) 	Vårdkedjenr
+ *		MASK	     		char(10)	Remissattribut A=Akut I=Inneliggande P=pol.
+ *		GRANSKFLG   		smallint	0=Ej granskad 1=Granskad
+ *		LANGD	   		smallint	nyttjas ej
+ *		VIKT	     	   	smallint	nyttjas ej
+ *		ALDER	   		float        	nyttjas ej
+ *		KON	     	   	char(1)      	nyttjas ej
+ *		TS	     	  	datetime     	Timestamp senast access
+ *	        TOTBerProvTid		int		Den beräknade provtiden. En summa av de ingående undersökningarnas beräknade provtid (FLG2 i tabell PROVTAB)
+ *		UndLista		varchar(250)	En lista på beställda undersökningar (OBS ! kommer från tabell Remisstab OCH Prodtab)
+ * Tabell FRAGETAB
+ *		Fragetext		varchar(255)       Frågeställning
+ *
+ * Tabell ANAMNESTAB
+ *		Anamnes		varchar(8000)      Anamnes
+ *
+ * 		Ordination		varchar		Hämtas från ett antal tabeller bl.a Ordinationstab. Innehåller det man skrivit i ordination på remissen
+ *
+ *
+ * Revision 	Datum			Programmerare			Kommentar
+ * Original    	2012-03-07		Staffan A.
+ **************************************************************************************************************************************************************************************************************************/
+
+/* ************************************************************************************************************************************************************************************************************************
+ *  Procedur:   DTB_GetTidbok
+ *  Funktion:   Hämtar tidbok mellan angivna start och antal dagar framåt. Data hämtas från tidboken (TB1) och remissen (REMTAB, ANAMTAB, FRAGETAB ORDINATIONSTAB)
+ *
+ *
+ * Inparameter:    PARAMETERNAMN	TYP		BESKRIVNING				MÖJLIGA VÄRDEN			EXEMPEL		KOMMENTAR
+ *      	   FranDatum		text		Startdatum format 'ÅÅÅÅ-MM-DD'		Alla tillåtna datum		2010-04-01
+ *      	   AntDagar		int		Antal dagar framåt			Alla tal mellan 1 och 10
+ *
+ *
+ * Utdata:	NAMN			TYP		BESKRIVNING						        EXEMPEL			 	KOMMENTAR
+ * Tabell TB1	TidBas			varchar(16) 	Tid för raden						        2012-02-27 07:45
+ *		ALnr			int 		Unikt id tilldelas varje rad					598876
+ * 		ALlnr  			smallint	Uppdateringsflagga ALlnr=ALlnr+1 vid varje ändring  	        1
+ *		MallFlg     		tinyint 	1=Normal tid  0=Special/Reserverad tid			        1
+ * 		StatusFlg      		smallint	0=Ej bok. 1=Bok. 2=Anlänt 3=Påg. 4=Avsl. 5=Prel.		2
+ *		TextFlg          	smallint	0=Normal  1=Textrad som visas i alla tidböcker		        0				Global tid Ex: Lunch 12:30
+ * 		BlockFlg     		smallint	0=Normal  1= Tiden blockerad kan ej bokas		        0
+ * 		TdbTyp1*        	Char(15) 	Selektering i tidbok def. Undersökn Ex. EKO
+ * 		TdbTyp2*    		char(15) 	Selektering i tidbok def Läksign  Ex. JML
+ * 		TdbTyp3*      		char(15) 	Selektering i tidbok def Besökstyp Ex. A=Akut
+ *		TdbTyp4*    		char(15) 	Selektering i tidbok def Leverantör Ex. ISOTOP
+ * 		TdbTyp5        		char(15) 	Kommentar till tid Ex. FORSKN.
+ *		Pid         		char(15) 	Patient Id						        19121212-1212
+ *		Rid         		char(15) 	Remiss identitet						10-123
+ * 		Namn			varchar(50)	Sammanslagning av Efternamn + Förnamn			        Tolvansson Tolvan
+ *		ProdKod     		varchar(15) 	Undersökningskod 					        300
+ * 		ProdText         	varchar(50) 	Fri text undersökning					        Arbetsprov
+ * 		BestId      		varchar(15) 	Beställarens vårdadress					        10013 102 31
+ * 		BestText       		varchar(50) 	Namn på beställare					        Avd 31 SÖS
+ * 		BestDatum     		smalldatetime 	Beställningsdatum remiss				        2012-03-12
+ *		LevtId             	varchar(15) 	Leverantörens identitet					        10013 831 L01
+ * 		LevtText        	varchar(50) 	Leverantörens namn					        Fyslab SÖS
+ *		Prioritet       	tinyint 	Prioritet numeriskt värde
+ *		KTFlg			smallint	Förväntad undersökningstid i minuter			        20
+ * Tabell REMTAB
+ *		PatKomm		        varchar(255)	Remisskommentar
+ *
+ * Tabell FRAGETAB
+ *		Fragetext		varchar(255)    Frågeställning
+ *
+ * Tabell ANAMNESTAB
+ *		Anamnes		        varchar(8000)   Anamnes
+ *
+ * 		Ordination		varchar		Hämtas från ett antal tabeller bl.a Ordinationstab. Innehåller det man skrivit i ordination på remissen
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * Revision 	Datum			Programmerare			Kommentar
+ * Original    	2012-03-07		Staffan A.
+ **************************************************************************************************************************************************************************************************************************/
+
+ /* ************************************************************************************************************************************************************************************************************************
+ *  Procedur:   DTB_GetTidbokTyp
+ *  Funktion:   Hämtar lista med tidboksgrupper (Rumtidbok, Läkare eller BMA) från tidboksgrupper
+ *
+ * Inparameter:    PARAMETERNAMN	TYP		BESKRIVNING				MÖJLIGA VÄRDEN			EXEMPEL		KOMMENTAR
+ *     		   Typ	 		Integer		Typ av tidbok				1=Rum/2=läkare/3=BMA		1
+ *
+ *
+ *  Utdata	NAMN			TYP		BESKRIVNING				EXEMPEL			 	KOMMENTAR
+ *		TdbTypKod		varchar(15)	Namn på tidbok eller användarkod	EKGA-1,KARANAN
+ *		TdBTypText		varchar(30)	Namn på användare			Anna Andersson			Endast för typ 2 och 3
+ *
+ *
+ *
+ *
+ * Revision 	Datum			Programmerare			Kommentar
+ * Original    	2012-03-07		Staffan A.
+ *
+ *
+ **************************************************************************************************************************************************************************************************************************/
+

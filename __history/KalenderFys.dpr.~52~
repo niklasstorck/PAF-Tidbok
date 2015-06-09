@@ -1,0 +1,18 @@
+program KalenderFys;
+
+uses
+  Forms,
+  AkutKalender2 in 'AkutKalender2.pas' {MainForm},
+  Vcl.Themes,
+  Vcl.Styles;
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  //Application.CreateForm(TData, Data);
+  Application.CreateForm(TMainForm, MainForm);
+  Application.Run;
+
+end.

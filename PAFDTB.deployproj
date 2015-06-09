@@ -1,0 +1,118 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<Import Condition="Exists('$(BDS)\bin\CodeGear.Deployment.targets')" Project="$(BDS)\bin\CodeGear.Deployment.targets"/>
+		<ProjectExtensions>
+			<ProjectFileVersion>12</ProjectFileVersion>
+		</ProjectExtensions>
+		<ItemGroup Condition="'$(Platform)'=='Win64'">
+			<DeployFile Include="$(BDS)\bin64\midas.dll">
+				<RemoteDir>PAFDTB\</RemoteDir>
+				<RemoteName>midas.dll</RemoteName>
+				<Operation>0</Operation>
+				<LocalCommand/>
+				<RemoteCommand/>
+			</DeployFile>
+			<DeployFile Include="PAFDTB.ini">
+				<RemoteDir>PAFDTB\</RemoteDir>
+				<RemoteName>PAFDTB.ini</RemoteName>
+				<Operation>0</Operation>
+				<LocalCommand/>
+				<RemoteCommand/>
+			</DeployFile>
+			<DeployFile Include="C:\PAF4\paf4ns.ini">
+				<RemoteDir>PAFDTB\</RemoteDir>
+				<RemoteName>paf4ns.ini</RemoteName>
+				<Operation>0</Operation>
+				<LocalCommand/>
+				<RemoteCommand/>
+			</DeployFile>
+			<DeployFile Include="C:\Program Files (x86)\Embarcadero\RAD Studio\9.0\Redist\win32\DBXMSSQLDriver160.bpl">
+				<RemoteDir>PAFDTB\</RemoteDir>
+				<RemoteName>DBXMSSQLDriver160.bpl</RemoteName>
+				<Operation>0</Operation>
+				<LocalCommand/>
+				<RemoteCommand/>
+			</DeployFile>
+			<DeployFile Include="C:\Program Files (x86)\Embarcadero\RAD Studio\9.0\Redist\win32\DBXCommonDriver160.bpl">
+				<RemoteDir>PAFDTB\</RemoteDir>
+				<RemoteName>DBXCommonDriver160.bpl</RemoteName>
+				<Operation>0</Operation>
+				<LocalCommand/>
+				<RemoteCommand/>
+			</DeployFile>
+			<DeployFile Include="$(BDS)\bin64\dbxmss.dll">
+				<RemoteDir>PAFDTB\</RemoteDir>
+				<RemoteName>dbxmss.dll</RemoteName>
+				<Operation>0</Operation>
+				<LocalCommand/>
+				<RemoteCommand/>
+			</DeployFile>
+		</ItemGroup>
+		<ItemGroup Condition="'$(Platform)'=='OSX32'">
+			<DeployFile Include="$(BDS)\redist\osx32\libmidas.dylib">
+				<RemoteDir>PAFDTB.app\Contents\MacOS\</RemoteDir>
+				<RemoteName>libmidas.dylib</RemoteName>
+				<Operation>0</Operation>
+				<LocalCommand/>
+				<RemoteCommand/>
+			</DeployFile>
+		</ItemGroup>
+		<ItemGroup Condition="'$(Platform)'=='Win32'">
+			<DeployFile Include="PAFDTB.ini">
+				<RemoteDir>PAFDTB\</RemoteDir>
+				<RemoteName>PAFDTB.ini</RemoteName>
+				<Operation>0</Operation>
+				<LocalCommand/>
+				<RemoteCommand/>
+			</DeployFile>
+			<DeployFile Include="C:\PAF4\paf4ns.ini">
+				<RemoteDir>PAFDTB\</RemoteDir>
+				<RemoteName>paf4ns.ini</RemoteName>
+				<Operation>0</Operation>
+				<LocalCommand/>
+				<RemoteCommand/>
+			</DeployFile>
+			<DeployFile Include="C:\Program Files (x86)\Embarcadero\RAD Studio\9.0\Redist\win32\DBXMSSQLDriver160.bpl">
+				<RemoteDir>PAFDTB\</RemoteDir>
+				<RemoteName>DBXMSSQLDriver160.bpl</RemoteName>
+				<Operation>0</Operation>
+				<LocalCommand/>
+				<RemoteCommand/>
+			</DeployFile>
+			<DeployFile Include="C:\Program Files (x86)\Embarcadero\RAD Studio\9.0\Redist\win32\DBXCommonDriver160.bpl">
+				<RemoteDir>PAFDTB\</RemoteDir>
+				<RemoteName>DBXCommonDriver160.bpl</RemoteName>
+				<Operation>0</Operation>
+				<LocalCommand/>
+				<RemoteCommand/>
+			</DeployFile>
+			<DeployFile Condition="'$(Config)'=='Debug'" Include="PAFDTB.rsm">
+				<RemoteDir>PAFDTB\</RemoteDir>
+				<RemoteName>PAFDTB.rsm</RemoteName>
+				<Operation>0</Operation>
+				<LocalCommand/>
+				<RemoteCommand/>
+			</DeployFile>
+			<DeployFile Include="$(BDS)\bin\dbxmss.dll">
+				<RemoteDir>PAFDTB\</RemoteDir>
+				<RemoteName>dbxmss.dll</RemoteName>
+				<Operation>0</Operation>
+				<LocalCommand/>
+				<RemoteCommand/>
+			</DeployFile>
+			<DeployFile Condition="'$(Config)'=='Debug'" Include="PAFDTB.exe">
+				<RemoteDir>PAFDTB\</RemoteDir>
+				<RemoteName>PAFDTB.exe</RemoteName>
+				<Operation>0</Operation>
+				<LocalCommand/>
+				<RemoteCommand/>
+				<Required>True</Required>
+			</DeployFile>
+			<DeployFile Include="$(BDS)\bin\midas.dll">
+				<RemoteDir>PAFDTB\</RemoteDir>
+				<RemoteName>midas.dll</RemoteName>
+				<Operation>0</Operation>
+				<LocalCommand/>
+				<RemoteCommand/>
+			</DeployFile>
+		</ItemGroup>
+	</Project>

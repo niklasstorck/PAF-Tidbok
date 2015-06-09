@@ -1,0 +1,36 @@
+* Nytt fält för undersökningstider i databasen. //Klart
+
+* Hur ska jag lösa inställningar Globala, lokala?
+        Eget program för globala?
+        Var ska dessa inställningar sparas?
+
+* Finns effektivare sätt att läsa in från PAF?
+        Är tabell bra? Känns lite onödigt samt knepigt att hålla integritet.
+        Kan man läsa och skriva direkt till PAFS tabeller?
+
+
+* Koppling till personallista för olika ändamål. Hur vet man vilka som är aktiva?
+
+* Spara till PAF efter edit??
+
+Provider=SQLNCLI10.1;Integrated Security="";Persist Security Info=False;User ID=pa;Initial Catalog=fyspaf;
+Data Source=NIKLAS-PC\NIKLAS_SQL_SERV;Initial File Name="";Server SPN=""
+
+
+*********************************** 2012-08-26  *************************************************
+* Hur skriva till databasen? Det krånglar. Snacka med Staffan
+* Hur får man felmedelande från  DTB_InsertTb. Skrivs ngt i loggen??
+* Procedur för att skriva ändringar när pat byter rum samt när pat lyfts åter till väntelistan.
+* Finns ngt sätt att koppla till inscannad remiss?
+*************************************************************************************************
+
+
+Blir fel ibland.
+1. Post finns i väntelistan trots att den också finns i tidboken.
+2. Kan man ärndra status på en post från mitt prog?
+
+
+
+
+
+

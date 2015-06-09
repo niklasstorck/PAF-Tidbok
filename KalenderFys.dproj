@@ -1,0 +1,296 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{105DA8F2-A9B6-4FEA-8BDA-9E0F903C6B3C}</ProjectGuid>
+			<ProjectVersion>13.4</ProjectVersion>
+			<MainSource>KalenderFys.dpr</MainSource>
+			<Config Condition="'$(Config)'==''">Debug</Config>
+			<DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+			<FrameworkType>VCL</FrameworkType>
+			<Base>True</Base>
+			<Platform Condition="'$(Platform)'==''">Win32</Platform>
+			<TargetedPlatforms>3</TargetedPlatforms>
+			<AppType>Application</AppType>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Base)'=='true') or '$(Base_Win64)'!=''">
+			<Base_Win64>true</Base_Win64>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Base)'=='true') or '$(Base_Win32)'!=''">
+			<Base_Win32>true</Base_Win32>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_1)'!=''">
+			<Cfg_1>true</Cfg_1>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win32)'!=''">
+			<Cfg_1_Win32>true</Cfg_1_Win32>
+			<CfgParent>Cfg_1</CfgParent>
+			<Cfg_1>true</Cfg_1>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_2)'!=''">
+			<Cfg_2>true</Cfg_2>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
+			<Cfg_2_Win32>true</Cfg_2_Win32>
+			<CfgParent>Cfg_2</CfgParent>
+			<Cfg_2>true</Cfg_2>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Base)'!=''">
+			<VerInfo_MajorVer>0</VerInfo_MajorVer>
+			<VerInfo_Build>13</VerInfo_Build>
+			<VerInfo_AutoGenVersion>true</VerInfo_AutoGenVersion>
+			<VerInfo_MinorVer>3</VerInfo_MinorVer>
+			<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+			<VerInfo_Keys>CompanyName=Hb Storckholmen;FileDescription=;FileVersion=0.3.0.13;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+			<VerInfo_Locale>1053</VerInfo_Locale>
+			<DCC_Namespace>Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;Winapi;Bde;Data.Win;$(DCC_Namespace)</DCC_Namespace>
+			<VerInfo_Debug>true</VerInfo_Debug>
+			<DCC_UsePackage>vclx;vcl;dbrtl;Rave76VCL;bdertl;rtl;vclactnband;xmlrtl;vcldb;vcldbx;dsnap;dsnapcon;TeeUI;TeeDB;Tee;adortl;vclib;ibxpress;IndyCore;IndySystem;IndyProtocols;inet;intrawebdb_100_120;Intraweb_100_120;VclSmp;vclie;websnap;webdsnap;inetdbbde;inetdbxpress;soaprtl;vclribbon;DbxCommonDriver;DbxClientDriver;DBXInterBaseDriver;DBXMySQLDriver;dbexpress;dbxcds;dcldbxsda120;tmsd2009;tmsxlsd2009;tmswizd2009;tmsexd2009;CloudService;$(DCC_UsePackage)</DCC_UsePackage>
+			<DCC_DependencyCheckOutputName>KalenderFys.exe</DCC_DependencyCheckOutputName>
+			<DCC_ImageBase>00400000</DCC_ImageBase>
+			<DCC_Platform>x86</DCC_Platform>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Base_Win64)'!=''">
+			<VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+			<DCC_Namespace>System.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
+			<VerInfo_Locale>1033</VerInfo_Locale>
+			<Icon_MainIcon>KalenderFys_Icon1.ico</Icon_MainIcon>
+			<Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Base_Win32)'!=''">
+			<DCC_UsePackage>CodeSiteExpressPkg;$(DCC_UsePackage)</DCC_UsePackage>
+			<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+			<Icon_MainIcon>KalenderFys_Icon1.ico</Icon_MainIcon>
+			<DCC_Namespace>System.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
+			<VerInfo_Locale>1033</VerInfo_Locale>
+			<Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+			<VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_1)'!=''">
+			<DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+			<DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+			<DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+			<DCC_DebugInformation>false</DCC_DebugInformation>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+			<UsePackages>true</UsePackages>
+			<Icon_MainIcon>KalenderFys_Icon3.ico</Icon_MainIcon>
+			<VerInfo_MinorVer>5</VerInfo_MinorVer>
+			<VerInfo_Locale>1033</VerInfo_Locale>
+			<VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=0.5.0.13;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_2)'!=''">
+			<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+			<Debugger_RunParams>C:\PAF4\paf.ini</Debugger_RunParams>
+			<DCC_IntegerOverflowCheck>true</DCC_IntegerOverflowCheck>
+			<DCC_RangeChecking>true</DCC_RangeChecking>
+			<DCC_Description>Dynamisk tidbok för PAF</DCC_Description>
+			<DCC_Define>PROFILE;$(DCC_Define)</DCC_Define>
+			<VerInfo_MinorVer>4</VerInfo_MinorVer>
+			<DCC_Optimize>false</DCC_Optimize>
+			<VerInfo_PreRelease>true</VerInfo_PreRelease>
+			<VerInfo_Keys>CompanyName=Hb Storckholmen;FileDescription=;FileVersion=0.4.0.13;InternalName=KalenderPAF;LegalCopyright=Hb Storckholmen 2013;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+			<Icon_MainIcon>KalenderFys_Icon2.ico</Icon_MainIcon>
+			<VerInfo_Locale>1033</VerInfo_Locale>
+			<BCC_SourceDebuggingOn>true</BCC_SourceDebuggingOn>
+			<BCC_DebugLineNumbers>true</BCC_DebugLineNumbers>
+			<DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+			<ILINK_FullDebugInfo>true</ILINK_FullDebugInfo>
+		</PropertyGroup>
+		<ItemGroup>
+			<DelphiCompile Include="$(MainSource)">
+				<MainSource>MainSource</MainSource>
+			</DelphiCompile>
+			<DCCReference Include="AkutKalender2.pas">
+				<Form>MainForm</Form>
+			</DCCReference>
+			<DCCReference Include="Setup4.pas">
+				<Form>SetupForm</Form>
+				<FormType>dfm</FormType>
+			</DCCReference>
+			<None Include="Profiling\AQtimeModule1.aqt"/>
+			<None Include="ModelSupport_KalenderFys\default.txaPackage"/>
+			<None Include="ModelSupport_KalenderFys\default.txvpck"/>
+			<None Include="ModelSupport_KalenderFys\AkutKalender\default.txvpck"/>
+			<None Include="ModelSupport_KalenderFys\KalenderFys\default.txvpck"/>
+			<None Include="Noteringar.txt"/>
+			<None Include="SQL anrop.txt"/>
+			<None Include="ModelSupport_KalenderFys\ItemEdit2\default.txaPackage"/>
+			<None Include="ModelSupport_KalenderFys\ItemEdit2\default.txvpck"/>
+			<None Include="Old code.txt"/>
+			<None Include="ModelSupport_KalenderFys\Setup2\default.txvpck"/>
+			<BuildConfiguration Include="Debug">
+				<Key>Cfg_2</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Base">
+				<Key>Base</Key>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Release">
+				<Key>Cfg_1</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+		</ItemGroup>
+		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')" Project="$(BDS)\Bin\CodeGear.Delphi.Targets"/>
+		<ProjectExtensions>
+			<Borland.Personality>Delphi.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Delphi.Personality>
+					<Source>
+						<Source Name="MainSource">KalenderFys.dpr</Source>
+					</Source>
+					<Parameters>
+						<Parameters Name="UseLauncher">False</Parameters>
+						<Parameters Name="LoadAllSymbols">True</Parameters>
+						<Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
+					</Parameters>
+					<VersionInfo>
+						<VersionInfo Name="IncludeVerInfo">True</VersionInfo>
+						<VersionInfo Name="AutoIncBuild">True</VersionInfo>
+						<VersionInfo Name="MajorVer">0</VersionInfo>
+						<VersionInfo Name="MinorVer">3</VersionInfo>
+						<VersionInfo Name="Release">0</VersionInfo>
+						<VersionInfo Name="Build">49</VersionInfo>
+						<VersionInfo Name="Debug">True</VersionInfo>
+						<VersionInfo Name="PreRelease">False</VersionInfo>
+						<VersionInfo Name="Special">False</VersionInfo>
+						<VersionInfo Name="Private">False</VersionInfo>
+						<VersionInfo Name="DLL">False</VersionInfo>
+						<VersionInfo Name="Locale">1053</VersionInfo>
+						<VersionInfo Name="CodePage">1252</VersionInfo>
+					</VersionInfo>
+					<VersionInfoKeys>
+						<VersionInfoKeys Name="CompanyName">Hb Storckholmen</VersionInfoKeys>
+						<VersionInfoKeys Name="FileDescription"/>
+						<VersionInfoKeys Name="FileVersion">0.3.0.49</VersionInfoKeys>
+						<VersionInfoKeys Name="InternalName"/>
+						<VersionInfoKeys Name="LegalCopyright"/>
+						<VersionInfoKeys Name="LegalTrademarks"/>
+						<VersionInfoKeys Name="OriginalFilename"/>
+						<VersionInfoKeys Name="ProductName"/>
+						<VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="Comments"/>
+					</VersionInfoKeys>
+					<Excluded_Packages>
+						<Excluded_Packages Name="$(BDSBIN)\dcloffice2k160.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+						<Excluded_Packages Name="$(BDSBIN)\dclofficexp160.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+					</Excluded_Packages>
+				</Delphi.Personality>
+				<ModelSupport>True</ModelSupport>
+				<Platforms>
+					<Platform value="Win64">True</Platform>
+					<Platform value="Win32">True</Platform>
+				</Platforms>
+				<Deployment>
+					<DeployFile Class="ProjectOutput" Configuration="Release" LocalName="KalenderFys.exe">
+						<Platform Name="Win32"/>
+					</DeployFile>
+					<DeployFile Class="DebugSymbols" Configuration="Release" LocalName="KalenderFys.rsm">
+						<Platform Name="Win32">
+							<RemoteName>KalenderFys.rsm</RemoteName>
+						</Platform>
+					</DeployFile>
+					<DeployClass Name="ProjectOutput" Required="true">
+						<Platform Name="OSX32">
+							<RemoteDir>Contents\MacOS</RemoteDir>
+							<Operation>1</Operation>
+						</Platform>
+						<Platform Name="Win32">
+							<Operation>0</Operation>
+						</Platform>
+					</DeployClass>
+					<DeployClass Name="DependencyPackage" Required="true">
+						<Platform Name="OSX32">
+							<RemoteDir>Contents\MacOS</RemoteDir>
+							<Operation>1</Operation>
+							<Extensions>.dylib</Extensions>
+						</Platform>
+						<Platform Name="Win32">
+							<Operation>0</Operation>
+							<Extensions>.bpl</Extensions>
+						</Platform>
+					</DeployClass>
+					<DeployClass Name="DependencyModule">
+						<Platform Name="OSX32">
+							<RemoteDir>Contents\MacOS</RemoteDir>
+							<Operation>1</Operation>
+							<Extensions>.dylib</Extensions>
+						</Platform>
+						<Platform Name="Win32">
+							<Operation>0</Operation>
+							<Extensions>.dll;.bpl</Extensions>
+						</Platform>
+					</DeployClass>
+					<DeployClass Name="ProjectOSXInfoPList">
+						<Platform Name="OSX32">
+							<RemoteDir>Contents</RemoteDir>
+							<Operation>1</Operation>
+						</Platform>
+					</DeployClass>
+					<DeployClass Name="File">
+						<Platform Name="OSX32">
+							<RemoteDir>Contents\MacOS</RemoteDir>
+							<Operation>0</Operation>
+						</Platform>
+						<Platform Name="Win32">
+							<Operation>0</Operation>
+						</Platform>
+					</DeployClass>
+					<DeployClass Name="DebugSymbols">
+						<Platform Name="OSX32">
+							<RemoteDir>Contents\MacOS</RemoteDir>
+							<Operation>1</Operation>
+						</Platform>
+						<Platform Name="Win32">
+							<Operation>0</Operation>
+						</Platform>
+					</DeployClass>
+					<DeployClass Name="DependencyFramework">
+						<Platform Name="OSX32">
+							<RemoteDir>Contents\MacOS</RemoteDir>
+							<Operation>1</Operation>
+							<Extensions>.framework</Extensions>
+						</Platform>
+						<Platform Name="Win32">
+							<Operation>0</Operation>
+						</Platform>
+					</DeployClass>
+					<DeployClass Name="AdditionalDebugSymbols">
+						<Platform Name="OSX32">
+							<RemoteDir>Contents\MacOS</RemoteDir>
+							<Operation>1</Operation>
+						</Platform>
+						<Platform Name="Win32">
+							<Operation>0</Operation>
+						</Platform>
+					</DeployClass>
+					<DeployClass Name="ProjectOSXResource">
+						<Platform Name="OSX32">
+							<RemoteDir>Contents\Resources</RemoteDir>
+							<Operation>1</Operation>
+						</Platform>
+					</DeployClass>
+					<ProjectRoot Name="$(PROJECTNAME).app" Platform="OSX32"/>
+					<ProjectRoot Name="$(PROJECTNAME)" Platform="Win64"/>
+					<ProjectRoot Name="$(PROJECTNAME)" Platform="Win32"/>
+				</Deployment>
+			</BorlandProject>
+			<ProjectFileVersion>12</ProjectFileVersion>
+		</ProjectExtensions>
+		<Import Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')" Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj"/>
+		<Import Condition="Exists('$(MSBuildProjectName).deployproj')" Project="$(MSBuildProjectName).deployproj"/>
+	</Project>
