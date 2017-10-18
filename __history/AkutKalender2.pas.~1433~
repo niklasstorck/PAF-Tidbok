@@ -15,9 +15,15 @@
 // samt DTBMoveRemInTb.
 //
 // ***************************************************************************
+
+// Revision ******************************************************************
+
+// 2013-10-22
+
+
 unit AkutKalender2;
 
-{$define ns_debug}
+{ $define ns_debug}
 { $define demo }
 
 interface
@@ -54,46 +60,40 @@ uses
   Datasnap.Provider,
   Vcl.Mask, AdvSmoothListBox, AdvSmoothComboBox, clisted,
   AeroButtons, Data.FMTBcd, AdvSpin, PictureContainer, AdvSmoothSplashScreen,
-  Vcl.Samples.Spin, paramchklist;
+  Vcl.Samples.Spin, paramchklist, Vcl.DBCtrls, AdvCombo, AdvSmoothPanel,
+  AdvSmoothExpanderPanel, AdvPanel;
 
-Const
+//Const
   // *************************************
   // kalenderna uppdelning
   // Skall vara i ngn slags setup sen
   // *************************************
-  CDisplayUnit = 15; // Uppdelningen av kalendern i 15 minutersintervall
-  CDisplayStart = 6; // Klockan 6
-  CDisplayEnd = 20; // Klockan 20
-  CActiveStart = 7; // Klockan 7
-  CActiveEnd = 19; // Klockan 19
+  //CDisplayUnit = 15; // Uppdelningen av kalendern i 15 minutersintervall
+  //CDisplayStart = 6; // Klockan 6
+  //CDisplayEnd = 20; // Klockan 20
+  //CActiveStart = 7; // Klockan 7
+  //CActiveEnd = 19; // Klockan 19
 
 type
 
-  ShortString = String[15];
-  Longstring = String[50];
+  //ShortString = String[15];
+  //Longstring = String[50];
 
   TMainForm = class(TForm)
     AdvSmoothLabel1: TAdvSmoothLabel;
-    CurvyPanel2: TCurvyPanel;
-    AdvSmoothLabel2: TAdvSmoothLabel;
     ItemPopupMenu1: TAdvPopupMenu;
     Visaalladata1: TMenuItem;
     Annanavdelning1: TMenuItem;
     Sng1: TMenuItem;
     TimerKlocka: TTimer;
     TimerPlanner: TTimer;
-    RemissGrid: TDBAdvGrid;
     AdvMainMenu1: TAdvMainMenu;
     File1: TMenuItem;
-    ChekboxHelaDagen: TAdvOfficeCheckBox;
     AdvSplitter2: TAdvSplitter;
-    AdvSplitter4: TAdvSplitter;
-    DatePicker1: TPlannerDatePicker;
     Instllningar1: TMenuItem;
     Lokalainstllningar1: TMenuItem;
     ExeInfo1: TExeInfo;
     PafItemEditor1: TPafItemEditor;
-    DayGrid: TDBAdvGrid;
     DataSourceTB: TDataSource;
     DataSourceRemiss: TDataSource;
     TimerRemiss: TTimer;
@@ -110,25 +110,31 @@ type
     ClientDataSetRemiss: TClientDataSet;
     SQLMonitor1: TSQLMonitor;
     SQLQuery1: TSQLQuery;
-    CurvyPanel3: TCurvyPanel;
-    Label1: TLabel;
-    CheckListExtPrio: TCheckListEdit;
-    Label2: TLabel;
-    Label3: TLabel;
     GridSQLError: TDBAdvGrid;
     DspSQLError: TDataSetProvider;
     CdsSQLError: TClientDataSet;
     DSSQLerror: TDataSource;
-    Button1: TButton;
-    AdvSpinEditTurklass: TAdvSpinEdit;
     ItemPopupMenu2: TAdvPopupMenu;
     Orsak1: TMenuItem;
     Stngavprogrammet1: TMenuItem;
     PictureContainer1: TPictureContainer;
-    Button2: TButton;
+    LbNrRemisser: TLabel;
+    ExpanderPanelInst: TAdvSmoothExpanderPanel;
+    DatePicker1: TAdvSmoothDatePicker;
     SpinEditAntDagar: TSpinEdit;
     Label4: TLabel;
+    Button2: TButton;
+    ChekboxHelaDagen: TAdvOfficeCheckBox;
+    CurvyPanel3: TCurvyPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    CheckListExtPrio: TCheckListEdit;
+    AdvSpinEditTurklass: TAdvSpinEdit;
     ParamCheckListRemissgrupp: TParamCheckList;
+    DayGrid: TDBAdvGrid;
+    RemissGrid: TDBAdvGrid;
+    Button1: TButton;
 
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -174,7 +180,7 @@ type
       FromBegin, FromEnd, FromPos, ToBegin, ToEnd, ToPos: Integer);
     procedure TimerRemissTimer(Sender: TObject);
     procedure CheckListExtPrioChange(Sender: TObject);
-    procedure CheckListTurKlassChange(Sender: TObject);
+    //procedure CheckListTurKlassChange(Sender: TObject);
     procedure PAFPlannerDragOverItem(Sender, Source: TObject; X, Y: Integer;
       APlannerItem: TPlannerItem; State: TDragState; var Accept: Boolean);
     procedure Button1Click(Sender: TObject);
@@ -183,6 +189,8 @@ type
     procedure MYPAFWaitList1ItemDblClick(Sender: TObject; Item: TPlannerItem);
     procedure Button2Click(Sender: TObject);
     procedure SpinEditAntDagarChange(Sender: TObject);
+    procedure DBComboBox1Change(Sender: TObject);
+    procedure ExpanderPanelInstEndDrag(Sender, Target: TObject; X, Y: Integer);
 
   private
     { Private declarations }
@@ -216,13 +224,13 @@ type
     function TBColToDate(StartTid: TdateTime; NoColsPerDay, Column: Integer): TDateTime;
     *)
     procedure AddLunch(starttime, endtime: TDateTime);
-    procedure SaveUstoPAF(RemissId, Tidbas, Tidbok, UserId, PCNamn: LongString;
+    procedure SaveUstoPAF(RemissId, Tidbas, Tidbok, UserId, PCNamn: String;
       ALnr, UndTid: Integer);
-    procedure DisplayUpdateNew(DUnit: Integer; DStart, DEnd, AStart, AEnd: TTime);
+    //procedure DisplayUpdateNew(DUnit: Integer; DStart, DEnd, AStart, AEnd: TTime);
     procedure DisplayUpdate(DUnit, DStart, DEnd, AStart, AEnd: Integer);
     procedure SQLFel(Rad, AlNr: Integer; Modul, RemissId, Tidbas, UserId, PCnamn, Tidbok, S: string);
-    procedure ItemToDayGrid(Item: TMyPafItem);
-    function GetDateTimeFromTidbok(X,Y: Integer):TDateTime;
+    //procedure ItemToDayGrid(Item: TMyPafItem);
+    //function GetDateTimeFromTidbok(X,Y: Integer):TDateTime;
   public
     { Public declarations }
 
@@ -245,9 +253,6 @@ begin
 end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
-var
-  F: Textfile;
-  S: String;
 begin
   SQLMonitor1.Active := false;
   SQLMonitor1.FileName := 'sqlerror.txt';
@@ -256,7 +261,7 @@ begin
   // Remissortering.
   // Till lokalt sparat val i xml fil eller registry senare 2013-04-04 / ns
 
-  TurKlassVald := 0;
+  TurKlassVald := 1;
   ExtPrioVald := '';
   SQLQuery1.Active := false;
   SQLQuery1.SQL.Clear;
@@ -290,7 +295,7 @@ begin
   end;
   *)
   SpinEditAntDagar.Value:=SetupForm.DaysShown;
-
+  ExpanderPanelInst.Expanded:=False;
   FYSPAF.ConnectionName             := Setupform.ServerName;
   FYSPAF.DriverName                 := 'MSSQL';
   FYSPAF.Params.Values['HostName']  := Setupform.ServerName;
@@ -302,7 +307,7 @@ begin
   FYSPAF.LoadParamsOnConnect        := false;
   FYSPAF.LoginPrompt                := false;
 
-  DisplayUpdate(
+  DisplayUpdate(15, 6, 20, 7, 19);
   (*
   DisplayUpdateNew( SetupForm.SchemaDisplayUnit,
                  SetupForm.SchemaStart,
@@ -340,24 +345,12 @@ begin
 
 end;
 
-function TMainForm.GetDateTimeFromTidbok(X, Y: Integer): TDateTime;
-begin
-// Beräkna dag och tid för ett item beroende på var den är släppt.
-// Tar hänsyn till tidbokens antal dagar etc.
-
-end;
 
 procedure TMainForm.FormActivate(Sender: TObject);
-var
-  TF: Textfile;
-  S: String;
 begin
   DayGrid.Hide;
   RemissGrid.Hide;
   GridSQLError.Hide;
-  //Coinitialize(nil);
-
-
 end;
 
 procedure TMainForm.HeaderSetup(Date: TDatetime; NoDays: Integer);
@@ -398,17 +391,15 @@ begin
           Captions.Add(S);
         end;
       end;
-
       Datum:=Date+D;
       GroupCaptions.Add(FormatDateTime('dd mmmm yyyy', Datum));
     end;
 
   end;
+  ReadremissFrompaf;
 end;
 
 procedure TMainForm.Lokalainstllningar1Click(Sender: TObject);
-var
-  I: Integer;
 begin
   // Justera inställningar
   // Fn. bara för rum.
@@ -420,9 +411,9 @@ procedure TMainForm.PAFPlannerItemMove(Sender: TObject; Item: TPlannerItem;
   FromBegin, FromEnd, FromPos, ToBegin, ToEnd, ToPos: Integer);
 
 var
-  T1, T2, T3 : TDateTime;
-  S, ErrorText: String;
-  Col, TempTime, EInt: Integer;
+  T1: TDateTime;
+  S: String;
+  Col: Integer;
 
 begin
 {$IFDEF ns_debug}
@@ -477,8 +468,8 @@ procedure TMainForm.PAFPlannerItemSize(Sender: TObject; Item: TPlannerItem;
   Position, FromBegin, FromEnd, ToBegin, ToEnd: Integer);
 
 var
-  S, ErrorText: String;
-  TempTime, EInt: Integer;
+  S: String;
+  TempTime: Integer;
 
 begin
 {$IFDEF ns_debug}
@@ -549,7 +540,7 @@ procedure TMainForm.AddLunch(starttime, endtime: TDateTime);
 var
   I: Integer;
 begin
-  for I := 1 to PAFPlanner.Positions - 1 do
+  for I := 0 to PAFPlanner.Positions - 1 do
   begin
     with TMyPAFItem(PAFPlanner.CreateItem) do
     begin
@@ -596,21 +587,6 @@ begin
 *)
 end;
 
-procedure TMainForm.CheckListTurKlassChange(Sender: TObject);
-Var
-  S: String;
-begin
-  // Sorteringa av remissgrupp.
-  // Ännu ej i inifil
-
- //S := CheckListTurKlass.Text;
-  // TurKlassVald := S;
-  // ReadRemissFromPaf;
-
-{$IFDEF ns_debug}
-  MainForm.Caption := S;
-{$ENDIF}
-end;
 
 procedure TMainForm.CheckListExtPrioChange(Sender: TObject);
 var
@@ -661,6 +637,11 @@ begin
 
 end;
 
+procedure TMainForm.DBComboBox1Change(Sender: TObject);
+begin
+ // Ändra urval
+end;
+
 procedure TMainForm.DefaultItemEditor1BeforeEditShow(Sender: TObject;
   APlannerItem: TPlannerItem);
 begin
@@ -690,12 +671,8 @@ end;
 procedure TMainForm.PAFPlannerDragDropCell(Sender, Source: TObject;
   X, Y: Integer);
 var
-  ErrorSave: Integer;
-  S, ErrorText: String;
   TmpTime: TDateTime;
 begin
-  ErrorSave := 0;
-  ErrorText := '';
   if PAFPlanner.CellToItemNum(X, Y) = 0 then
   begin
     with TMyPAFItem(PAFPlanner.CreateItem) do
@@ -731,7 +708,7 @@ begin
 
 end;
 
-
+(*
 procedure TMainForm.ItemToDayGrid(Item: TMyPafItem);
 var lines : Integer;
 begin
@@ -768,7 +745,7 @@ begin
   DayGrid.Cells[27,lines] := Item.Anamnes; //		varchar(8000)      Anamnes
   DayGrid.Cells[28,lines] := Item.Ordination; //		varchar		Hämtas från ett antal tabeller bl.a Ordinationstab. Innehåller det man skrivit i ordination på remissen
 
-end;
+end; *)
 
 // **********************************************************************
 // *** Procedurer för drag drop på en befintlig tid *********************
@@ -849,8 +826,7 @@ end;
 procedure TMainForm.PAFWaitList1DragDrop(Sender, Source: TObject;
   X, Y: Integer);
 var
-  S, ErrorText: String;
-  EInt: Integer;
+  S: String;
 begin
   if Assigned(PAFPlanner.items.Selected) then
   begin
@@ -903,11 +879,9 @@ end;
 // **********************************************************************
 
 procedure TMainForm.SaveUstoPAF(RemissId, Tidbas, Tidbok, UserId,
-  PCNamn: LongString; ALnr, UndTid: Integer);
+  PCNamn: String; ALnr, UndTid: Integer);
 
 var
-  EInt: Integer;
-  EText: String;
   S: String;
   SQLError:Boolean;
 begin
@@ -947,7 +921,8 @@ end;
 procedure TMainForm.SpinEditAntDagarChange(Sender: TObject);
 begin
   SetupForm.DaysShown:=SpinEditAntDagar.Value;
-  SetupForm.WriteToInifile
+  SetupForm.WriteToInifile;
+
 end;
 
 procedure TMainForm.Stngavprogrammet1Click(Sender: TObject);
@@ -983,8 +958,8 @@ end;
 procedure TMainForm.ReadDayFromPAF(FirstDay: TDateTime; NoDays : Integer);
 
 var
-  I, TempI, Column: Integer;
-  LoeInDatePart: Double;
+  I, Column: Integer;
+  //LoeInDatePart: Double;
   LengthOfExam: String;
   tmp_Rum: String;
   // LocalItem: TMyPafItem;
@@ -1013,7 +988,6 @@ begin
   ClientDataSetTB.Open;
   // ClientDataSetTB.LogChanges:=False;
 
-  AddLunch(EncodeTime(11, 30, 0, 0), EncodeTime(12, 15, 0, 0));
   PAFPlanner.items.ClearAll;
   PAFPlanner.items.BeginUpdate;
 
@@ -1162,6 +1136,7 @@ begin
     end; // For I:= ...
   end; // if Tempgrid ...
   Update;
+  AddLunch(SetupForm.LunchStart, setupform.LunchStop);
   PAFPlanner.items.EndUpdate;
   Caption:='Klart.';
 {$IFDEF ns_debug}
@@ -1222,21 +1197,21 @@ begin
             akut         := true;
             CaptionBkg   := RGB(200, 100, 100);
             CaptionBkgTo := RGB(200, 100, 100);
-            Color        := RGB(200, 128, 255)
+            Color        := RGB(200, 0, 0)
           end;
         if S = 'I' then
           begin
             akut         := false;
             CaptionBkg   := RGB(200, 200, 100);
             CaptionBkgTo := RGB(200, 200, 100);
-            Color        := RGB(200, 128, 255)
+            Color        := RGB(200, 128, 0)
           end;
         if S = 'AI' then
           begin
             akut         := true;
-            CaptionBkg   := RGB(200, 200, 100);
-            CaptionBkgTo := RGB(200, 100, 100);
-            Color        := RGB(200, 128, 255)
+            CaptionBkg   := RGB(200, 100, 200);
+            CaptionBkgTo := RGB(200, 100, 200);
+            Color        := RGB(200, 0, 100)
           end;
 
 
@@ -1250,7 +1225,7 @@ begin
         Anamnes          := RemissGrid.Cells[45, I];
 
         LengthOfExam     := DayGrid.Cells[25, I];
-        if LengthOfExam < '05' then
+        if LengthOfExam < '05' then  // Kan väl inte vara mindre än 5 minuter?
           LengthOfExam := '30';
 
         Utid             := StrToInt(LengthOfExam);
@@ -1261,7 +1236,7 @@ begin
         Prodkod          := RemissGrid.Cells[15, I];
 
         // ALlnr och ALnr kan vara tomma från databasen
-        // -> sätts då till 0.
+        // -> sätts då till 0.  Ger annars rte.
         try
           ALlnr          := StrToInt(RemissGrid.Cells[5, I]);
         except
@@ -1285,6 +1260,9 @@ begin
     RemissLatestRead     := Now;
   end;
   Update;
+  LbNrRemisser.Caption := IntToStr(RemissGrid.RowCount);
+  LbNrRemisser.Color := clRed;
+
   MYPAFWaitList1.items.EndUpdate;
   ClientDataSetRemiss.Close;
 {$IFDEF ns_debug}
@@ -1302,15 +1280,18 @@ var
 begin
   with PAFPlanner.Display do
   begin
-    DisplayUnit := DUnit;
-    RowsPerHour := 60 div DisplayUnit;
-    DisplayStart := CDisplayStart * RowsPerHour;
-    DisplayEnd := CDisplayEnd * RowsPerHour;
-    ActiveStart := (CActiveStart - DisplayStart) * RowsPerHour;
-    ActiveEnd := (CActiveEnd - CDisplayStart) * RowsPerHour;
+    DisplayUnit   := DUnit;
+    RowsPerHour   := 60 div DisplayUnit;
+    DisplayStart  := DStart * RowsPerHour;
+    DisplayEnd    := DEnd * RowsPerHour;
+    ActiveStart   := (Astart - Dstart) * RowsPerHour;
+    ActiveEnd     := Aend * RowsPerHour - DisplayStart;
+
   end;
+  AddLunch(SetupForm.LunchStart, setupform.LunchStop);
 end;
 
+(*
 procedure TMainForm.DisplayUpdateNew(DUnit: Integer; DStart, DEnd, AStart, AEnd: TTime);
 var
   s,ms, // Dummys
@@ -1338,6 +1319,14 @@ begin
     ActiveStart   := 1;
     ActiveEnd     := DisplayEnd + 1;
   end;
+end; *)
+
+procedure TMainForm.ExpanderPanelInstEndDrag(Sender, Target: TObject; X,
+  Y: Integer);
+begin
+  SetupForm.InsLeft:=X;
+  SetupForm.InsTop:=Y;
+  setupForm.WriteToInifile;
 end;
 
 procedure TMainForm.SQLFel(Rad, AlNr: Integer; Modul, RemissId, Tidbas, UserId, PCnamn, Tidbok, S: string);

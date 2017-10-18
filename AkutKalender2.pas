@@ -37,7 +37,7 @@ uses
   AdvPolyList, CurvyControls,
   AdvSmoothLabel, ExtCtrls, AdvSplitter,
   StdCtrls, AdvSmoothEdit, AdvSmoothEditButton, AdvSmoothDatePicker,
-  Ribbon,
+  //Ribbon,
   // AdvmSQLS,
   PlannerDatePicker,
   SqlExpr,
@@ -61,7 +61,7 @@ uses
   Vcl.Mask, AdvSmoothListBox, AdvSmoothComboBox, clisted,
   AeroButtons, Data.FMTBcd, AdvSpin, PictureContainer, AdvSmoothSplashScreen,
   Vcl.Samples.Spin, paramchklist, Vcl.DBCtrls, AdvCombo, AdvSmoothPanel,
-  AdvSmoothExpanderPanel, AdvPanel;
+  AdvSmoothExpanderPanel, AdvPanel, AdvUtil;
 
 //Const
   // *************************************

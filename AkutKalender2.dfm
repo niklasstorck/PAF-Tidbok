@@ -5555,7 +5555,7 @@ object MainForm: TMainForm
     CaptionShadow.Font.Height = -27
     CaptionShadow.Font.Name = 'Tahoma'
     CaptionShadow.Font.Style = []
-    Version = '1.6.0.2'
+    Version = '1.6.0.4'
     Align = alTop
     ExplicitWidth = 1180
   end
@@ -5591,8 +5591,6 @@ object MainForm: TMainForm
     Align = alClient
     Color = clScrollBar
     TabOrder = 0
-    ExplicitWidth = 1171
-    ExplicitHeight = 691
     object AdvSplitter1: TAdvSplitter
       Left = 169
       Top = 0
@@ -5653,6 +5651,8 @@ object MainForm: TMainForm
       DefaultItem.AnnanAvd = False
       DefaultItem.Alladata = False
       DragItemImage = True
+      HintColor = clNone
+      HintPause = 2500
       Items = <>
       ItemHeight = 50
       ShowSelection = False
@@ -5662,8 +5662,7 @@ object MainForm: TMainForm
       TabOrder = 0
       OnDragDrop = PAFWaitList1DragDrop
       OnDragOver = PAFWaitList1DragOver
-      Version = '3.2.0.0'
-      ExplicitHeight = 691
+      Version = '3.2.1.0'
     end
     object PAFPlanner: TMyPAFPlanner
       Left = 172
@@ -5794,7 +5793,7 @@ object MainForm: TMainForm
       Font.Style = []
       Footer.Captions.Strings = (
         ''
-        '0'
+        '100'
         '0'
         '0')
       Footer.CompletionFormat = '%d%%'
@@ -5853,7 +5852,7 @@ object MainForm: TMainForm
           Font.Name = 'Tahoma'
           Font.Style = []
           ItemBegin = 16
-          ItemEnd = 17
+          ItemEnd = 1
           ItemPos = 0
           Name = 'PlannerItem0'
           PopupMenu = ItemPopupMenu1
@@ -5895,7 +5894,7 @@ object MainForm: TMainForm
           Font.Name = 'Tahoma'
           Font.Style = []
           ItemBegin = 16
-          ItemEnd = 17
+          ItemEnd = 1
           ItemPos = 0
           Name = 'PlannerItem0'
           SelectColor = 16571329
@@ -5972,7 +5971,7 @@ object MainForm: TMainForm
         0080880408F8F0F8F80880CCC0000400008874CCC2222C4788887CCCC22226C0
         88887CC822222CC088887C822224642088887C888422C220888877CF8CCCC227
         888887F8F8222208888888776888208888888887777778888888}
-      Version = '3.0.4.1'
+      Version = '3.5.4.0'
       OnItemSize = PAFPlannerItemSize
       OnItemMove = PAFPlannerItemMove
       OnPlannerRightClick = PAFPlannerPlannerRightClick
@@ -5980,8 +5979,7 @@ object MainForm: TMainForm
       OnDragOverItem = PAFPlannerDragOverItem
       OnDragDropCell = PAFPlannerDragDropCell
       OnDragDropItem = PAFPlannerDragDropItem
-      ExplicitWidth = 999
-      ExplicitHeight = 691
+      TMSStyle = 0
       object GridSQLError: TDBAdvGrid
         Left = 0
         Top = 748
@@ -6044,6 +6042,10 @@ object MainForm: TMainForm
         FixedFont.Name = 'Tahoma'
         FixedFont.Style = [fsBold]
         FloatFormat = '%.2f'
+        HoverButtons.Buttons = <>
+        HoverButtons.Position = hbLeftFromColumnLeft
+        HTMLSettings.ImageFolder = 'images'
+        HTMLSettings.ImageBaseName = 'img'
         PrintSettings.DateFormat = 'dd/mm/yyyy'
         PrintSettings.Font.Charset = DEFAULT_CHARSET
         PrintSettings.Font.Color = clWindowText
@@ -6079,14 +6081,16 @@ object MainForm: TMainForm
         SearchFooter.HintFindPrev = 'Find previous occurrence'
         SearchFooter.HintHighlight = 'Highlight occurrences'
         SearchFooter.MatchCaseCaption = 'Match case'
+        SearchFooter.ResultFormat = '(%d of %d)'
         SortSettings.DefaultFormat = ssAutomatic
-        Version = '2.3.6.9'
+        Version = '2.4.4.0'
         AutoCreateColumns = True
         AutoRemoveColumns = True
         Columns = <
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -6111,6 +6115,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -6137,6 +6142,7 @@ object MainForm: TMainForm
             AutoMinSize = 487
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -6299,12 +6305,13 @@ object MainForm: TMainForm
           80000001C0000003C0000003E0000007F000000FF800001FFC00003FFF0000FF
           FFC003FF}
         ShowUnicode = False
-        ExplicitTop = 577
-        ExplicitWidth = 999
         ColWidths = (
           20
           64
           487)
+        RowHeights = (
+          22
+          22)
       end
       object DayGrid: TDBAdvGrid
         Left = 0
@@ -6369,6 +6376,10 @@ object MainForm: TMainForm
         FixedFont.Name = 'Tahoma'
         FixedFont.Style = [fsBold]
         FloatFormat = '%.2f'
+        HoverButtons.Buttons = <>
+        HoverButtons.Position = hbLeftFromColumnLeft
+        HTMLSettings.ImageFolder = 'images'
+        HTMLSettings.ImageBaseName = 'img'
         PrintSettings.DateFormat = 'dd/mm/yyyy'
         PrintSettings.Font.Charset = DEFAULT_CHARSET
         PrintSettings.Font.Color = clWindowText
@@ -6404,14 +6415,16 @@ object MainForm: TMainForm
         SearchFooter.HintFindPrev = 'Find previous occurrence'
         SearchFooter.HintHighlight = 'Highlight occurrences'
         SearchFooter.MatchCaseCaption = 'Match case'
+        SearchFooter.ResultFormat = '(%d of %d)'
         SortSettings.DefaultFormat = ssAutomatic
-        Version = '2.3.6.9'
+        Version = '2.4.4.0'
         AutoCreateColumns = True
         AutoRemoveColumns = True
         Columns = <
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -6436,6 +6449,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -6463,6 +6477,7 @@ object MainForm: TMainForm
             Alignment = taRightJustify
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -6489,6 +6504,7 @@ object MainForm: TMainForm
             Alignment = taRightJustify
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -6515,6 +6531,7 @@ object MainForm: TMainForm
             Alignment = taRightJustify
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -6541,6 +6558,7 @@ object MainForm: TMainForm
             Alignment = taRightJustify
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -6567,6 +6585,7 @@ object MainForm: TMainForm
             Alignment = taRightJustify
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -6593,6 +6612,7 @@ object MainForm: TMainForm
             Alignment = taRightJustify
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -6618,6 +6638,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -6644,6 +6665,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -6670,6 +6692,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -6696,6 +6719,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -6722,6 +6746,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -6748,6 +6773,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -6774,6 +6800,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -6800,6 +6827,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -6826,6 +6854,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -6852,6 +6881,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -6878,6 +6908,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -6904,6 +6935,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -6930,6 +6962,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -6955,6 +6988,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -6981,6 +7015,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7007,6 +7042,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7034,6 +7070,7 @@ object MainForm: TMainForm
             Alignment = taRightJustify
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7060,6 +7097,7 @@ object MainForm: TMainForm
             Alignment = taRightJustify
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7085,6 +7123,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7111,6 +7150,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7137,6 +7177,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7163,6 +7204,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7326,8 +7368,6 @@ object MainForm: TMainForm
           80000001C0000003C0000003E0000007F000000FF800001FFC00003FFF0000FF
           FFC003FF}
         ShowUnicode = False
-        ExplicitTop = 352
-        ExplicitWidth = 999
         ColWidths = (
           20
           118
@@ -7359,6 +7399,9 @@ object MainForm: TMainForm
           64
           64
           64)
+        RowHeights = (
+          22
+          22)
       end
       object RemissGrid: TDBAdvGrid
         Left = 0
@@ -7422,6 +7465,10 @@ object MainForm: TMainForm
         FixedFont.Name = 'Tahoma'
         FixedFont.Style = [fsBold]
         FloatFormat = '%.2f'
+        HoverButtons.Buttons = <>
+        HoverButtons.Position = hbLeftFromColumnLeft
+        HTMLSettings.ImageFolder = 'images'
+        HTMLSettings.ImageBaseName = 'img'
         PrintSettings.DateFormat = 'dd/mm/yyyy'
         PrintSettings.Font.Charset = DEFAULT_CHARSET
         PrintSettings.Font.Color = clWindowText
@@ -7457,16 +7504,18 @@ object MainForm: TMainForm
         SearchFooter.HintFindPrev = 'Find previous occurrence'
         SearchFooter.HintHighlight = 'Highlight occurrences'
         SearchFooter.MatchCaseCaption = 'Match case'
+        SearchFooter.ResultFormat = '(%d of %d)'
         SortSettings.DefaultFormat = ssAutomatic
         SortSettings.Column = 1
         SortSettings.SortOnVirtualCells = False
-        Version = '2.3.6.9'
+        Version = '2.4.4.0'
         AutoCreateColumns = True
         AutoRemoveColumns = True
         Columns = <
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7491,6 +7540,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7517,6 +7567,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7543,6 +7594,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7570,6 +7622,7 @@ object MainForm: TMainForm
             Alignment = taRightJustify
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7596,6 +7649,7 @@ object MainForm: TMainForm
             Alignment = taRightJustify
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7621,6 +7675,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7646,6 +7701,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7672,6 +7728,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7698,6 +7755,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7724,6 +7782,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7750,6 +7809,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7776,6 +7836,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7802,6 +7863,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7828,6 +7890,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7854,6 +7917,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7881,6 +7945,7 @@ object MainForm: TMainForm
             Alignment = taRightJustify
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7906,6 +7971,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7932,6 +7998,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7957,6 +8024,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -7983,6 +8051,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8008,6 +8077,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8034,6 +8104,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8061,6 +8132,7 @@ object MainForm: TMainForm
             Alignment = taRightJustify
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8087,6 +8159,7 @@ object MainForm: TMainForm
             Alignment = taRightJustify
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8113,6 +8186,7 @@ object MainForm: TMainForm
             Alignment = taRightJustify
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8139,6 +8213,7 @@ object MainForm: TMainForm
             Alignment = taRightJustify
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8165,6 +8240,7 @@ object MainForm: TMainForm
             Alignment = taRightJustify
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8190,6 +8266,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8216,6 +8293,7 @@ object MainForm: TMainForm
             Alignment = taRightJustify
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8241,6 +8319,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8268,6 +8347,7 @@ object MainForm: TMainForm
             Alignment = taRightJustify
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8293,6 +8373,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8319,6 +8400,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8344,6 +8426,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8370,6 +8453,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8397,6 +8481,7 @@ object MainForm: TMainForm
             Alignment = taRightJustify
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8423,6 +8508,7 @@ object MainForm: TMainForm
             Alignment = taRightJustify
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8449,6 +8535,7 @@ object MainForm: TMainForm
             Alignment = taRightJustify
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8475,6 +8562,7 @@ object MainForm: TMainForm
             Alignment = taRightJustify
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8500,6 +8588,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8526,6 +8615,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8552,6 +8642,7 @@ object MainForm: TMainForm
             Alignment = taRightJustify
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8577,6 +8668,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8603,6 +8695,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8629,6 +8722,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8655,6 +8749,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8681,6 +8776,7 @@ object MainForm: TMainForm
           item
             Borders = []
             BorderPen.Color = clSilver
+            ButtonHeight = 18
             CheckFalse = 'N'
             CheckTrue = 'Y'
             Color = clWindow
@@ -8844,8 +8940,6 @@ object MainForm: TMainForm
           80000001C0000003C0000003E0000007F000000FF800001FFC00003FFF0000FF
           FFC003FF}
         ShowUnicode = False
-        ExplicitTop = 453
-        ExplicitWidth = 999
         ColWidths = (
           20
           111
@@ -8895,6 +8989,9 @@ object MainForm: TMainForm
           64
           64
           64)
+        RowHeights = (
+          22
+          22)
       end
     end
   end
@@ -8927,7 +9024,7 @@ object MainForm: TMainForm
     Fill.Rounding = 10
     Fill.ShadowOffset = 10
     Fill.Glow = gmNone
-    Version = '1.0.4.2'
+    Version = '1.1.1.0'
     Align = alRight
     OnEndDrag = ExpanderPanelInstEndDrag
     TabOrder = 1
@@ -8935,9 +9032,7 @@ object MainForm: TMainForm
     ExpanderColor = 16445929
     ExpanderDownColor = 15587527
     ExpanderHoverColor = 11196927
-    ExplicitLeft = 1168
-    ExplicitTop = 77
-    ExplicitHeight = 712
+    TMSStyle = 0
     OldHeight = 862.000000000000000000
     object Label4: TLabel
       Left = 32
@@ -8965,7 +9060,7 @@ object MainForm: TMainForm
       Text = '2013-12-14'
       Visible = True
       OnChange = DatePicker1Change
-      Version = '2.2.0.0'
+      Version = '2.4.0.0'
       ButtonStyle = bsDropDown
       ButtonWidth = 16
       Etched = False
@@ -9213,6 +9308,7 @@ object MainForm: TMainForm
       Calendar.Height = 249
       Calendar.ShowHint = False
       Date = 41622.000000000000000000
+      TMSStyle = 0
     end
     object SpinEditAntDagar: TSpinEdit
       Left = 144
@@ -9244,7 +9340,7 @@ object MainForm: TMainForm
       Alignment = taLeftJustify
       Caption = '&Hela dagen'
       ReturnIsTab = False
-      Version = '1.3.7.0'
+      Version = '1.5.0.2'
     end
     object CurvyPanel3: TCurvyPanel
       Left = 23
@@ -9286,32 +9382,38 @@ object MainForm: TMainForm
         Width = 161
         Height = 21
         Hint = 'V'#228'lj remissortering'
-        AutoDropWidthSize = False
         TabOrder = 0
         OnChange = CheckListExtPrioChange
-        Items.Strings = (
-          'A'
-          'E'
-          'I'
-          'P')
+        AutoDropWidthSize = False
         DropWidth = 121
         DropFont.Charset = DEFAULT_CHARSET
         DropFont.Color = clWindowText
         DropFont.Height = -11
         DropFont.Name = 'Tahoma'
         DropFont.Style = []
+        Items.Strings = (
+          'A'
+          'E'
+          'I'
+          'P')
+        LabelFont.Charset = DEFAULT_CHARSET
+        LabelFont.Color = clWindowText
+        LabelFont.Height = -11
+        LabelFont.Name = 'Tahoma'
+        LabelFont.Style = []
         TextDelimiter = ','
         TextEndChar = ']'
         TextStartChar = '['
-        Version = '1.3.7.1'
+        Version = '1.4.0.3'
       end
       object AdvSpinEditTurklass: TAdvSpinEdit
         Left = 87
         Top = 57
         Width = 121
-        Height = 22
+        Height = 21
         Value = 0
         DateValue = 41621.709692453700000000
+        HexDigits = 0
         HexValue = 0
         IncrementFloat = 0.100000000000000000
         IncrementFloatPage = 1.000000000000000000
@@ -9323,7 +9425,7 @@ object MainForm: TMainForm
         MaxValue = 6
         TabOrder = 1
         Visible = True
-        Version = '1.6.0.0'
+        Version = '1.8.0.1'
         OnChange = AdvSpinEditTurklassChange
       end
       object ParamCheckListRemissgrupp: TParamCheckList
@@ -9346,7 +9448,7 @@ object MainForm: TMainForm
           ''
           '')
         TabOrder = 2
-        Version = '1.3.3.4'
+        Version = '1.3.3.6'
       end
     end
     object Button1: TButton
@@ -9360,7 +9462,7 @@ object MainForm: TMainForm
     end
   end
   object ItemPopupMenu1: TAdvPopupMenu
-    Version = '2.5.4.3'
+    Version = '2.6.5.3'
     Left = 640
     Top = 200
     object Visaalladata1: TMenuItem
@@ -9386,7 +9488,7 @@ object MainForm: TMainForm
     Top = 376
   end
   object AdvMainMenu1: TAdvMainMenu
-    Version = '2.5.4.3'
+    Version = '2.6.5.3'
     Left = 544
     Top = 200
     object File1: TMenuItem
@@ -9405,7 +9507,7 @@ object MainForm: TMainForm
     end
   end
   object ExeInfo1: TExeInfo
-    Version = '1.3.1.0'
+    Version = '1.5.0.0'
     Left = 32
     Top = 336
   end
@@ -9480,9 +9582,7 @@ object MainForm: TMainForm
   object FYSPAF: TSQLConnection
     ConnectionName = 'STORCK-SERVer-2'
     DriverName = 'MSSQL'
-    GetDriverFunc = 'getSQLDriverMSSQL'
     KeepConnection = False
-    LibraryName = 'dbxmss.dll'
     LoginPrompt = False
     Params.Strings = (
       'drivername=MSSQL'
@@ -9497,7 +9597,6 @@ object MainForm: TMainForm
       'isolationlevel=ReadCommitted'
       'os authentication=False'
       'prepare sql=False')
-    VendorLib = 'sqlncli10.dll'
     Left = 288
     Top = 176
   end
@@ -9575,7 +9674,7 @@ object MainForm: TMainForm
     Top = 648
   end
   object ItemPopupMenu2: TAdvPopupMenu
-    Version = '2.5.4.3'
+    Version = '2.6.5.3'
     Left = 640
     Top = 296
     object Orsak1: TMenuItem
@@ -10459,7 +10558,7 @@ object MainForm: TMainForm
         Name = 'Splash01.jpg'
         Tag = 0
       end>
-    Version = '2.0.0.0'
+    Version = '2.1.0.0'
     Left = 200
     Top = 464
   end
