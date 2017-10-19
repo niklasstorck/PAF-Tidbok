@@ -5,9 +5,8 @@ unit Setup5;
 interface
 
 uses
-  Sysutils,
   ActiveX, dbxmssql,
-  System.IniFiles, StrUtils,
+  IniFiles, StrUtils, SysUtils,
   Winapi.Windows, Winapi.Messages, System.Variants,
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.FMTBcd,
@@ -15,34 +14,36 @@ uses
   Data.SqlExpr, Vcl.Grids, AdvObj, BaseGrid, AdvGrid, DBAdvGrid, W7Classes,
   W7Bars, CurvyControls, AdvGlowButton, AdvSmoothLabel, Vcl.Mask, AdvDropDown,
   AdvTimePickerDropDown, AdvSmoothTabPager, AdvSpin, AdvEdit, advlued,
-  AdvListEditor, AdvLookupBar;
+  AdvListEditor, AdvLookupBar, AdvUtil, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.MSSQL,
+  FireDAC.Phys.MSSQLDef, FireDAC.VCLUI.Wait, FireDAC.Stan.Param, FireDAC.DatS,
+  FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.VCLUI.Error, FireDAC.VCLUI.Login,
+  FireDAC.Phys.ODBCBase, FireDAC.Comp.UI, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client;
 
 type
   TSetupForm = class(TForm)
-    FYSPAF_setup: TSQLConnection;
-    DTB_GetTidbokTyp: TSQLDataSet;
-    DataSource1: TDataSource;
-    DataSetProvider1: TDataSetProvider;
-    ClientDataSet1: TClientDataSet;
     CurvyPanel1: TCurvyPanel;
     W7InformationBar1: TW7InformationBar;
     ButtonOk: TAdvGlowButton;
     ButtonCancel: TAdvGlowButton;
     Schema: TAdvSmoothTabPager;
-    Rum: TAdvSmoothTabPage;
     TidbokKolumner: TCheckListBox;
-    TidBokGrid: TDBAdvGrid;
+    TidbokGrid: TDBAdvGrid;
+    TimePicker_Start_Lunch: TAdvTimePickerDropDown;
     Schematider: TAdvSmoothTabPage;
+    AdvSmoothTabPage1: TAdvSmoothTabPage;
+    AdvSmoothTabPage2: TAdvSmoothTabPage;
     AdvSmoothLabel1: TAdvSmoothLabel;
     AdvSmoothLabel2: TAdvSmoothLabel;
     AdvSmoothLabel3: TAdvSmoothLabel;
     AdvSmoothLabel4: TAdvSmoothLabel;
-    TimePicker_Start: TAdvTimePickerDropDown;
-    TimePicker_Stop: TAdvTimePickerDropDown;
-    TimePicker_Start_Lunch: TAdvTimePickerDropDown;
-    TimePicker_Stop_Lunch: TAdvTimePickerDropDown;
-    AdvSpinEdit1: TAdvSpinEdit;
-    AdvLookupBar1: TAdvLookupBar;
+    Fyspaf: TFDConnection;
+    FDQuery1: TFDQuery;
+    FDGUIxErrorDialog1: TFDGUIxErrorDialog;
+    FDGUIxLoginDialog1: TFDGUIxLoginDialog;
+    FDPhysMSSQLDriverLink1: TFDPhysMSSQLDriverLink;
     procedure FormCreate(Sender: TObject);
     procedure ButtonOkClick(Sender: TObject);
     procedure ButtonCancelClick(Sender: TObject);
@@ -157,47 +158,44 @@ var
 begin
   S := 'Fel';
   ParamString := '';
-  SettingFile := TIniFile.Create(ChangeFileExt(Application.ExeName, '.INI'));
+  S:=ChangeFileExt(Application.ExeName, '.INI');
+  SettingFile := TIniFile.Create(S);
   AllOk := true;
   if paramcount > 0 then
     ParamString := ParamStr(1);
 
   if ParamString > '' then
-  begin // Data från inifil i parameterlista, trol paf.ini
-    if Sysutils.FileExists(ParamString) then
     begin
-      SettingFilePAF := TIniFile.Create(ParamString);
-      DatabasName := SettingFilePAF.ReadString('common', 'database', S);
-      ServerName := SettingFilePAF.ReadString('common', 'server', S);
-      Provider := SettingFilePAF.ReadString('common', 'provider', S);
-      PswKrypt := SettingFilePAF.ReadString('common', 'sps', S);
-      user := 'pa';
-      //user := 'fyslabx'; //TEMP
-      // password := 'purkebas';
-      password := GetPsw2(PswKrypt);
-      //password := 'krulle'; //TEMP
+      try
+        if Sysutils.FileExists(ParamString) then
+        begin
+          SettingFilePAF := TIniFile.Create(ParamString);
+          DatabasName := SettingFilePAF.ReadString('common', 'database', 'localhost');
+          ServerName := SettingFilePAF.ReadString('common', 'server', 'fyspaf');
+          Provider := SettingFilePAF.ReadString('common', 'provider', 'MSSQL');
+          PswKrypt := SettingFilePAF.ReadString('common', 'sps', '57fewrlgvkjer57yt65o9htrlsdahpgfk' );
+          user := 'pa';
+          password := 'purkebas'; //GetPsw2(PswKrypt);
 
-      SettingFilePAF.Free;
+        end
+        else
+        begin
+          ts := 'Inifilen: ' + ParamString + ' kunde inte läsas.';
+          Application.MessageBox(PWidechar(ts), 'Fel!', mb_OK);
+          AllOk := False;
+          end;
+      finally
+        SettingFilePAF.Free;
+      end
     end
-    else
-    begin
-      ts := 'Inifilen: ' + ParamString + ' kunde inte läsas.';
-      Application.MessageBox(PWidechar(ts), 'Fel!', mb_OK);
-      AllOk := False;
-    end
-  end
-
   else
-
-  begin // Ta databas från programmets inifil
-    DatabasName := SettingFile.ReadString('DatabasInst', 'DataBase', S);
-    ServerName := SettingFile.ReadString('DatabasInst', 'Server', S);
-    Provider := SettingFile.ReadString('DatabasInst', 'provider', S);
-
-
-    user := 'pa';
-    password := 'purkebas'
-  end;
+    begin // Ta databas från programmets inifil
+      DatabasName := SettingFile.ReadString('DatabasInst', 'DataBase', S);
+      ServerName := SettingFile.ReadString('DatabasInst', 'Server', S);
+      Provider := SettingFile.ReadString('DatabasInst', 'provider', S);
+      user := 'pa';
+      password := 'purkebas'
+    end;
 
   // nedanstående läses alltid från lokal inifil
   SchemaDisplayUnit := SettingFile.ReadInteger('Inst','SchemaDisplayUnit',15);

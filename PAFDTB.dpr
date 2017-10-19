@@ -6,9 +6,9 @@ uses
   Forms,
   Vcl.Themes,
   Vcl.Styles,
-  Setup5 in 'F:\Mina dokument\Niklas\Embarcadero\Studio\Projects\PAFgrafik\Setup5.pas' {SetupForm},
   AkutKalender2 in 'AkutKalender2.pas' {MainForm},
-  PassWord in 'PassWord.pas' {PasswordDlg};
+  PassWord in 'PassWord.pas' {PasswordDlg},
+  Setup5 in 'Setup5.pas' {SetupForm};
 
 {$R *.res}
 
@@ -17,8 +17,8 @@ begin
   Application.MainFormOnTaskbar := True;
 
   Application.CreateForm(TMainForm, MainForm);
-  Application.CreateForm(TSetupForm, SetupForm);
   Application.CreateForm(TPasswordDlg, PasswordDlg);
+  Application.CreateForm(TSetupForm, SetupForm);
   Application.Run;
 
 end.
