@@ -5979,6 +5979,8 @@ object MainForm: TMainForm
       OnDragOverItem = PAFPlannerDragOverItem
       OnDragDropCell = PAFPlannerDragDropCell
       OnDragDropItem = PAFPlannerDragDropItem
+      ExplicitLeft = 175
+      ExplicitTop = 6
       TMSStyle = 0
       object GridSQLError: TDBAdvGrid
         Left = 0
